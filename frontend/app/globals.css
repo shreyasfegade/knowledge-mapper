@@ -1,0 +1,287 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════
+   Knowledge Navigation Environment — Design Tokens
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  /* Void — the deepest background */
+  --void: #050508;
+  --void-raised: #0a0c14;
+  --void-surface: #10121c;
+
+  /* Nebula — ambient spatial glow */
+  --nebula-core: rgba(90, 110, 200, 0.06);
+  --nebula-warm: rgba(200, 140, 60, 0.04);
+
+  /* Text hierarchy */
+  --text-bright: #e8e8f2;
+  --text-primary: #c0c0d4;
+  --text-secondary: #7878a0;
+  --text-muted: #404060;
+  --text-ghost: #282840;
+
+  /* Accent — for interactive elements only */
+  --accent: #7b8ff8;
+  --accent-dim: #5a6dd4;
+  --accent-soft: rgba(123, 143, 248, 0.12);
+  --accent-glow: rgba(123, 143, 248, 0.06);
+
+  /* Glass panels */
+  --glass-bg: rgba(8, 10, 20, 0.82);
+  --glass-border: rgba(40, 44, 68, 0.35);
+  --glass-border-hover: rgba(90, 109, 212, 0.30);
+  --glass-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(90, 110, 200, 0.04);
+
+  /* Concept type palette — deep jewel tones */
+  --type-foundation: #3838b8;
+  --type-foundation-glow: rgba(58, 60, 190, 0.18);
+  --type-mechanism: #1a6a3a;
+  --type-mechanism-glow: rgba(26, 140, 70, 0.18);
+  --type-process: #1a5e76;
+  --type-process-glow: rgba(10, 150, 190, 0.18);
+  --type-application: #6a4810;
+  --type-application-glow: rgba(210, 140, 20, 0.18);
+  --type-abstraction: #5020a0;
+  --type-abstraction-glow: rgba(120, 60, 190, 0.18);
+  --type-derived: #7e1838;
+  --type-derived-glow: rgba(210, 40, 80, 0.18);
+
+  /* Motion */
+  --spring-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --settle-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Base
+   ═══════════════════════════════════════════════════════ */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--void);
+  color: var(--text-primary);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+::selection {
+  background: rgba(123, 143, 248, 0.25);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Scrollbar — nearly invisible
+   ═══════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-ghost);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Glass Panels — floating contextual surfaces
+   ═══════════════════════════════════════════════════════ */
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-panel-subtle {
+  background: rgba(8, 10, 20, 0.65);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border: 1px solid rgba(40, 44, 68, 0.25);
+  border-radius: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Keyframes — organic, spring-like motion
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes crystallize-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(4px);
+    backdrop-filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    backdrop-filter: blur(24px);
+  }
+}
+
+@keyframes dissolve-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Animation Utilities
+   ═══════════════════════════════════════════════════════ */
+
+.animate-crystallize {
+  animation: crystallize-in 0.4s var(--spring-ease) forwards;
+}
+
+.animate-dissolve {
+  animation: dissolve-out 0.3s var(--settle-ease) forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s var(--spring-ease) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s var(--spring-ease) forwards;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Type Badges — concept type indicators
+   ═══════════════════════════════════════════════════════ */
+
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid;
+}
+
+.type-badge-foundation {
+  color: #8888e8;
+  border-color: rgba(58, 60, 190, 0.3);
+  background: rgba(58, 60, 190, 0.10);
+}
+.type-badge-mechanism {
+  color: #60c080;
+  border-color: rgba(26, 140, 70, 0.3);
+  background: rgba(26, 140, 70, 0.10);
+}
+.type-badge-process {
+  color: #50b8d8;
+  border-color: rgba(10, 150, 190, 0.3);
+  background: rgba(10, 150, 190, 0.10);
+}
+.type-badge-application {
+  color: #d8a040;
+  border-color: rgba(210, 140, 20, 0.3);
+  background: rgba(210, 140, 20, 0.10);
+}
+.type-badge-abstraction {
+  color: #a070e0;
+  border-color: rgba(120, 60, 190, 0.3);
+  background: rgba(120, 60, 190, 0.10);
+}
+.type-badge-derived {
+  color: #e06080;
+  border-color: rgba(210, 40, 80, 0.3);
+  background: rgba(210, 40, 80, 0.10);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Line Clamp
+   ═══════════════════════════════════════════════════════ */
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

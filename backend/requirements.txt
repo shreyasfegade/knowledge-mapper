@@ -1,0 +1,11 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+python-dotenv==1.0.1
+
+PyMuPDF>=1.27.0
+python-pptx==0.6.23
+
+openai>=2.0.0
+
+uuid7==0.1.0

@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Node
+node_modules/
+.next/
+dist/
+*.tsbuildinfo
+
+# Runtime
+backend/uploads/
+*.db
+
+# AI tools
+.commandcode/
+.ai-docs/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini

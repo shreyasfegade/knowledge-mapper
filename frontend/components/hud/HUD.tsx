@@ -1,17 +1,34 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
+import type { CanvasControls } from "@/components/canvas/KnowledgeCanvas";
 
 interface HUDProps {
   filename: string | null;
   nodeCount: number;
   edgeCount: number;
-  canvasRef: React.RefObject<HTMLCanvasElement | null>;
+  controlsRef: React.RefObject<CanvasControls | null>;
   onUploadNew: () => void;
+  onExport: () => void;
+  onCopyLink: () => void;
+  shareEnabled: boolean;
 }
 
-export default function HUD({ filename, nodeCount, edgeCount, canvasRef, onUploadNew }: HUDProps) {
-  const getCanvas = () => (canvasRef.current as any)?._knowledgeCanvas;
+export default function HUD({ filename, nodeCount, edgeCount, controlsRef, onUploadNew, onExport, onCopyLink, shareEnabled }: HUDProps) {
+  const getControls = () => controlsRef.current;
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    onCopyLink();
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1600);
+  };
+
+  const hoverBorder = (e: React.MouseEvent, on: boolean) => {
+    (e.currentTarget as HTMLElement).style.borderColor = on
+      ? "rgba(90,109,212,0.3)"
+      : "rgba(40,44,68,0.25)";
+  };
 
   return (
     <>
@@ -32,19 +49,56 @@ export default function HUD({ filename, nodeCount, edgeCount, canvasRef, onUploa
         </div>
       )}
 
-      {/* Top-right: upload new */}
+      {/* Top-right: actions */}
       {filename && (
-        <div className="absolute top-5 right-5 z-30 animate-fade-in-up">
+        <div className="absolute top-5 right-5 z-30 flex items-center gap-2 animate-fade-in-up">
+          {shareEnabled && (
+            <button
+              onClick={handleCopy}
+              title="Copy a shareable link to this graph"
+              className="glass-panel-subtle px-3 py-2 flex items-center gap-2 transition-all duration-200"
+              style={{ cursor: "pointer" }}
+              onMouseEnter={(e) => hoverBorder(e, true)}
+              onMouseLeave={(e) => hoverBorder(e, false)}
+            >
+              <svg className="h-3.5 w-3.5" style={{ color: copied ? "var(--accent)" : "var(--text-secondary)" }}
+                   fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {copied ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m4.5 12.75 6 6 9-13.5" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                        d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                )}
+              </svg>
+              <span className="text-xs" style={{ color: copied ? "var(--accent)" : "var(--text-secondary)" }}>
+                {copied ? "Copied" : "Share"}
+              </span>
+            </button>
+          )}
+
+          <button
+            onClick={onExport}
+            title="Export as Markdown (Obsidian-style wikilinks)"
+            className="glass-panel-subtle px-3 py-2 flex items-center gap-2 transition-all duration-200"
+            style={{ cursor: "pointer" }}
+            onMouseEnter={(e) => hoverBorder(e, true)}
+            onMouseLeave={(e) => hoverBorder(e, false)}
+          >
+            <svg className="h-3.5 w-3.5" style={{ color: "var(--text-secondary)" }}
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                    d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            <span className="text-xs" style={{ color: "var(--text-secondary)" }}>Export</span>
+          </button>
+
           <button
             onClick={onUploadNew}
-            className="glass-panel-subtle px-3 py-2 flex items-center gap-2 transition-all duration-200 group"
+            title="Map a new document"
+            className="glass-panel-subtle px-3 py-2 flex items-center gap-2 transition-all duration-200"
             style={{ cursor: "pointer" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = "rgba(90,109,212,0.3)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = "rgba(40,44,68,0.25)";
-            }}
+            onMouseEnter={(e) => hoverBorder(e, true)}
+            onMouseLeave={(e) => hoverBorder(e, false)}
           >
             <svg className="h-3.5 w-3.5" style={{ color: "var(--text-secondary)" }}
                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,9 +113,9 @@ export default function HUD({ filename, nodeCount, edgeCount, canvasRef, onUploa
       {filename && (
         <div className="absolute bottom-6 right-6 z-30 glass-panel-subtle flex flex-col gap-0.5 p-1 animate-fade-in-up">
           {[
-            { icon: "+", label: "Zoom in", fn: () => getCanvas()?.zoomIn() },
-            { icon: "−", label: "Zoom out", fn: () => getCanvas()?.zoomOut() },
-            { icon: "⊙", label: "Fit view", fn: () => getCanvas()?.fitView() },
+            { icon: "+", label: "Zoom in", fn: () => getControls()?.zoomIn() },
+            { icon: "−", label: "Zoom out", fn: () => getControls()?.zoomOut() },
+            { icon: "⊙", label: "Fit view", fn: () => getControls()?.fitView() },
           ].map(({ icon, label, fn }) => (
             <button
               key={label}

@@ -60,10 +60,17 @@ interface CanvasEdge {
   data: GraphEdge;
 }
 
+export interface CanvasControls {
+  zoomIn: () => void;
+  zoomOut: () => void;
+  fitView: () => void;
+}
+
 interface Props {
   graphData: GraphData;
   onNodeFocus: (node: GraphNode | null, edges: GraphEdge[]) => void;
   focusedNodeId: string | null;
+  controlsRef?: React.MutableRefObject<CanvasControls | null>;
 }
 
 /* ── Helpers ── */
@@ -96,7 +103,7 @@ function screenToWorld(sx: number, sy: number, cam: CameraState): Vec2 {
 
 /* ── Component ── */
 
-export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId }: Props) {
+export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId, controlsRef }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef(0);
   const cameraRef = useRef<CameraState>(createCamera(900, 800, 0.35));
@@ -574,10 +581,10 @@ export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId 
   }, [onNodeFocus]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    (canvas as any)._knowledgeCanvas = { zoomIn, zoomOut, fitView };
-  }, [zoomIn, zoomOut, fitView]);
+    if (!controlsRef) return;
+    controlsRef.current = { zoomIn, zoomOut, fitView };
+    return () => { controlsRef.current = null; };
+  }, [controlsRef, zoomIn, zoomOut, fitView]);
 
   return (
     <canvas

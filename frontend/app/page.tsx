@@ -2,7 +2,8 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { uploadDocument, getDocument, type UploadResponse, type GraphNode, type GraphEdge, type GraphData } from "@/lib/api";
-import KnowledgeCanvas from "@/components/canvas/KnowledgeCanvas";
+import { graphToMarkdown, downloadText } from "@/lib/export";
+import KnowledgeCanvas, { type CanvasControls } from "@/components/canvas/KnowledgeCanvas";
 import ConceptPanel from "@/components/panels/ConceptPanel";
 import UploadPanel from "@/components/panels/UploadPanel";
 import SearchPalette from "@/components/panels/SearchPalette";
@@ -26,8 +27,8 @@ export default function KnowledgeNavigator() {
   // Search state
   const [searchOpen, setSearchOpen] = useState(false);
 
-  // Canvas ref for HUD controls
-  const canvasElRef = useRef<HTMLCanvasElement | null>(null);
+  // Canvas controls (zoom/fit) exposed to the HUD.
+  const canvasControlsRef = useRef<CanvasControls | null>(null);
 
   // ── Enter a fully-processed graph ──
   const enterGraph = useCallback((data: UploadResponse) => {
@@ -118,6 +119,20 @@ export default function KnowledgeNavigator() {
     setFocusedNodeId(nodeId);
   }, [graphData]);
 
+  // ── Export current graph as Markdown ──
+  const handleExport = useCallback(() => {
+    if (!result) return;
+    const base = (result.filename || "knowledge-map").replace(/\.pdf$/i, "");
+    downloadText(`${base}.md`, graphToMarkdown(result));
+  }, [result]);
+
+  // ── Copy a shareable link to this graph ──
+  const handleCopyLink = useCallback(() => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href).catch(() => {});
+    }
+  }, []);
+
   // ── Dismiss focus ──
   const dismissFocus = useCallback(() => {
     setFocusedNode(null);
@@ -168,11 +183,6 @@ export default function KnowledgeNavigator() {
     concept_type: n.data.concept_type,
   })) ?? [];
 
-  // ── Capture canvas ref ──
-  const captureCanvasRef = useCallback((el: HTMLCanvasElement | null) => {
-    canvasElRef.current = el;
-  }, []);
-
   return (
     <div className="fixed inset-0 overflow-hidden" style={{ background: "#0c0e14" }}>
       {/* ── Clean Obsidian-style background ── */}
@@ -185,6 +195,7 @@ export default function KnowledgeNavigator() {
             graphData={graphData}
             onNodeFocus={handleNodeFocus}
             focusedNodeId={focusedNodeId}
+            controlsRef={canvasControlsRef}
           />
         </div>
       )}
@@ -204,8 +215,11 @@ export default function KnowledgeNavigator() {
           filename={fileName}
           nodeCount={graphData?.nodes.length ?? 0}
           edgeCount={graphData?.edges.length ?? 0}
-          canvasRef={canvasElRef}
+          controlsRef={canvasControlsRef}
           onUploadNew={handleUploadNew}
+          onExport={handleExport}
+          onCopyLink={handleCopyLink}
+          shareEnabled={!!result?.document_id}
         />
       )}
 

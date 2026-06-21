@@ -41,10 +41,27 @@ def get_db() -> sqlite3.Connection:
     return conn
 
 
+EXPECTED_COLUMNS = {
+    "id", "filename", "title", "status",
+    "char_count", "node_count", "edge_count", "result_json", "created_at",
+}
+
+
 def init_db() -> None:
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = get_db()
     try:
+        # The documents table is a regenerable cache of processed graphs. If an
+        # older schema is present (e.g. upgrading from v1), drop and rebuild it
+        # rather than silently leaving a table that's missing columns.
+        cols = {
+            row["name"]
+            for row in conn.execute("PRAGMA table_info(documents)").fetchall()
+        }
+        if cols and cols != EXPECTED_COLUMNS:
+            conn.execute("DROP TABLE documents")
+            conn.commit()
+
         conn.executescript(SCHEMA)
         conn.commit()
     finally:

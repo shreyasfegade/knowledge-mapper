@@ -1,4 +1,5 @@
 import asyncio
+import time
 from typing import AsyncGenerator
 from fastapi import APIRouter, HTTPException, Request
 from sse_starlette.sse import EventSourceResponse
@@ -8,16 +9,34 @@ logger = get_logger(__name__)
 
 router = APIRouter()
 
-# Simple in-memory job tracker
-# In production, use Redis or a database.
+# In-memory tracker for in-flight jobs. Finished graphs are persisted to SQLite,
+# so this only needs to hold a job while it's processing and being streamed.
+# A single-process deployment is assumed; scale-out would move this to Redis.
 JOBS: dict[str, dict] = {}
+JOB_TTL_SECONDS = 30 * 60
+
+
+def _evict_stale_jobs() -> None:
+    """Drop jobs that finished (or stalled) long enough ago to be safe to forget."""
+    now = time.monotonic()
+    stale = [
+        jid for jid, job in JOBS.items()
+        if now - job.get("created", now) > JOB_TTL_SECONDS
+    ]
+    for jid in stale:
+        JOBS.pop(jid, None)
+    if stale:
+        logger.info("Evicted %d stale job(s)", len(stale))
+
 
 def create_job(job_id: str):
+    _evict_stale_jobs()
     JOBS[job_id] = {
         "status": "pending",
         "progress_message": "Initializing...",
         "result": None,
         "error": None,
+        "created": time.monotonic(),
         "event": asyncio.Event()
     }
 
@@ -59,6 +78,7 @@ async def event_generator(request: Request, job_id: str) -> AsyncGenerator[dict,
                 "event": "error",
                 "data": job["error"]
             }
+            JOBS.pop(job_id, None)
             break
 
         if job["status"] == "completed":
@@ -67,6 +87,7 @@ async def event_generator(request: Request, job_id: str) -> AsyncGenerator[dict,
                 "event": "complete",
                 "data": json.dumps(job["result"])
             }
+            JOBS.pop(job_id, None)
             break
 
         if job["progress_message"] != last_message:

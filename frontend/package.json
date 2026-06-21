@@ -1,15 +1,14 @@
 {
-  "name": "knowledge-mapping-frontend",
-  "version": "0.1.0",
+  "name": "knowledge-mapper-frontend",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "framer-motion": "^11.0.0",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

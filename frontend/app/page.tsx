@@ -11,7 +11,7 @@ import HUD from "@/components/hud/HUD";
 
 type AppState = "awaiting" | "processing" | "exploring";
 
-export default function KnowledgeNavigator() {
+export default function KnowledgeMapperApp() {
   const [appState, setAppState] = useState<AppState>("awaiting");
   const [result, setResult] = useState<UploadResponse | null>(null);
   const [graphData, setGraphData] = useState<GraphData | null>(null);

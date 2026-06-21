@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Knowledge Navigator",
-  description: "Upload educational content and navigate a living topology of knowledge.",
+  title: "Knowledge Mapper",
+  description: "Upload a PDF and explore an interactive map of how its concepts connect.",
 };
 
 export default function RootLayout({

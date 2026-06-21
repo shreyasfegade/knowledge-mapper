@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, {
@@ -123,13 +123,13 @@ export interface UploadResponse {
   graph?: GraphData;
 }
 
-export interface DocumentStatus {
+export interface DocumentSummary {
   id: string;
   filename: string;
-  status: "pending" | "processing" | "ready" | "error";
-  progress: number;
-  stage: string | null;
-  error: string | null;
+  title: string;
+  node_count: number;
+  edge_count: number;
+  created_at: string;
 }
 
 // ── API methods ──
@@ -220,28 +220,12 @@ export async function uploadDocument(
   }
 }
 
-export function getStatus(docId: string): Promise<DocumentStatus> {
-  return request(`/status/${docId}`);
+/** Fetch a previously processed document by id (for shareable links / reload). */
+export function getDocument(docId: string): Promise<UploadResponse> {
+  return request(`/document/${docId}`);
 }
 
-export function getGraph(docId: string): Promise<GraphData> {
-  return request(`/graph/${docId}`);
-}
-
-export function searchConcepts(query: string): Promise<{ id: string; label: string }[]> {
-  return request(`/concepts?q=${encodeURIComponent(query)}`);
-}
-
-export function streamStatus(
-  docId: string,
-  onEvent: (data: DocumentStatus) => void,
-  onError?: (err: Event) => void
-): EventSource {
-  const es = new EventSource(`${API_URL}/stream/${docId}`);
-  es.onmessage = (event) => {
-    const data = JSON.parse(event.data) as DocumentStatus;
-    onEvent(data);
-  };
-  if (onError) es.onerror = onError;
-  return es;
+/** List recently processed documents. */
+export function listDocuments(): Promise<{ documents: DocumentSummary[] }> {
+  return request(`/documents`);
 }

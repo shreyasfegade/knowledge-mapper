@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { uploadDocument, type UploadResponse, type GraphNode, type GraphEdge, type GraphData } from "@/lib/api";
+import { uploadDocument, getDocument, type UploadResponse, type GraphNode, type GraphEdge, type GraphData } from "@/lib/api";
 import KnowledgeCanvas from "@/components/canvas/KnowledgeCanvas";
 import ConceptPanel from "@/components/panels/ConceptPanel";
 import UploadPanel from "@/components/panels/UploadPanel";
@@ -16,6 +16,7 @@ export default function KnowledgeNavigator() {
   const [graphData, setGraphData] = useState<GraphData | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [progressMessage, setProgressMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Focus state
   const [focusedNode, setFocusedNode] = useState<GraphNode | null>(null);
@@ -28,10 +29,19 @@ export default function KnowledgeNavigator() {
   // Canvas ref for HUD controls
   const canvasElRef = useRef<HTMLCanvasElement | null>(null);
 
+  // ── Enter a fully-processed graph ──
+  const enterGraph = useCallback((data: UploadResponse) => {
+    setResult(data);
+    setGraphData(data.graph ?? null);
+    setFileName(data.filename || null);
+    setAppState("exploring");
+  }, []);
+
   // ── Upload handler ──
   const handleUpload = useCallback(async (file: File) => {
     setFileName(file.name);
     setAppState("processing");
+    setError(null);
     setFocusedNode(null);
     setFocusedEdges([]);
     setFocusedNodeId(null);
@@ -41,19 +51,50 @@ export default function KnowledgeNavigator() {
       const data = await uploadDocument(file, (msg) => {
         setProgressMessage(msg);
       });
-      setResult(data);
       if (data.graph?.nodes?.length) {
-        setGraphData(data.graph);
-        setAppState("exploring");
+        enterGraph(data);
+        // Make the processed graph shareable / reload-safe.
+        if (data.document_id) {
+          window.history.replaceState(null, "", `?doc=${data.document_id}`);
+        }
       } else {
-        // No graph data — show error state but stay in processing
+        setError("No concepts could be extracted from this document. Try a denser, text-based PDF.");
         setAppState("awaiting");
       }
     } catch (err) {
-      console.error("Upload failed:", err);
+      setError(err instanceof Error ? err.message : "Something went wrong while processing the document.");
       setAppState("awaiting");
     }
-  }, []);
+  }, [enterGraph]);
+
+  // ── Restore a shared/previously-processed graph from ?doc=<id> ──
+  useEffect(() => {
+    const docId = new URLSearchParams(window.location.search).get("doc");
+    if (!docId) return;
+
+    let cancelled = false;
+    setAppState("processing");
+    setProgressMessage("Loading saved graph…");
+
+    getDocument(docId)
+      .then((data) => {
+        if (cancelled) return;
+        if (data.graph?.nodes?.length) {
+          enterGraph(data);
+        } else {
+          setError("This saved graph is empty or could not be loaded.");
+          setAppState("awaiting");
+        }
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setError("Couldn't find that saved graph. It may have been removed.");
+        window.history.replaceState(null, "", window.location.pathname);
+        setAppState("awaiting");
+      });
+
+    return () => { cancelled = true; };
+  }, [enterGraph]);
 
   // ── Node focus handler ──
   const handleNodeFocus = useCallback((node: GraphNode | null, edges: GraphEdge[]) => {
@@ -93,6 +134,8 @@ export default function KnowledgeNavigator() {
     setFocusedEdges([]);
     setFocusedNodeId(null);
     setFileName(null);
+    setError(null);
+    window.history.replaceState(null, "", window.location.pathname);
   }, []);
 
   // ── Keyboard shortcuts ──
@@ -151,6 +194,7 @@ export default function KnowledgeNavigator() {
         visible={appState === "awaiting" || appState === "processing"}
         isProcessing={appState === "processing"}
         progressMessage={progressMessage}
+        serverError={error}
         onUpload={handleUpload}
       />
 

@@ -6,15 +6,19 @@ interface UploadPanelProps {
   visible: boolean;
   isProcessing: boolean;
   progressMessage?: string | null;
+  serverError?: string | null;
   onUpload: (file: File) => void;
 }
 
-export default function UploadPanel({ visible, isProcessing, progressMessage, onUpload }: UploadPanelProps) {
+export default function UploadPanel({ visible, isProcessing, progressMessage, serverError, onUpload }: UploadPanelProps) {
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!visible) return null;
+
+  // A server-side failure takes precedence over a stale local validation message.
+  const shownError = serverError ?? error;
 
   const handleFile = (file: File) => {
     if (!file.name.toLowerCase().endsWith(".pdf")) {
@@ -45,7 +49,7 @@ export default function UploadPanel({ visible, isProcessing, progressMessage, on
             </svg>
           </div>
           <h1 className="text-2xl font-semibold tracking-tight" style={{ color: "var(--text-bright)" }}>
-            Knowledge Navigator
+            Knowledge Mapper
           </h1>
           <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
             Upload educational content to explore a living topology of knowledge.
@@ -65,7 +69,7 @@ export default function UploadPanel({ visible, isProcessing, progressMessage, on
                 Extracting concepts and inferring relationships
               </p>
               <p className="text-[11px] mt-3" style={{ color: "var(--text-ghost)" }}>
-                This is now much faster due to parallel processing
+                Typically 10–30 seconds, depending on document length
               </p>
             </div>
           ) : (
@@ -100,10 +104,14 @@ export default function UploadPanel({ visible, isProcessing, progressMessage, on
             </div>
           )}
 
-          {error && (
-            <div className="mt-3 rounded-lg px-4 py-3 text-sm"
-                 style={{ color: "#e06070", background: "rgba(220,50,80,0.06)", border: "1px solid rgba(220,50,80,0.15)" }}>
-              {error}
+          {shownError && !isProcessing && (
+            <div className="mt-3 rounded-lg px-4 py-3 text-sm flex items-start gap-2.5"
+                 style={{ color: "#e87a86", background: "rgba(220,50,80,0.06)", border: "1px solid rgba(220,50,80,0.15)" }}>
+              <svg className="h-4 w-4 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                      d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+              </svg>
+              <span className="leading-relaxed">{shownError}</span>
             </div>
           )}
         </div>

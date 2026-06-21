@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import type { GraphData, GraphNode, GraphEdge } from "@/lib/api";
 import {
   createCamera, stepCamera, setCameraTarget,
@@ -72,6 +72,19 @@ function nodeRadius(importance: number): number {
   return NODE_BASE + importance * NODE_SCALE;
 }
 
+/** Respects the OS "reduce motion" setting — disables ambient drift when set. */
+function useReducedMotion(): boolean {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return reduced;
+}
+
 function screenToWorld(sx: number, sy: number, cam: CameraState): Vec2 {
   const hw = typeof window !== 'undefined' ? window.innerWidth / 2 : 900;
   const hh = typeof window !== 'undefined' ? window.innerHeight / 2 : 500;
@@ -91,19 +104,16 @@ export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId 
   const spatialRef = useRef(new SpatialIndex(100));
   const nodesRef = useRef<CanvasNode[]>([]);
   const edgesRef = useRef<CanvasEdge[]>([]);
+  const nodeByIdRef = useRef<Map<string, CanvasNode>>(new Map());
+  const adjacencyRef = useRef<Map<string, Set<string>>>(new Map());
   const simRef = useRef<ForceSimulation | null>(null);
   const hoveredRef = useRef<string | null>(null);
   const dragRef = useRef({ active: false, lastX: 0, lastY: 0 });
   const sizeRef = useRef({ w: 0, h: 0 });
   const entranceStartRef = useRef(0);
+  const lastSpatialRebuildRef = useRef(0);
+  const reducedMotion = useReducedMotion();
   const [ready, setReady] = useState(false);
-
-  // Node lookup
-  const nodeMap = useMemo(() => {
-    const m = new Map<string, CanvasNode>();
-    for (const n of nodesRef.current) m.set(n.id, n);
-    return m;
-  }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Initialize graph data ──
   useEffect(() => {
@@ -141,6 +151,18 @@ export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId 
 
     nodesRef.current = nodes;
     edgesRef.current = edges;
+
+    // Precompute lookups so the render loop never does linear scans per node/edge.
+    const byId = new Map<string, CanvasNode>();
+    for (const n of nodes) byId.set(n.id, n);
+    nodeByIdRef.current = byId;
+
+    const adjacency = new Map<string, Set<string>>();
+    for (const e of edges) {
+      (adjacency.get(e.source) ?? adjacency.set(e.source, new Set()).get(e.source)!).add(e.target);
+      (adjacency.get(e.target) ?? adjacency.set(e.target, new Set()).get(e.target)!).add(e.source);
+    }
+    adjacencyRef.current = adjacency;
 
     // ── Create force-directed simulation ──
     const simNodes = nodes.map((n) => ({
@@ -184,7 +206,7 @@ export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId 
   // ── Focus camera ──
   useEffect(() => {
     if (!focusedNodeId) return;
-    const node = nodesRef.current.find((n) => n.id === focusedNodeId);
+    const node = nodeByIdRef.current.get(focusedNodeId);
     if (!node) return;
     setCameraTarget(cameraRef.current, node.x, node.y, FOCUS_ZOOM);
   }, [focusedNodeId]);
@@ -226,22 +248,28 @@ export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId 
       const now = performance.now();
       const entranceElapsed = (now - entranceStartRef.current) / 1000;
 
-      // ── Step force-directed simulation (CONTINUOUS — never stops) ──
+      // ── Step force-directed simulation (cools to rest, reheats on interaction) ──
       if (sim) {
         stepSimulation(sim);
 
-        // Sync sim positions back to canvas nodes + add ambient drift
+        // Sync sim positions back to canvas nodes + optional ambient drift
         for (const node of nodesRef.current) {
           const simNode = sim.nodeMap.get(node.id);
-          if (simNode) {
+          if (!simNode) continue;
+          if (reducedMotion) {
+            node.x = simNode.x;
+            node.y = simNode.y;
+          } else {
             const drift = getDriftOffset(node.drift, now);
             node.x = simNode.x + drift.x;
             node.y = simNode.y + drift.y;
           }
         }
 
-        // Update spatial index periodically (every ~30 frames)
-        if (Math.floor(now / 500) % 1 === 0) {
+        // Rebuild the spatial index on a real time throttle (~6×/sec), not every
+        // frame. (The old `Math.floor(now/500) % 1` guard was always true.)
+        if (now - lastSpatialRebuildRef.current > 160) {
+          lastSpatialRebuildRef.current = now;
           const entries: SpatialEntry[] = nodesRef.current.map((n) => ({
             id: n.id, x: n.x, y: n.y, radius: n.radius + 15,
           }));
@@ -282,10 +310,14 @@ export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId 
       const vpTop = cam.y.current - hh / zoom - margin;
       const vpBottom = cam.y.current + hh / zoom + margin;
 
+      const nodeById = nodeByIdRef.current;
+      // Neighbors of the focused node — computed once per frame, not per node.
+      const focusNeighbors = focusedNodeId ? adjacencyRef.current.get(focusedNodeId) : null;
+
       // ── Draw edges ──
       for (const edge of edgesRef.current) {
-        const srcNode = nodesRef.current.find((n) => n.id === edge.source);
-        const tgtNode = nodesRef.current.find((n) => n.id === edge.target);
+        const srcNode = nodeById.get(edge.source);
+        const tgtNode = nodeById.get(edge.target);
         if (!srcNode || !tgtNode) continue;
         if (srcNode.opacity < 0.05 && tgtNode.opacity < 0.05) continue;
 
@@ -336,17 +368,13 @@ export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId 
         const [sx, sy] = toScreen(node.x, node.y);
         const screenR = node.radius * zoom;
 
-        // Focus dimming
+        // Focus dimming (uses the precomputed adjacency set — no per-node scan)
         let focusMult = 1;
         if (focusedNodeId) {
           if (node.id === focusedNodeId) {
             focusMult = 1.0;
           } else {
-            const isNeighbor = edgesRef.current.some(
-              (e) => (e.source === focusedNodeId && e.target === node.id) ||
-                     (e.target === focusedNodeId && e.source === node.id)
-            );
-            focusMult = isNeighbor ? 0.8 : 0.1;
+            focusMult = focusNeighbors?.has(node.id) ? 0.8 : 0.1;
           }
         }
 
@@ -435,7 +463,7 @@ export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId 
 
     rafRef.current = requestAnimationFrame(render);
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [ready, focusedNodeId]);
+  }, [ready, focusedNodeId, reducedMotion]);
 
   // ── Mouse handlers ──
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
@@ -474,7 +502,7 @@ export default function KnowledgeCanvas({ graphData, onNodeFocus, focusedNodeId 
     const hit = spatialRef.current.nearest(worldPos, HOVER_RADIUS / cam.zoom.current);
 
     if (hit) {
-      const node = nodesRef.current.find((n) => n.id === hit.id);
+      const node = nodeByIdRef.current.get(hit.id);
       if (node) {
         const connectedEdges = edgesRef.current
           .filter((edge) => edge.source === node.id || edge.target === node.id)

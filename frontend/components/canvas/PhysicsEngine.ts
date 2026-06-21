@@ -158,6 +158,7 @@ export interface ForceSimulation {
   edges: SimEdge[];
   nodeMap: Map<string, SimNode>;
   config: ForceConfig;
+  alpha: number;           // simulation "heat"; forces scale with it and it decays to 0
 }
 
 export interface ForceConfig {
@@ -167,6 +168,8 @@ export interface ForceConfig {
   centerGravity: number;   // gentle pull toward center to prevent drift-away
   maxVelocity: number;     // cap velocity to prevent explosions
   idealEdgeLength: number; // rest length for edge springs
+  alphaDecay: number;      // per-frame multiplicative cooldown of alpha
+  alphaMin: number;        // below this, the simulation is considered settled and frozen
 }
 
 const DEFAULT_FORCE_CONFIG: ForceConfig = {
@@ -176,6 +179,8 @@ const DEFAULT_FORCE_CONFIG: ForceConfig = {
   centerGravity: 0.0001,
   maxVelocity: 4.0,
   idealEdgeLength: 200,
+  alphaDecay: 0.985,
+  alphaMin: 0.02,
 };
 
 export function createSimulation(
@@ -204,7 +209,7 @@ export function createSimulation(
   const nodeMap = new Map<string, SimNode>();
   for (const n of simNodes) nodeMap.set(n.id, n);
 
-  return { nodes: simNodes, edges: simEdges, nodeMap, config: cfg };
+  return { nodes: simNodes, edges: simEdges, nodeMap, config: cfg, alpha: 1 };
 }
 
 /**
@@ -215,14 +220,26 @@ export function createSimulation(
 export function stepSimulation(sim: ForceSimulation): void {
   const { nodes, edges, nodeMap, config } = sim;
   const n = nodes.length;
+  if (n === 0) return;
+
+  // Once cooled, the layout is at rest — skip the O(n²) force pass entirely.
+  // This is the difference between a graph that idles at ~0% CPU and one that
+  // spins the fan forever.
+  if (sim.alpha < config.alphaMin) {
+    sim.alpha = 0;
+    return;
+  }
+
+  const alpha = sim.alpha;
 
   // Compute centroid for center gravity
   let cx = 0, cy = 0;
   for (const node of nodes) { cx += node.x; cy += node.y; }
   cx /= n; cy /= n;
 
-  // ── Repulsion (all pairs via Barnes-Hut approximation for performance) ──
-  // For graphs under ~500 nodes, brute force N² is fast enough at 60fps
+  // ── Repulsion (brute-force all-pairs, O(n²)) ──
+  // For graphs under ~500 nodes this is fast enough at 60fps, and the alpha
+  // cooldown above means it only runs while the layout is actually moving.
   for (let i = 0; i < n; i++) {
     const a = nodes[i];
     if (a.pinned) continue;
@@ -235,8 +252,8 @@ export function stepSimulation(sim: ForceSimulation): void {
       if (distSq < 1) distSq = 1; // avoid division by zero
       const dist = Math.sqrt(distSq);
 
-      // Coulomb repulsion: F = k / d²
-      const force = config.repulsion / distSq;
+      // Coulomb repulsion: F = k / d²  (scaled by simulation heat)
+      const force = (config.repulsion / distSq) * alpha;
       const fx = (dx / dist) * force;
       const fy = (dy / dist) * force;
 
@@ -259,9 +276,9 @@ export function stepSimulation(sim: ForceSimulation): void {
     const dy = b.y - a.y;
     const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 
-    // Hooke's law: F = k * (d - rest)
+    // Hooke's law: F = k * (d - rest)  (scaled by simulation heat)
     const displacement = dist - config.idealEdgeLength;
-    const force = displacement * config.attraction * edge.strength;
+    const force = displacement * config.attraction * edge.strength * alpha;
     const fx = (dx / dist) * force;
     const fy = (dy / dist) * force;
 
@@ -272,8 +289,8 @@ export function stepSimulation(sim: ForceSimulation): void {
   // ── Center gravity (gentle pull to prevent graph from drifting away) ──
   for (const node of nodes) {
     if (node.pinned) continue;
-    node.vx -= (node.x - cx) * config.centerGravity;
-    node.vy -= (node.y - cy) * config.centerGravity;
+    node.vx -= (node.x - cx) * config.centerGravity * alpha;
+    node.vy -= (node.y - cy) * config.centerGravity * alpha;
   }
 
   // ── Apply velocity: damping + position update ──
@@ -293,6 +310,9 @@ export function stepSimulation(sim: ForceSimulation): void {
     node.x += node.vx;
     node.y += node.vy;
   }
+
+  // Cool the simulation toward rest.
+  sim.alpha *= config.alphaDecay;
 }
 
 /* ── Ambient Drift (layered on top of simulation) ── */

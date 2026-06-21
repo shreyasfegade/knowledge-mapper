@@ -16,6 +16,7 @@ from ..services.concept_extractor import async_extract_concepts
 from ..services.hierarchy_assembly import assemble_hierarchy
 from ..services.topology_inference import async_assemble_topology
 from ..services.graph_transformer import transform_graph
+from ..database import save_document
 from .stream import create_job, update_job_progress, complete_job, fail_job
 
 logger = get_logger(__name__)
@@ -24,7 +25,14 @@ router = APIRouter()
 ALLOWED_EXTENSIONS = {".pdf"}
 
 
-async def process_document_background(job_id: str, file_path: str, filename: str, cleaned_text: str):
+def _remove_quietly(path: str) -> None:
+    try:
+        os.remove(path)
+    except OSError:
+        pass
+
+
+async def process_document_background(job_id: str, filename: str, cleaned_text: str):
     try:
         t0 = time.monotonic()
         
@@ -110,6 +118,14 @@ async def process_document_background(job_id: str, file_path: str, filename: str
             "graph": graph_data,
         }
         
+        # Persist before signaling completion so a shared/reloaded link always
+        # resolves to a stored graph. Persistence failure must not break the
+        # live response — the client already has the result via SSE.
+        try:
+            save_document(job_id, filename, result)
+        except Exception:
+            logger.exception("Failed to persist document %s", job_id)
+
         complete_job(job_id, result)
         logger.info("Job %s completed in %.1fs", job_id, t_total)
 
@@ -153,8 +169,9 @@ async def upload_pdf(background_tasks: BackgroundTasks, file: UploadFile = File(
         raise HTTPException(status_code=507, detail=f"Failed to save uploaded file: {exc}")
     logger.info("Saved upload as %s", safe_filename)
 
-    # We do text extraction synchronously here so we can fail early if the PDF is unreadable.
-    # It's usually fast enough not to block for long.
+    # We do text extraction synchronously here so we can fail early if the PDF is
+    # unreadable. It's usually fast enough not to block for long. The uploaded file
+    # is only needed for this step, so we remove it once the text is in hand.
     t1 = time.monotonic()
     try:
         raw_text = extract_text(file_path)
@@ -164,9 +181,18 @@ async def upload_pdf(background_tasks: BackgroundTasks, file: UploadFile = File(
     except Exception as e:
         logger.exception("Text extraction failed")
         raise HTTPException(status_code=422, detail=f"Failed to extract text: {e}")
+    finally:
+        _remove_quietly(file_path)
 
     t2 = time.monotonic()
     cleaned_text = clean_text(raw_text)
+
+    if not cleaned_text.strip():
+        logger.warning("No usable text extracted from %s", filename)
+        raise HTTPException(
+            status_code=422,
+            detail="No readable text found. The PDF may be scanned images or empty.",
+        )
 
     t3 = time.monotonic()
     logger.info(
@@ -177,6 +203,6 @@ async def upload_pdf(background_tasks: BackgroundTasks, file: UploadFile = File(
     )
 
     create_job(job_id)
-    background_tasks.add_task(process_document_background, job_id, file_path, filename, cleaned_text)
+    background_tasks.add_task(process_document_background, job_id, filename, cleaned_text)
 
     return {"job_id": job_id, "status": "processing"}

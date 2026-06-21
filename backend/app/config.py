@@ -19,6 +19,13 @@ DEEPSEEK_BASE_URL: str = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.co
 BACKEND_HOST: str = os.getenv("BACKEND_HOST", "localhost")
 BACKEND_PORT: int = _int_env("BACKEND_PORT", 8000)
 
+# Comma-separated list of allowed CORS origins for the frontend.
+CORS_ORIGINS: list[str] = [
+    o.strip()
+    for o in os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
+    if o.strip()
+]
+
 MAX_UPLOAD_SIZE_MB: int = _int_env("MAX_UPLOAD_SIZE_MB", 50)
 MAX_UPLOAD_SIZE_BYTES: int = MAX_UPLOAD_SIZE_MB * 1024 * 1024
 

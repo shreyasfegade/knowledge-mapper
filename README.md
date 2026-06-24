@@ -109,7 +109,7 @@ Knowledge Mapper reads a document the way a course designer would, in three pass
 
 ## Quick Start
 
-**Prerequisites:** Node.js 18+, Python 3.11+, and a DeepSeek API key (free tier works) — or any OpenAI-compatible provider.
+**Prerequisites:** Node.js 18+, Python 3.11+. A DeepSeek API key (free tier works, or any OpenAI-compatible provider) is **optional** — the bundled example graphs explore with no key; a key is only needed to process your own PDF.
 
 **1. Backend**
 
@@ -120,7 +120,7 @@ python -m venv .venv
 # macOS/Linux:  source .venv/bin/activate
 
 pip install -r requirements.txt
-cp .env.example .env          # then edit .env and set DEEPSEEK_API_KEY
+cp .env.example .env          # optional: set DEEPSEEK_API_KEY to enable uploads
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -132,7 +132,32 @@ npm install
 npm run dev
 ```
 
-Open **[http://localhost:3000](http://localhost:3000)** and drop in a PDF.
+Open **[http://localhost:3000](http://localhost:3000)**. Explore a bundled example instantly, or drop in a PDF (with a key set, or paste your own in the UI).
+
+> **Regenerate the examples** (needs a key): `cd backend && python scripts/generate_examples.py` rebuilds `app/examples/*.json` from the source texts in that script.
+
+---
+
+## Deploy — Vercel (frontend) + Railway (backend)
+
+The Next.js frontend deploys to **Vercel**, the FastAPI backend to **Railway**.
+
+**1. Backend → Railway**
+
+- New project → *Deploy from GitHub repo* → set **Root Directory** to `backend`.
+- Railway installs `requirements.txt` and runs the [`Procfile`](backend/Procfile)
+  (`uvicorn app.main:app --host 0.0.0.0 --port $PORT`).
+- Environment variables (see [`backend/.env.example`](backend/.env.example)):
+  - `CORS_ORIGINS=https://your-frontend.vercel.app` — **required** so the frontend can call the backend.
+  - `DEEPSEEK_API_KEY` — *optional*. Set it to let anyone upload PDFs using your key; leave it unset and visitors bring their own key. Either way the bundled examples work.
+  - *(Optional)* Mount a Railway volume and set `DB_PATH` / `UPLOAD_DIR` to persist user-uploaded graphs. Examples re-seed on every boot regardless.
+- Copy the public URL, e.g. `https://knowledge-mapper.up.railway.app`.
+
+**2. Frontend → Vercel**
+
+- New project → import this repo → set **Root Directory** to `frontend` (Vercel auto-detects Next.js).
+- Set environment variable `NEXT_PUBLIC_API_URL=https://your-railway-backend.up.railway.app` (baked in at build time; see [`frontend/.env.example`](frontend/.env.example)).
+- Deploy. The landing page shows the example gallery instantly; uploads use the server key if set, or a visitor-supplied key.
 
 ---
 
@@ -145,10 +170,12 @@ knowledge-mapper/
 │   │   ├── main.py                  # FastAPI app, CORS, lifespan
 │   │   ├── config.py                # env-driven settings + tuning knobs
 │   │   ├── database.py              # SQLite persistence (graph payloads)
+│   │   ├── examples_seed.py         # seed bundled example graphs on startup
+│   │   ├── examples/                # precomputed example graph payloads (*.json)
 │   │   ├── api/
-│   │   │   ├── upload.py            # /upload + background pipeline orchestration
+│   │   │   ├── upload.py            # /upload (+ X-API-Key) + pipeline orchestration
 │   │   │   ├── stream.py            # /stream/{job_id} SSE progress
-│   │   │   └── documents.py         # /document/{id}, /documents
+│   │   │   └── documents.py         # /document/{id}, /documents, /examples
 │   │   └── services/                # one module per pipeline stage
 │   │       ├── text_extractor.py    #   PyMuPDF extraction
 │   │       ├── text_cleaner.py      #   artifact / normalization cleanup
@@ -158,6 +185,8 @@ knowledge-mapper/
 │   │       ├── topology_inference.py
 │   │       ├── graph_transformer.py #   galaxy layout + graph payload
 │   │       └── deepseek_client.py
+│   ├── scripts/generate_examples.py # regenerate the bundled examples (needs a key)
+│   ├── Procfile                     # Railway start command
 │   └── requirements.txt
 ├── frontend/
 │   ├── app/                         # App Router pages + global styles
@@ -173,7 +202,7 @@ knowledge-mapper/
 
 ## Limitations
 
-- **Needs an API key.** All concept and relationship discovery is LLM-driven; there's no offline mode.
+- **Uploads need an API key.** Concept and relationship discovery is LLM-driven, so mapping *your own* PDF requires a key (the server's or your own, pasted in the UI). The bundled example graphs are precomputed and need no key.
 - **Cost and latency scale with concepts.** A short PDF maps in ~10–30s; large documents (50+ pages) take longer as more chunks and relationship batches go to the LLM. Hard caps (pages, chunks, concepts, pairs, edges) keep this bounded and are configurable in `config.py`.
 - **Text PDFs only.** Scanned or image-only PDFs yield no text and are rejected; there's no OCR.
 - **Single document.** Each upload is mapped independently — there's no cross-document merge.

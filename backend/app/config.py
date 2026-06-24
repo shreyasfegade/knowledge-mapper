@@ -43,8 +43,16 @@ MAX_CANDIDATE_PAIRS: int = _int_env("MAX_CANDIDATE_PAIRS", 150)
 MAX_RELATIONSHIPS: int = _int_env("MAX_RELATIONSHIPS", 120)
 MAX_EDGES_PER_CONCEPT: int = _int_env("MAX_EDGES_PER_CONCEPT", 8)
 
-UPLOAD_DIR: str = os.path.join(os.path.dirname(__file__), "..", "uploads")
-DB_PATH: str = os.path.join(os.path.dirname(__file__), "..", "knowledge.db")
+# Storage paths default to the backend directory but are env-overridable so a
+# Railway volume can be mounted for persistence across restarts. (Bundled
+# example graphs are re-seeded on every boot, so they survive an ephemeral disk
+# regardless; a volume only matters for persisting user-uploaded graphs.)
+UPLOAD_DIR: str = os.getenv(
+    "UPLOAD_DIR", os.path.join(os.path.dirname(__file__), "..", "uploads")
+)
+DB_PATH: str = os.getenv(
+    "DB_PATH", os.path.join(os.path.dirname(__file__), "..", "knowledge.db")
+)
 
 logging.basicConfig(
     level=logging.INFO,

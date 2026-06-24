@@ -1,20 +1,46 @@
+from contextvars import ContextVar
+
 from openai import AsyncOpenAI, APIError, APITimeoutError, APIConnectionError
 from ..config import DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL
 
-_client: AsyncOpenAI | None = None
 DEFAULT_MODEL = "deepseek-chat"
 DEFAULT_TIMEOUT = 120
 
+# Per-request API key override. The upload handler sets this from an X-API-Key
+# header so a visitor can process a PDF with their own key (bring-your-own-key),
+# without the server needing one. Falls back to the server's env key when unset.
+current_api_key: ContextVar[str | None] = ContextVar("km_current_api_key", default=None)
+
+# One client per distinct key, reused across requests.
+_clients: dict[str, AsyncOpenAI] = {}
+
+
+def _resolve_key() -> str:
+    return (current_api_key.get() or DEEPSEEK_API_KEY or "").strip()
+
+
+def has_api_key() -> bool:
+    """True when an effective key is available (server env or per-request override)."""
+    return bool(_resolve_key())
+
+
+def server_has_key() -> bool:
+    """True when the server itself is configured with a key (ignores per-request)."""
+    return bool((DEEPSEEK_API_KEY or "").strip())
+
 
 def _get_client() -> AsyncOpenAI:
-    global _client
-    if _client is None:
-        if not DEEPSEEK_API_KEY:
-            raise RuntimeError(
-                "DEEPSEEK_API_KEY is not set. Create a .env file with your API key."
-            )
-        _client = AsyncOpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
-    return _client
+    key = _resolve_key()
+    if not key:
+        raise RuntimeError(
+            "No API key available. Set DEEPSEEK_API_KEY on the server, or provide "
+            "your own DeepSeek/OpenAI-compatible key with the request."
+        )
+    client = _clients.get(key)
+    if client is None:
+        client = AsyncOpenAI(api_key=key, base_url=DEEPSEEK_BASE_URL)
+        _clients[key] = client
+    return client
 
 
 async def async_chat(

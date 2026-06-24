@@ -2,13 +2,14 @@ import os
 import time
 import uuid
 import asyncio
-from fastapi import APIRouter, UploadFile, File, HTTPException, BackgroundTasks
+from fastapi import APIRouter, UploadFile, File, HTTPException, BackgroundTasks, Header
 from ..config import (
     UPLOAD_DIR,
     MAX_UPLOAD_SIZE_BYTES,
     MAX_RESPONSE_TEXT_CHARS,
     get_logger,
 )
+from ..services.deepseek_client import current_api_key, has_api_key
 from ..services.text_extractor import extract_text
 from ..services.text_cleaner import clean_text
 from ..services.global_understanding import async_extract_global_understanding
@@ -32,10 +33,15 @@ def _remove_quietly(path: str) -> None:
         pass
 
 
-async def process_document_background(job_id: str, filename: str, cleaned_text: str):
+async def process_document_background(
+    job_id: str, filename: str, cleaned_text: str, api_key: str | None = None
+):
+    # Bind the per-request key (if any) for the whole pipeline so every LLM call
+    # in this background task uses it; falls back to the server env key when None.
+    token = current_api_key.set(api_key)
     try:
         t0 = time.monotonic()
-        
+
         # ── Stage 1: Global Document Understanding ──
         logger.info("=== Stage 1: Global Document Understanding ===")
         update_job_progress(job_id, "Understanding global context...")
@@ -132,13 +138,30 @@ async def process_document_background(job_id: str, filename: str, cleaned_text: 
     except Exception as e:
         logger.exception("Background processing failed")
         fail_job(job_id, f"Processing failed: {str(e)}")
+    finally:
+        current_api_key.reset(token)
 
 
 @router.post("/upload")
-async def upload_pdf(background_tasks: BackgroundTasks, file: UploadFile = File(...)):
+async def upload_pdf(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+    x_api_key: str | None = Header(default=None),
+):
     t0 = time.monotonic()
     filename = file.filename or "unknown"
     logger.info("=== Upload start: %s ===", filename)
+
+    # A key must be available — either configured on the server or supplied by
+    # the visitor (bring-your-own-key). Without one, nudge toward the examples.
+    user_key = (x_api_key or "").strip() or None
+    current_api_key.set(user_key)
+    if not has_api_key():
+        raise HTTPException(
+            status_code=400,
+            detail="No API key available. Add your own DeepSeek (or OpenAI-compatible) "
+            "key to process a PDF, or explore one of the bundled examples below.",
+        )
 
     ext = os.path.splitext(filename)[1].lower()
     if ext not in ALLOWED_EXTENSIONS:
@@ -203,6 +226,8 @@ async def upload_pdf(background_tasks: BackgroundTasks, file: UploadFile = File(
     )
 
     create_job(job_id)
-    background_tasks.add_task(process_document_background, job_id, filename, cleaned_text)
+    background_tasks.add_task(
+        process_document_background, job_id, filename, cleaned_text, user_key
+    )
 
     return {"job_id": job_id, "status": "processing"}

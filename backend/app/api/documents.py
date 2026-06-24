@@ -9,9 +9,20 @@ from fastapi import APIRouter, HTTPException
 
 from ..config import get_logger
 from ..database import get_document, list_documents
+from ..examples_seed import list_example_meta
 
 logger = get_logger(__name__)
 router = APIRouter()
+
+
+@router.get("/examples")
+def examples():
+    """List the bundled example graphs for the landing-page gallery.
+
+    Each entry deep-links to ``?doc=<id>`` and loads instantly from the seeded
+    database — no API key or upload required.
+    """
+    return {"examples": list_example_meta()}
 
 
 @router.get("/documents")

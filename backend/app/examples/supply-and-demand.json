@@ -1,0 +1,2161 @@
+{
+  "document_id": "example-supply-and-demand",
+  "filename": "Supply, Demand and Market Equilibrium.pdf",
+  "char_count": 2618,
+  "text": "Supply, Demand, and Market Equilibrium\nEconomics studies how people allocate scarce resources, and few ideas are as central as supply and\ndemand. Together they explain how prices form in a market and why they change. A market is any\narrangement that brings buyers and sellers of a good together.\nDemand describes the relationship between the price of a good and the quantity that buyers are willing\nand able to purchase. The law of demand states that, all else equal, as the price rises the quantity\ndemanded falls, and as the price falls the quantity demanded rises. Plotted on a graph, this inverse\nrelationship produces the downward-sloping demand curve.\nDemand depends on more than price. Shifts in the entire demand curve are caused by changes in\nincome, the prices of related goods, consumer tastes, and expectations about the future. A rise in\nincome, for example, increases demand for most goods, shifting the demand curve to the right.\nSupply describes the relationship between the price of a good and the quantity that sellers are willing to\nproduce. The law of supply states that, all else equal, a higher price increases the quantity supplied,\nbecause higher prices make production more profitable. This produces the upward-sloping supply\ncurve. Like demand, supply shifts in response to other factors, especially the cost of inputs and the\nstate of technology. Better technology lowers production costs and shifts supply to the right.\nThe interaction of supply and demand determines the market price. Market equilibrium is the price at\nwhich the quantity demanded exactly equals the quantity supplied. At this equilibrium price the market\nclears, leaving neither a shortage nor a surplus. Equilibrium therefore depends on both the supply\ncurve and the demand curve.\nWhen the price sits above equilibrium, the quantity supplied exceeds the quantity demanded, producing\na surplus. Sellers respond by cutting prices, pushing the market back toward equilibrium. When the\nprice sits below equilibrium, the quantity demanded exceeds the quantity supplied, producing a\nshortage, and competition among buyers drives the price up. This self-correcting behaviour is what\neconomists call the price mechanism.\nBecause price guides the decisions of millions of independent buyers and sellers, it acts as a signal\nthat coordinates economic activity without any central planner. A rise in the equilibrium price tells\nproducers to make more and consumers to buy less; a fall does the opposite. Understanding how shifts\nin supply and demand move the equilibrium is the key to predicting how events ripple through a market.",
+  "text_truncated": false,
+  "global_understanding": {
+    "document_summary": "This document teaches the foundational economic model of supply and demand, which explains how prices are determined in a market and how markets self-regulate. It begins by defining a market as any arrangement connecting buyers and sellers, then introduces demand as the inverse relationship between price and quantity demanded, governed by the law of demand. The document explains that demand curves shift due to factors like income, related goods prices, tastes, and expectations, not just price changes. Similarly, supply is presented as the direct relationship between price and quantity supplied, governed by the law of supply, with shifts caused by input costs and technology. The core insight is that market equilibrium—where quantity demanded equals quantity supplied—emerges from the interaction of supply and demand, and that prices act as a self-correcting mechanism to eliminate surpluses and shortages. The document ultimately conveys that understanding how shifts in supply and demand move equilibrium allows one to predict how economic events affect markets, emphasizing the price mechanism's role in coordinating economic activity without central planning.",
+    "major_themes": [
+      {
+        "name": "Price as a Coordinating Mechanism",
+        "description": "The idea that prices guide the decisions of buyers and sellers, automatically balancing supply and demand without central planning.",
+        "importance": 0.9
+      },
+      {
+        "name": "Ceteris Paribus and Shift Factors",
+        "description": "The distinction between movements along a curve (caused by price) and shifts of the entire curve (caused by external factors like income or technology).",
+        "importance": 0.8
+      },
+      {
+        "name": "Market Self-Correction",
+        "description": "How surpluses and shortages naturally push prices back toward equilibrium through the behavior of buyers and sellers.",
+        "importance": 0.75
+      }
+    ],
+    "conceptual_domains": [
+      {
+        "name": "Demand Theory",
+        "scope": "Covers the law of demand, the demand curve, and factors that shift demand (income, related goods, tastes, expectations).",
+        "weight": 0.35,
+        "key_terms": [
+          "demand",
+          "law of demand",
+          "demand curve",
+          "quantity demanded",
+          "shift factors"
+        ]
+      },
+      {
+        "name": "Supply Theory",
+        "scope": "Covers the law of supply, the supply curve, and factors that shift supply (input costs, technology).",
+        "weight": 0.3,
+        "key_terms": [
+          "supply",
+          "law of supply",
+          "supply curve",
+          "quantity supplied",
+          "shift factors"
+        ]
+      },
+      {
+        "name": "Market Equilibrium and Price Mechanism",
+        "scope": "Covers how supply and demand interact to determine equilibrium price and quantity, surpluses, shortages, and the self-correcting price mechanism.",
+        "weight": 0.35,
+        "key_terms": [
+          "equilibrium",
+          "surplus",
+          "shortage",
+          "price mechanism",
+          "market clearing"
+        ]
+      }
+    ],
+    "root_concepts": [
+      {
+        "name": "Scarcity and Allocation",
+        "definition": "The fundamental economic problem that resources are limited, requiring a mechanism (like markets) to allocate them."
+      },
+      {
+        "name": "Law of Demand",
+        "definition": "The inverse relationship between price and quantity demanded, all else equal."
+      },
+      {
+        "name": "Law of Supply",
+        "definition": "The direct relationship between price and quantity supplied, all else equal."
+      },
+      {
+        "name": "Market Equilibrium",
+        "definition": "The price at which quantity demanded equals quantity supplied, clearing the market."
+      },
+      {
+        "name": "Price Mechanism",
+        "definition": "The self-correcting process by which surpluses and shortages drive prices toward equilibrium."
+      }
+    ],
+    "educational_structure": "The document is organized as a linear, building-block tutorial. It starts with the broad context (scarcity and markets), then introduces demand and supply separately as foundational concepts, each with their laws and shift factors. It then combines them to explain equilibrium, followed by the dynamics of surpluses and shortages, and finally synthesizes everything into the price mechanism as a coordinating force. Each section builds directly on the previous one.",
+    "learning_flow": "A learner should first understand the concept of a market and scarcity. Then they should grasp the law of demand and the demand curve, including what causes shifts. Next, they should learn the law of supply and the supply curve, including shift factors. With both curves understood, they can then see how they intersect to create equilibrium. Finally, they should understand how surpluses and shortages lead to price adjustments, and how this price mechanism coordinates economic activity. The flow is from individual components to their interaction and systemic outcome."
+  },
+  "concepts": [
+    {
+      "label": "Demand",
+      "summary": "The relationship between the price of a good and the quantity that buyers are willing and able to purchase. It is the buyer's side of the market, captured by the demand curve.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "branch",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [
+        "Market"
+      ],
+      "domain": "Demand Theory",
+      "theme": "Ceteris Paribus and Shift Factors",
+      "prerequisite_labels": [
+        "Scarcity and Allocation"
+      ],
+      "id": "b439e8f667",
+      "parent_id": "6176504754",
+      "children_ids": [
+        "64fab09a2a",
+        "db4c2d61f3"
+      ]
+    },
+    {
+      "label": "Law of Demand",
+      "summary": "The principle that, all else equal, as the price of a good rises the quantity demanded falls, and as the price falls the quantity demanded rises. It establishes the inverse relationship between price and quantity demanded.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "branch",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [
+        "Demand"
+      ],
+      "domain": "Demand Theory",
+      "theme": "Ceteris Paribus and Shift Factors",
+      "prerequisite_labels": [
+        "Demand"
+      ],
+      "id": "64fab09a2a",
+      "parent_id": "b439e8f667",
+      "children_ids": [
+        "f894104c05"
+      ]
+    },
+    {
+      "label": "Supply",
+      "summary": "The relationship between the price of a good and the quantity that sellers are willing to produce. It is the seller's side of the market, captured by the supply curve.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "branch",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [
+        "Market"
+      ],
+      "domain": "Supply Theory",
+      "theme": "Ceteris Paribus and Shift Factors",
+      "prerequisite_labels": [
+        "Scarcity and Allocation"
+      ],
+      "id": "aec4fe34f3",
+      "parent_id": "6176504754",
+      "children_ids": [
+        "c42b491a61",
+        "5ab2006333"
+      ]
+    },
+    {
+      "label": "Law of Supply",
+      "summary": "The principle that, all else equal, a higher price increases the quantity supplied, because higher prices make production more profitable. It establishes the direct relationship between price and quantity supplied.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "branch",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [
+        "Supply"
+      ],
+      "domain": "Supply Theory",
+      "theme": "Ceteris Paribus and Shift Factors",
+      "prerequisite_labels": [
+        "Supply"
+      ],
+      "id": "c42b491a61",
+      "parent_id": "aec4fe34f3",
+      "children_ids": [
+        "9071976d9d"
+      ]
+    },
+    {
+      "label": "Market Equilibrium",
+      "summary": "The price at which the quantity demanded exactly equals the quantity supplied, causing the market to clear with neither a surplus nor a shortage. It is the stable outcome of the interaction between supply and demand.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [],
+      "domain": "Market Equilibrium and Price Mechanism",
+      "theme": "Market Self-Correction",
+      "prerequisite_labels": [
+        "Demand",
+        "Supply"
+      ],
+      "id": "1896f9e644",
+      "parent_id": null,
+      "children_ids": [
+        "a9e837ec90",
+        "7ed26124d1"
+      ]
+    },
+    {
+      "label": "Price Mechanism",
+      "summary": "The self-correcting behavior of markets where surpluses and shortages cause price adjustments that restore equilibrium. It describes how prices guide the decisions of buyers and sellers without central planning.",
+      "confidence": 0.95,
+      "concept_type": "mechanism",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [],
+      "domain": "Market Equilibrium and Price Mechanism",
+      "theme": "Price as a Coordinating Mechanism",
+      "prerequisite_labels": [
+        "Market Equilibrium"
+      ],
+      "id": "603d27b045",
+      "parent_id": null,
+      "children_ids": [
+        "6270f03e32"
+      ]
+    },
+    {
+      "label": "Market",
+      "summary": "Any arrangement that brings buyers and sellers of a good together, enabling transactions. It is the foundational setting where supply and demand interact to determine prices and quantities.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [],
+      "domain": "Demand Theory",
+      "theme": "Price as a Coordinating Mechanism",
+      "prerequisite_labels": [
+        "Scarcity and Allocation"
+      ],
+      "id": "6176504754",
+      "parent_id": null,
+      "children_ids": [
+        "b439e8f667",
+        "aec4fe34f3"
+      ]
+    },
+    {
+      "label": "Demand Curve",
+      "summary": "A graphical representation of the law of demand, showing the inverse relationship between price and quantity demanded as a downward-sloping line. It illustrates how quantity demanded changes with price, holding other factors constant.",
+      "confidence": 0.95,
+      "concept_type": "abstraction",
+      "abstraction_level": "leaf",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [
+        "Law of Demand"
+      ],
+      "domain": "Demand Theory",
+      "theme": "Ceteris Paribus and Shift Factors",
+      "prerequisite_labels": [
+        "Law of Demand"
+      ],
+      "id": "f894104c05",
+      "parent_id": "64fab09a2a",
+      "children_ids": []
+    },
+    {
+      "label": "Shift Factors of Demand",
+      "summary": "Changes in variables other than price—such as income, prices of related goods, consumer tastes, and expectations—that cause the entire demand curve to move left or right. These shifts represent changes in demand itself, not just quantity demanded.",
+      "confidence": 0.95,
+      "concept_type": "mechanism",
+      "abstraction_level": "leaf",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [
+        "Demand"
+      ],
+      "domain": "Demand Theory",
+      "theme": "Ceteris Paribus and Shift Factors",
+      "prerequisite_labels": [
+        "Demand Curve"
+      ],
+      "id": "db4c2d61f3",
+      "parent_id": "b439e8f667",
+      "children_ids": []
+    },
+    {
+      "label": "Supply Curve",
+      "summary": "A graphical representation of the law of supply, showing the direct relationship between price and quantity supplied as an upward-sloping line. It illustrates how quantity supplied changes with price, holding other factors constant.",
+      "confidence": 0.95,
+      "concept_type": "abstraction",
+      "abstraction_level": "leaf",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [
+        "Law of Supply"
+      ],
+      "domain": "Supply Theory",
+      "theme": "Ceteris Paribus and Shift Factors",
+      "prerequisite_labels": [
+        "Law of Supply"
+      ],
+      "id": "9071976d9d",
+      "parent_id": "c42b491a61",
+      "children_ids": []
+    },
+    {
+      "label": "Shift Factors of Supply",
+      "summary": "Changes in variables other than price—such as input costs and technology—that cause the entire supply curve to move left or right. These shifts represent changes in supply itself, not just quantity supplied.",
+      "confidence": 0.95,
+      "concept_type": "mechanism",
+      "abstraction_level": "leaf",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [
+        "Supply"
+      ],
+      "domain": "Supply Theory",
+      "theme": "Ceteris Paribus and Shift Factors",
+      "prerequisite_labels": [
+        "Supply Curve"
+      ],
+      "id": "5ab2006333",
+      "parent_id": "aec4fe34f3",
+      "children_ids": []
+    },
+    {
+      "label": "Scarcity and Allocation",
+      "summary": "The foundational economic problem that resources are limited, requiring choices about how to allocate them. Supply and demand analysis is a tool for understanding how markets solve this allocation problem through price signals.",
+      "confidence": 0.9,
+      "concept_type": "foundation",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [],
+      "domain": "Demand Theory",
+      "theme": "Price as a Coordinating Mechanism",
+      "prerequisite_labels": [],
+      "id": "ad67cffb99",
+      "parent_id": null,
+      "children_ids": []
+    },
+    {
+      "label": "Surplus",
+      "summary": "A situation where the price sits above equilibrium, causing quantity supplied to exceed quantity demanded. Sellers respond by cutting prices, pushing the market back toward equilibrium.",
+      "confidence": 0.95,
+      "concept_type": "derived",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.85,
+      "parent_labels": [
+        "Market Equilibrium"
+      ],
+      "domain": "Market Equilibrium and Price Mechanism",
+      "theme": "Market Self-Correction",
+      "prerequisite_labels": [
+        "Market Equilibrium"
+      ],
+      "id": "a9e837ec90",
+      "parent_id": "1896f9e644",
+      "children_ids": []
+    },
+    {
+      "label": "Shortage",
+      "summary": "A situation where the price sits below equilibrium, causing quantity demanded to exceed quantity supplied. Competition among buyers drives the price up, pushing the market back toward equilibrium.",
+      "confidence": 0.95,
+      "concept_type": "derived",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.85,
+      "parent_labels": [
+        "Market Equilibrium"
+      ],
+      "domain": "Market Equilibrium and Price Mechanism",
+      "theme": "Market Self-Correction",
+      "prerequisite_labels": [
+        "Market Equilibrium"
+      ],
+      "id": "7ed26124d1",
+      "parent_id": "1896f9e644",
+      "children_ids": []
+    },
+    {
+      "label": "Price as a Signal",
+      "summary": "The idea that a change in the equilibrium price communicates information to both producers and consumers: a price rise signals producers to make more and consumers to buy less, while a price fall does the opposite. This coordinates economic activity across the market.",
+      "confidence": 0.9,
+      "concept_type": "abstraction",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.85,
+      "parent_labels": [
+        "Price Mechanism"
+      ],
+      "domain": "Market Equilibrium and Price Mechanism",
+      "theme": "Price as a Coordinating Mechanism",
+      "prerequisite_labels": [
+        "Price Mechanism"
+      ],
+      "id": "6270f03e32",
+      "parent_id": "603d27b045",
+      "children_ids": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "14b547fd99",
+      "source_id": "b439e8f667",
+      "target_id": "f894104c05",
+      "source_label": "Demand",
+      "target_label": "Demand Curve",
+      "relationship_type": "derived_from",
+      "strength": 0.95,
+      "reasoning": "The Demand Curve is a graphical representation of the relationship defined by Demand (price vs. quantity demanded), plotting the specific inverse relationship described by the law of demand.",
+      "cross_domain": false
+    },
+    {
+      "id": "56fff447b7",
+      "source_id": "aec4fe34f3",
+      "target_id": "9071976d9d",
+      "source_label": "Supply",
+      "target_label": "Supply Curve",
+      "relationship_type": "derived_from",
+      "strength": 0.95,
+      "reasoning": "The Supply Curve is a graphical representation of the relationship defined by Supply (price vs. quantity supplied), plotting the specific direct relationship described by the law of supply.",
+      "cross_domain": false
+    },
+    {
+      "id": "33c360988e",
+      "source_id": "b439e8f667",
+      "target_id": "1896f9e644",
+      "source_label": "Demand",
+      "target_label": "Market Equilibrium",
+      "relationship_type": "part_of",
+      "strength": 0.93,
+      "reasoning": "Market equilibrium is defined as the intersection of demand and supply; demand is one of the two essential components that jointly determine the equilibrium price and quantity, as the equilibrium condition requires quantity demanded to equal quantity supplied.",
+      "cross_domain": true
+    },
+    {
+      "id": "4d46a4e57e",
+      "source_id": "aec4fe34f3",
+      "target_id": "1896f9e644",
+      "source_label": "Supply",
+      "target_label": "Market Equilibrium",
+      "relationship_type": "part_of",
+      "strength": 0.93,
+      "reasoning": "Market equilibrium is defined as the intersection of demand and supply; supply is one of the two essential components that jointly determine the equilibrium price and quantity, as the equilibrium condition requires quantity supplied to equal quantity demanded.",
+      "cross_domain": true
+    },
+    {
+      "id": "f1409d8848",
+      "source_id": "603d27b045",
+      "target_id": "a9e837ec90",
+      "source_label": "Price Mechanism",
+      "target_label": "Surplus",
+      "relationship_type": "causes",
+      "strength": 0.91,
+      "reasoning": "The price mechanism's self-correcting behavior directly produces surpluses when price is set above equilibrium, as the mechanism fails to clear the market at that price level.",
+      "cross_domain": false
+    },
+    {
+      "id": "7ebb2293eb",
+      "source_id": "603d27b045",
+      "target_id": "7ed26124d1",
+      "source_label": "Price Mechanism",
+      "target_label": "Shortage",
+      "relationship_type": "causes",
+      "strength": 0.91,
+      "reasoning": "The price mechanism's self-correcting behavior directly produces shortages when price is set below equilibrium, as the mechanism fails to clear the market at that price level.",
+      "cross_domain": false
+    },
+    {
+      "id": "fbd30ad772",
+      "source_id": "1896f9e644",
+      "target_id": "db4c2d61f3",
+      "source_label": "Market Equilibrium",
+      "target_label": "Shift Factors of Demand",
+      "relationship_type": "influences",
+      "strength": 0.9,
+      "reasoning": "Changes in shift factors of demand (e.g., income, preferences) cause the entire demand curve to shift, which directly disrupts the existing market equilibrium price and quantity, requiring a new equilibrium to be established.",
+      "cross_domain": true
+    },
+    {
+      "id": "c37d5ca9d4",
+      "source_id": "1896f9e644",
+      "target_id": "5ab2006333",
+      "source_label": "Market Equilibrium",
+      "target_label": "Shift Factors of Supply",
+      "relationship_type": "influences",
+      "strength": 0.9,
+      "reasoning": "Changes in shift factors of supply (e.g., input costs, technology) cause the entire supply curve to shift, which directly disrupts the existing market equilibrium price and quantity, requiring a new equilibrium to be established.",
+      "cross_domain": true
+    },
+    {
+      "id": "1b2b022884",
+      "source_id": "6176504754",
+      "target_id": "9071976d9d",
+      "source_label": "Market",
+      "target_label": "Supply Curve",
+      "relationship_type": "part_of",
+      "strength": 0.9,
+      "reasoning": "The supply curve is a graphical representation of seller behavior within a market; the market is the institutional context that gives the supply curve its meaning by bringing together buyers and sellers.",
+      "cross_domain": true
+    },
+    {
+      "id": "6253c41975",
+      "source_id": "64fab09a2a",
+      "target_id": "db4c2d61f3",
+      "source_label": "Law of Demand",
+      "target_label": "Shift Factors of Demand",
+      "relationship_type": "prerequisite_of",
+      "strength": 0.9,
+      "reasoning": "Understanding the Law of Demand (the inverse price-quantity relationship along a fixed curve) is necessary before analyzing shift factors, because shift factors represent changes that move the entire curve rather than movements along it, and without the baseline law the distinction between movement and shift is meaningless.",
+      "cross_domain": false
+    },
+    {
+      "id": "9880e9e815",
+      "source_id": "603d27b045",
+      "target_id": "6176504754",
+      "source_label": "Price Mechanism",
+      "target_label": "Market",
+      "relationship_type": "part_of",
+      "strength": 0.88,
+      "reasoning": "The price mechanism is the core self-correcting process that operates within a market; without a market arrangement bringing buyers and sellers together, the price mechanism cannot function.",
+      "cross_domain": true
+    },
+    {
+      "id": "dc9b466857",
+      "source_id": "64fab09a2a",
+      "target_id": "1896f9e644",
+      "source_label": "Law of Demand",
+      "target_label": "Market Equilibrium",
+      "relationship_type": "prerequisite_of",
+      "strength": 0.88,
+      "reasoning": "Understanding the Law of Demand is necessary before grasping market equilibrium because the downward-sloping demand curve derived from the Law of Demand is one of the two curves whose intersection defines the equilibrium point.",
+      "cross_domain": true
+    },
+    {
+      "id": "6205197ae7",
+      "source_id": "c42b491a61",
+      "target_id": "1896f9e644",
+      "source_label": "Law of Supply",
+      "target_label": "Market Equilibrium",
+      "relationship_type": "prerequisite_of",
+      "strength": 0.88,
+      "reasoning": "Understanding the Law of Supply is necessary before grasping market equilibrium because the upward-sloping supply curve derived from the Law of Supply is one of the two curves whose intersection defines the equilibrium point.",
+      "cross_domain": true
+    },
+    {
+      "id": "a6778cd6a7",
+      "source_id": "6176504754",
+      "target_id": "1896f9e644",
+      "source_label": "Market",
+      "target_label": "Market Equilibrium",
+      "relationship_type": "enables",
+      "strength": 0.88,
+      "reasoning": "A market provides the institutional arrangement where buyers and sellers interact, which is necessary for the forces of supply and demand to converge on an equilibrium price and quantity.",
+      "cross_domain": true
+    },
+    {
+      "id": "7410ab7e5c",
+      "source_id": "f894104c05",
+      "target_id": "1896f9e644",
+      "source_label": "Demand Curve",
+      "target_label": "Market Equilibrium",
+      "relationship_type": "prerequisite_of",
+      "strength": 0.88,
+      "reasoning": "The demand curve defines the relationship between price and quantity demanded, which is one of the two curves whose intersection determines market equilibrium.",
+      "cross_domain": true
+    },
+    {
+      "id": "eb27ad616d",
+      "source_id": "b439e8f667",
+      "target_id": "7ed26124d1",
+      "source_label": "Demand",
+      "target_label": "Shortage",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "When price is below equilibrium, the quantity demanded (from the demand curve) exceeds quantity supplied, directly creating a shortage because buyers want more than sellers offer at that price.",
+      "cross_domain": true
+    },
+    {
+      "id": "ce2f1b4b70",
+      "source_id": "aec4fe34f3",
+      "target_id": "a9e837ec90",
+      "source_label": "Supply",
+      "target_label": "Surplus",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "When price is above equilibrium, the quantity supplied (from the supply curve) exceeds quantity demanded, directly creating a surplus because sellers offer more than buyers want at that price.",
+      "cross_domain": true
+    },
+    {
+      "id": "fa9ad855dd",
+      "source_id": "c42b491a61",
+      "target_id": "a9e837ec90",
+      "source_label": "Law of Supply",
+      "target_label": "Surplus",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "The Law of Supply states that higher prices increase quantity supplied; when price is above equilibrium, this law causes quantity supplied to exceed quantity demanded, directly creating a surplus.",
+      "cross_domain": true
+    },
+    {
+      "id": "be0258da7c",
+      "source_id": "f894104c05",
+      "target_id": "7ed26124d1",
+      "source_label": "Demand Curve",
+      "target_label": "Shortage",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "The demand curve defines the quantity demanded at each price; when price is below equilibrium, the quantity demanded (from the demand curve) exceeds quantity supplied, directly creating a shortage.",
+      "cross_domain": true
+    },
+    {
+      "id": "56e50d6e47",
+      "source_id": "9071976d9d",
+      "target_id": "a9e837ec90",
+      "source_label": "Supply Curve",
+      "target_label": "Surplus",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "The supply curve defines the quantity supplied at each price; when price is above equilibrium, the quantity supplied (from the supply curve) exceeds quantity demanded, directly creating a surplus.",
+      "cross_domain": true
+    },
+    {
+      "id": "b8261f6e3b",
+      "source_id": "9071976d9d",
+      "target_id": "7ed26124d1",
+      "source_label": "Supply Curve",
+      "target_label": "Shortage",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "The supply curve defines the quantity supplied at each price; when price is below equilibrium, the quantity supplied (from the supply curve) is less than quantity demanded, directly creating a shortage.",
+      "cross_domain": true
+    },
+    {
+      "id": "8cde6ff2c9",
+      "source_id": "5ab2006333",
+      "target_id": "a9e837ec90",
+      "source_label": "Shift Factors of Supply",
+      "target_label": "Surplus",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "An outward shift in supply (e.g., due to lower input costs) at a given price creates a surplus because quantity supplied exceeds quantity demanded at the original equilibrium price.",
+      "cross_domain": true
+    },
+    {
+      "id": "4bdb0dde23",
+      "source_id": "5ab2006333",
+      "target_id": "7ed26124d1",
+      "source_label": "Shift Factors of Supply",
+      "target_label": "Shortage",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "An inward shift in supply (e.g., due to higher input costs) at a given price creates a shortage because quantity demanded exceeds quantity supplied at the original equilibrium price.",
+      "cross_domain": true
+    },
+    {
+      "id": "9ee7e0cd45",
+      "source_id": "64fab09a2a",
+      "target_id": "c42b491a61",
+      "source_label": "Law of Demand",
+      "target_label": "Law of Supply",
+      "relationship_type": "contrasts_with",
+      "strength": 0.88,
+      "reasoning": "The Law of Demand states that quantity demanded falls as price rises (inverse relationship), while the Law of Supply states that quantity supplied rises as price rises (direct relationship); they are pedagogical opposites that together define market equilibrium.",
+      "cross_domain": true
+    },
+    {
+      "id": "314e12d6fb",
+      "source_id": "f894104c05",
+      "target_id": "9071976d9d",
+      "source_label": "Demand Curve",
+      "target_label": "Supply Curve",
+      "relationship_type": "contrasts_with",
+      "strength": 0.88,
+      "reasoning": "The demand curve slopes downward (inverse price-quantity relationship) while the supply curve slopes upward (direct price-quantity relationship), and their intersection determines market equilibrium, making them pedagogical opposites that together define market outcomes.",
+      "cross_domain": true
+    },
+    {
+      "id": "2f492afaaf",
+      "source_id": "c42b491a61",
+      "target_id": "5ab2006333",
+      "source_label": "Law of Supply",
+      "target_label": "Shift Factors of Supply",
+      "relationship_type": "prerequisite_of",
+      "strength": 0.88,
+      "reasoning": "The Law of Supply establishes the baseline price-quantity relationship that shift factors (input costs, technology) then modify; understanding the basic law is necessary before analyzing what causes the supply curve to shift.",
+      "cross_domain": false
+    },
+    {
+      "id": "ef4a91638b",
+      "source_id": "f894104c05",
+      "target_id": "db4c2d61f3",
+      "source_label": "Demand Curve",
+      "target_label": "Shift Factors of Demand",
+      "relationship_type": "depends_on",
+      "strength": 0.88,
+      "reasoning": "The position of the Demand Curve is determined by non-price variables (shift factors); a change in any shift factor causes the entire curve to shift, so understanding the curve's location depends on understanding these factors.",
+      "cross_domain": false
+    },
+    {
+      "id": "7b0aa11c5c",
+      "source_id": "9071976d9d",
+      "target_id": "5ab2006333",
+      "source_label": "Supply Curve",
+      "target_label": "Shift Factors of Supply",
+      "relationship_type": "depends_on",
+      "strength": 0.88,
+      "reasoning": "The position of the Supply Curve is determined by non-price variables (shift factors); a change in any shift factor causes the entire curve to shift, so understanding the curve's location depends on understanding these factors.",
+      "cross_domain": false
+    },
+    {
+      "id": "96e3ff746e",
+      "source_id": "b439e8f667",
+      "target_id": "603d27b045",
+      "source_label": "Demand",
+      "target_label": "Price Mechanism",
+      "relationship_type": "depends_on",
+      "strength": 0.85,
+      "reasoning": "The price mechanism's corrective behavior relies on the existence of demand schedules; without buyers' quantity responses to price changes, surpluses and shortages cannot trigger price adjustments.",
+      "cross_domain": true
+    },
+    {
+      "id": "9ea1c4be20",
+      "source_id": "aec4fe34f3",
+      "target_id": "603d27b045",
+      "source_label": "Supply",
+      "target_label": "Price Mechanism",
+      "relationship_type": "depends_on",
+      "strength": 0.85,
+      "reasoning": "The price mechanism requires supply schedules to function; sellers' quantity responses to price changes are necessary for the mechanism to eliminate surpluses and shortages.",
+      "cross_domain": true
+    },
+    {
+      "id": "b765ca9ed4",
+      "source_id": "6176504754",
+      "target_id": "6270f03e32",
+      "source_label": "Market",
+      "target_label": "Price as a Signal",
+      "relationship_type": "enables",
+      "strength": 0.85,
+      "reasoning": "A market provides the mechanism of voluntary exchange through which equilibrium prices emerge; without a market, price changes cannot function as signals to coordinate buyer and seller decisions because there is no transactional framework for price discovery.",
+      "cross_domain": true
+    },
+    {
+      "id": "642a663cc7",
+      "source_id": "6176504754",
+      "target_id": "a9e837ec90",
+      "source_label": "Market",
+      "target_label": "Surplus",
+      "relationship_type": "causes",
+      "strength": 0.85,
+      "reasoning": "A market mechanism that allows prices to be set above equilibrium (e.g., through price floors or sticky prices) directly causes a surplus because the market coordinates transactions at a price where quantity supplied exceeds quantity demanded.",
+      "cross_domain": true
+    },
+    {
+      "id": "4dd4f4b99f",
+      "source_id": "6176504754",
+      "target_id": "7ed26124d1",
+      "source_label": "Market",
+      "target_label": "Shortage",
+      "relationship_type": "causes",
+      "strength": 0.85,
+      "reasoning": "A market mechanism that sets prices below equilibrium (e.g., through price ceilings) directly causes a shortage because the market coordinates transactions at a price where quantity demanded exceeds quantity supplied.",
+      "cross_domain": true
+    },
+    {
+      "id": "ff3bd62840",
+      "source_id": "b439e8f667",
+      "target_id": "aec4fe34f3",
+      "source_label": "Demand",
+      "target_label": "Supply",
+      "relationship_type": "semantically_linked",
+      "strength": 0.85,
+      "reasoning": "Demand and Supply are the two fundamental forces that together determine market equilibrium price and quantity; understanding both is necessary to analyze how markets allocate resources.",
+      "cross_domain": true
+    },
+    {
+      "id": "08c6a8e575",
+      "source_id": "6176504754",
+      "target_id": "ad67cffb99",
+      "source_label": "Market",
+      "target_label": "Scarcity and Allocation",
+      "relationship_type": "enables",
+      "strength": 0.85,
+      "reasoning": "Markets are the institutional mechanism through which scarce resources are allocated among competing uses via price signals, making the resolution of scarcity possible through voluntary exchange.",
+      "cross_domain": false
+    },
+    {
+      "id": "f3b21e9295",
+      "source_id": "a9e837ec90",
+      "target_id": "7ed26124d1",
+      "source_label": "Surplus",
+      "target_label": "Shortage",
+      "relationship_type": "contrasts_with",
+      "strength": 0.85,
+      "reasoning": "Surplus and Shortage are opposite disequilibrium conditions: a surplus occurs when price is above equilibrium (excess supply), while a shortage occurs when price is below equilibrium (excess demand), and they trigger opposite price adjustment mechanisms.",
+      "cross_domain": false
+    },
+    {
+      "id": "8d4de24876",
+      "source_id": "ad67cffb99",
+      "target_id": "603d27b045",
+      "source_label": "Scarcity and Allocation",
+      "target_label": "Price Mechanism",
+      "relationship_type": "enables",
+      "strength": 0.82,
+      "reasoning": "Scarcity creates the fundamental economic problem of allocation, and the price mechanism provides the decentralized solution by using price signals to allocate scarce resources among competing uses.",
+      "cross_domain": true
+    },
+    {
+      "id": "070afd9c7f",
+      "source_id": "6176504754",
+      "target_id": "5ab2006333",
+      "source_label": "Market",
+      "target_label": "Shift Factors of Supply",
+      "relationship_type": "enables",
+      "strength": 0.82,
+      "reasoning": "The market is the institutional arrangement where supply and demand interact; shift factors of supply only have meaning and observable effects within a market context because they alter the supply curve that operates within that market.",
+      "cross_domain": true
+    },
+    {
+      "id": "18f96f101e",
+      "source_id": "aec4fe34f3",
+      "target_id": "ad67cffb99",
+      "source_label": "Supply",
+      "target_label": "Scarcity and Allocation",
+      "relationship_type": "depends_on",
+      "strength": 0.82,
+      "reasoning": "The concept of supply arises directly from scarcity—because resources are limited, producers must decide how much to offer at each price, making supply a manifestation of the allocation problem.",
+      "cross_domain": true
+    },
+    {
+      "id": "4fe960ea2a",
+      "source_id": "b439e8f667",
+      "target_id": "6270f03e32",
+      "source_label": "Demand",
+      "target_label": "Price as a Signal",
+      "relationship_type": "enables",
+      "strength": 0.82,
+      "reasoning": "Changes in demand shift the demand curve, which alters the equilibrium price; this price change then signals information to both buyers and sellers about relative scarcity or abundance, enabling decentralized coordination.",
+      "cross_domain": true
+    },
+    {
+      "id": "bdc9c65bc7",
+      "source_id": "aec4fe34f3",
+      "target_id": "6270f03e32",
+      "source_label": "Supply",
+      "target_label": "Price as a Signal",
+      "relationship_type": "enables",
+      "strength": 0.82,
+      "reasoning": "Changes in supply shift the supply curve, which alters the equilibrium price; this price change then signals information to both buyers and sellers about changing production costs or availability, enabling market adjustments.",
+      "cross_domain": true
+    },
+    {
+      "id": "46f50ed27b",
+      "source_id": "c42b491a61",
+      "target_id": "6270f03e32",
+      "source_label": "Law of Supply",
+      "target_label": "Price as a Signal",
+      "relationship_type": "enables",
+      "strength": 0.82,
+      "reasoning": "The Law of Supply provides the behavioral mechanism by which price changes communicate information to producers—a rising price signals profit opportunity, increasing quantity supplied, which makes price an effective signal.",
+      "cross_domain": true
+    },
+    {
+      "id": "3422ef3dd2",
+      "source_id": "f894104c05",
+      "target_id": "6270f03e32",
+      "source_label": "Demand Curve",
+      "target_label": "Price as a Signal",
+      "relationship_type": "enables",
+      "strength": 0.82,
+      "reasoning": "The demand curve provides the graphical framework that makes price changes interpretable as signals of shifts in consumer willingness to pay, enabling the signaling mechanism to be visualized and analyzed.",
+      "cross_domain": true
+    },
+    {
+      "id": "d75090d06d",
+      "source_id": "9071976d9d",
+      "target_id": "6270f03e32",
+      "source_label": "Supply Curve",
+      "target_label": "Price as a Signal",
+      "relationship_type": "enables",
+      "strength": 0.82,
+      "reasoning": "The supply curve provides the graphical framework that makes price changes interpretable as signals of shifts in producer willingness to sell, enabling the signaling mechanism to be visualized and analyzed.",
+      "cross_domain": true
+    },
+    {
+      "id": "24eac5bfe5",
+      "source_id": "b439e8f667",
+      "target_id": "ad67cffb99",
+      "source_label": "Demand",
+      "target_label": "Scarcity and Allocation",
+      "relationship_type": "depends_on",
+      "strength": 0.82,
+      "reasoning": "The concept of demand only has economic meaning in the context of scarcity, because without limited resources there would be no need to prioritize among competing wants through price-based rationing.",
+      "cross_domain": false
+    },
+    {
+      "id": "63763019b8",
+      "source_id": "a9e837ec90",
+      "target_id": "6270f03e32",
+      "source_label": "Surplus",
+      "target_label": "Price as a Signal",
+      "relationship_type": "causes",
+      "strength": 0.82,
+      "reasoning": "A surplus creates a downward pressure on price, which serves as a signal to producers that they are overproducing relative to consumer demand at current prices.",
+      "cross_domain": false
+    },
+    {
+      "id": "2fbc99d6ec",
+      "source_id": "db4c2d61f3",
+      "target_id": "6270f03e32",
+      "source_label": "Shift Factors of Demand",
+      "target_label": "Price as a Signal",
+      "relationship_type": "causes",
+      "strength": 0.8,
+      "reasoning": "Changes in shift factors of demand alter the equilibrium price, and this price change itself becomes the signal that communicates the underlying shift in consumer preferences to producers.",
+      "cross_domain": true
+    },
+    {
+      "id": "2a814e7aae",
+      "source_id": "db4c2d61f3",
+      "target_id": "603d27b045",
+      "source_label": "Shift Factors of Demand",
+      "target_label": "Price Mechanism",
+      "relationship_type": "influences",
+      "strength": 0.78,
+      "reasoning": "Changes in demand shift factors alter the demand curve, which triggers the price mechanism to adjust prices and quantities toward a new equilibrium.",
+      "cross_domain": true
+    },
+    {
+      "id": "2e1dc76b53",
+      "source_id": "5ab2006333",
+      "target_id": "603d27b045",
+      "source_label": "Shift Factors of Supply",
+      "target_label": "Price Mechanism",
+      "relationship_type": "influences",
+      "strength": 0.78,
+      "reasoning": "Changes in supply shift factors alter the supply curve, which triggers the price mechanism to adjust prices and quantities toward a new equilibrium.",
+      "cross_domain": true
+    },
+    {
+      "id": "24258ed577",
+      "source_id": "c42b491a61",
+      "target_id": "7ed26124d1",
+      "source_label": "Law of Supply",
+      "target_label": "Shortage",
+      "relationship_type": "contrasts_with",
+      "strength": 0.75,
+      "reasoning": "The Law of Supply describes the direct price-quantity relationship for sellers, while a shortage arises from the Law of Demand's inverse relationship when price is below equilibrium, making them opposing forces in market imbalance.",
+      "cross_domain": true
+    },
+    {
+      "id": "3c258ad050",
+      "source_id": "b439e8f667",
+      "target_id": "9071976d9d",
+      "source_label": "Demand",
+      "target_label": "Supply Curve",
+      "relationship_type": "semantically_linked",
+      "strength": 0.75,
+      "reasoning": "Demand is the buyer-side concept that interacts with the Supply Curve (seller-side representation) to determine market outcomes; they are complementary but distinct concepts.",
+      "cross_domain": true
+    },
+    {
+      "id": "0c40d0f33f",
+      "source_id": "aec4fe34f3",
+      "target_id": "f894104c05",
+      "source_label": "Supply",
+      "target_label": "Demand Curve",
+      "relationship_type": "semantically_linked",
+      "strength": 0.75,
+      "reasoning": "Supply is the seller-side concept that interacts with the Demand Curve (buyer-side representation) to determine market equilibrium; they are complementary but distinct concepts.",
+      "cross_domain": true
+    },
+    {
+      "id": "75c860b86e",
+      "source_id": "64fab09a2a",
+      "target_id": "ad67cffb99",
+      "source_label": "Law of Demand",
+      "target_label": "Scarcity and Allocation",
+      "relationship_type": "depends_on",
+      "strength": 0.72,
+      "reasoning": "The Law of Demand describes consumer behavior in allocating scarce resources, but scarcity is the foundational problem that makes demand-based allocation necessary; without scarcity, the law of demand would be irrelevant.",
+      "cross_domain": false
+    },
+    {
+      "id": "9971aa4a15",
+      "source_id": "c42b491a61",
+      "target_id": "f894104c05",
+      "source_label": "Law of Supply",
+      "target_label": "Demand Curve",
+      "relationship_type": "semantically_linked",
+      "strength": 0.65,
+      "reasoning": "The Law of Supply describes seller behavior, while the Demand Curve represents buyer behavior; they are linked only through their joint role in market analysis, not through a direct mechanistic relationship.",
+      "cross_domain": true
+    }
+  ],
+  "hub_concepts": [
+    {
+      "concept_id": "1896f9e644",
+      "label": "Market Equilibrium",
+      "hub_score": 0.988,
+      "degree": 8,
+      "cross_domain_edges": 8
+    },
+    {
+      "concept_id": "aec4fe34f3",
+      "label": "Supply",
+      "hub_score": 0.944,
+      "degree": 8,
+      "cross_domain_edges": 7
+    },
+    {
+      "concept_id": "6176504754",
+      "label": "Market",
+      "hub_score": 0.931,
+      "degree": 8,
+      "cross_domain_edges": 7
+    },
+    {
+      "concept_id": "6270f03e32",
+      "label": "Price as a Signal",
+      "hub_score": 0.919,
+      "degree": 8,
+      "cross_domain_edges": 7
+    },
+    {
+      "concept_id": "b439e8f667",
+      "label": "Demand",
+      "hub_score": 0.9,
+      "degree": 8,
+      "cross_domain_edges": 6
+    }
+  ],
+  "graph": {
+    "nodes": [
+      {
+        "data": {
+          "id": "b439e8f667",
+          "label": "Demand",
+          "summary": "The relationship between the price of a good and the quantity that buyers are willing and able to purchase. It is the buyer's side of the market, captured by the demand curve.",
+          "concept_type": "foundation",
+          "abstraction_level": "branch",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Demand Theory",
+          "theme": "Ceteris Paribus and Shift Factors",
+          "hub_score": 0.9,
+          "is_hub": true,
+          "parent_id": "6176504754",
+          "children_ids": [
+            "64fab09a2a",
+            "db4c2d61f3"
+          ]
+        },
+        "position": {
+          "x": 910.4227611103428,
+          "y": 713.6947919252289
+        }
+      },
+      {
+        "data": {
+          "id": "64fab09a2a",
+          "label": "Law of Demand",
+          "summary": "The principle that, all else equal, as the price of a good rises the quantity demanded falls, and as the price falls the quantity demanded rises. It establishes the inverse relationship between price and quantity demanded.",
+          "concept_type": "foundation",
+          "abstraction_level": "branch",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Demand Theory",
+          "theme": "Ceteris Paribus and Shift Factors",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "b439e8f667",
+          "children_ids": [
+            "f894104c05"
+          ]
+        },
+        "position": {
+          "x": 1298.2455959896731,
+          "y": 596.480021199501
+        }
+      },
+      {
+        "data": {
+          "id": "aec4fe34f3",
+          "label": "Supply",
+          "summary": "The relationship between the price of a good and the quantity that sellers are willing to produce. It is the seller's side of the market, captured by the supply curve.",
+          "concept_type": "foundation",
+          "abstraction_level": "branch",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Supply Theory",
+          "theme": "Ceteris Paribus and Shift Factors",
+          "hub_score": 0.944,
+          "is_hub": true,
+          "parent_id": "6176504754",
+          "children_ids": [
+            "c42b491a61",
+            "5ab2006333"
+          ]
+        },
+        "position": {
+          "x": 922.3408995252213,
+          "y": 857.8489208713963
+        }
+      },
+      {
+        "data": {
+          "id": "c42b491a61",
+          "label": "Law of Supply",
+          "summary": "The principle that, all else equal, a higher price increases the quantity supplied, because higher prices make production more profitable. It establishes the direct relationship between price and quantity supplied.",
+          "concept_type": "foundation",
+          "abstraction_level": "branch",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Supply Theory",
+          "theme": "Ceteris Paribus and Shift Factors",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "aec4fe34f3",
+          "children_ids": [
+            "9071976d9d"
+          ]
+        },
+        "position": {
+          "x": 926.8636434662229,
+          "y": 417.68451571946156
+        }
+      },
+      {
+        "data": {
+          "id": "1896f9e644",
+          "label": "Market Equilibrium",
+          "summary": "The price at which the quantity demanded exactly equals the quantity supplied, causing the market to clear with neither a surplus nor a shortage. It is the stable outcome of the interaction between supply and demand.",
+          "concept_type": "foundation",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Market Equilibrium and Price Mechanism",
+          "theme": "Market Self-Correction",
+          "hub_score": 0.988,
+          "is_hub": true,
+          "parent_id": null,
+          "children_ids": [
+            "a9e837ec90",
+            "7ed26124d1"
+          ]
+        },
+        "position": {
+          "x": 951.1956118237471,
+          "y": 786.1091179657228
+        }
+      },
+      {
+        "data": {
+          "id": "603d27b045",
+          "label": "Price Mechanism",
+          "summary": "The self-correcting behavior of markets where surpluses and shortages cause price adjustments that restore equilibrium. It describes how prices guide the decisions of buyers and sellers without central planning.",
+          "concept_type": "mechanism",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Market Equilibrium and Price Mechanism",
+          "theme": "Price as a Coordinating Mechanism",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": null,
+          "children_ids": [
+            "6270f03e32"
+          ]
+        },
+        "position": {
+          "x": 731.0258442518125,
+          "y": 874.9940831021021
+        }
+      },
+      {
+        "data": {
+          "id": "6176504754",
+          "label": "Market",
+          "summary": "Any arrangement that brings buyers and sellers of a good together, enabling transactions. It is the foundational setting where supply and demand interact to determine prices and quantities.",
+          "concept_type": "foundation",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Demand Theory",
+          "theme": "Price as a Coordinating Mechanism",
+          "hub_score": 0.931,
+          "is_hub": true,
+          "parent_id": null,
+          "children_ids": [
+            "b439e8f667",
+            "aec4fe34f3"
+          ]
+        },
+        "position": {
+          "x": 827.8550929522715,
+          "y": 839.0874987572653
+        }
+      },
+      {
+        "data": {
+          "id": "f894104c05",
+          "label": "Demand Curve",
+          "summary": "A graphical representation of the law of demand, showing the inverse relationship between price and quantity demanded as a downward-sloping line. It illustrates how quantity demanded changes with price, holding other factors constant.",
+          "concept_type": "abstraction",
+          "abstraction_level": "leaf",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Demand Theory",
+          "theme": "Ceteris Paribus and Shift Factors",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "64fab09a2a",
+          "children_ids": []
+        },
+        "position": {
+          "x": 1553.3464433708193,
+          "y": 992.2289530164522
+        }
+      },
+      {
+        "data": {
+          "id": "db4c2d61f3",
+          "label": "Shift Factors of Demand",
+          "summary": "Changes in variables other than price—such as income, prices of related goods, consumer tastes, and expectations—that cause the entire demand curve to move left or right. These shifts represent changes in demand itself, not just quantity demanded.",
+          "concept_type": "mechanism",
+          "abstraction_level": "leaf",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Demand Theory",
+          "theme": "Ceteris Paribus and Shift Factors",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "b439e8f667",
+          "children_ids": []
+        },
+        "position": {
+          "x": 1621.7413458962794,
+          "y": 691.819041127503
+        }
+      },
+      {
+        "data": {
+          "id": "9071976d9d",
+          "label": "Supply Curve",
+          "summary": "A graphical representation of the law of supply, showing the direct relationship between price and quantity supplied as an upward-sloping line. It illustrates how quantity supplied changes with price, holding other factors constant.",
+          "concept_type": "abstraction",
+          "abstraction_level": "leaf",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Supply Theory",
+          "theme": "Ceteris Paribus and Shift Factors",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "c42b491a61",
+          "children_ids": []
+        },
+        "position": {
+          "x": 371.1460828006339,
+          "y": 406.6462539326117
+        }
+      },
+      {
+        "data": {
+          "id": "5ab2006333",
+          "label": "Shift Factors of Supply",
+          "summary": "Changes in variables other than price—such as input costs and technology—that cause the entire supply curve to move left or right. These shifts represent changes in supply itself, not just quantity supplied.",
+          "concept_type": "mechanism",
+          "abstraction_level": "leaf",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Supply Theory",
+          "theme": "Ceteris Paribus and Shift Factors",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "aec4fe34f3",
+          "children_ids": []
+        },
+        "position": {
+          "x": 654.3215444494506,
+          "y": 139.7180140711368
+        }
+      },
+      {
+        "data": {
+          "id": "ad67cffb99",
+          "label": "Scarcity and Allocation",
+          "summary": "The foundational economic problem that resources are limited, requiring choices about how to allocate them. Supply and demand analysis is a tool for understanding how markets solve this allocation problem through price signals.",
+          "concept_type": "foundation",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Demand Theory",
+          "theme": "Price as a Coordinating Mechanism",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": null,
+          "children_ids": []
+        },
+        "position": {
+          "x": 1063.729322527316,
+          "y": 907.090585724397
+        }
+      },
+      {
+        "data": {
+          "id": "a9e837ec90",
+          "label": "Surplus",
+          "summary": "A situation where the price sits above equilibrium, causing quantity supplied to exceed quantity demanded. Sellers respond by cutting prices, pushing the market back toward equilibrium.",
+          "concept_type": "derived",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.85,
+          "domain": "Market Equilibrium and Price Mechanism",
+          "theme": "Market Self-Correction",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "1896f9e644",
+          "children_ids": []
+        },
+        "position": {
+          "x": 784.2276468123196,
+          "y": 1435.5207442136073
+        }
+      },
+      {
+        "data": {
+          "id": "7ed26124d1",
+          "label": "Shortage",
+          "summary": "A situation where the price sits below equilibrium, causing quantity demanded to exceed quantity supplied. Competition among buyers drives the price up, pushing the market back toward equilibrium.",
+          "concept_type": "derived",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.85,
+          "domain": "Market Equilibrium and Price Mechanism",
+          "theme": "Market Self-Correction",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "1896f9e644",
+          "children_ids": []
+        },
+        "position": {
+          "x": 422.25838026311584,
+          "y": 1317.4270408527368
+        }
+      },
+      {
+        "data": {
+          "id": "6270f03e32",
+          "label": "Price as a Signal",
+          "summary": "The idea that a change in the equilibrium price communicates information to both producers and consumers: a price rise signals producers to make more and consumers to buy less, while a price fall does the opposite. This coordinates economic activity across the market.",
+          "concept_type": "abstraction",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.85,
+          "domain": "Market Equilibrium and Price Mechanism",
+          "theme": "Price as a Coordinating Mechanism",
+          "hub_score": 0.919,
+          "is_hub": true,
+          "parent_id": "603d27b045",
+          "children_ids": []
+        },
+        "position": {
+          "x": 847.9456558830458,
+          "y": 743.9961785247685
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "id": "hier_6176504754_b439e8f667",
+          "source": "6176504754",
+          "target": "b439e8f667",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_b439e8f667_64fab09a2a",
+          "source": "b439e8f667",
+          "target": "64fab09a2a",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_6176504754_aec4fe34f3",
+          "source": "6176504754",
+          "target": "aec4fe34f3",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_aec4fe34f3_c42b491a61",
+          "source": "aec4fe34f3",
+          "target": "c42b491a61",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_64fab09a2a_f894104c05",
+          "source": "64fab09a2a",
+          "target": "f894104c05",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_b439e8f667_db4c2d61f3",
+          "source": "b439e8f667",
+          "target": "db4c2d61f3",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_c42b491a61_9071976d9d",
+          "source": "c42b491a61",
+          "target": "9071976d9d",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_aec4fe34f3_5ab2006333",
+          "source": "aec4fe34f3",
+          "target": "5ab2006333",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_1896f9e644_a9e837ec90",
+          "source": "1896f9e644",
+          "target": "a9e837ec90",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_1896f9e644_7ed26124d1",
+          "source": "1896f9e644",
+          "target": "7ed26124d1",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_603d27b045_6270f03e32",
+          "source": "603d27b045",
+          "target": "6270f03e32",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "14b547fd99",
+          "source": "b439e8f667",
+          "target": "f894104c05",
+          "relationship_type": "derived_from",
+          "strength": 0.95,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The Demand Curve is a graphical representation of the relationship defined by Demand (price vs. quantity demanded), plotting the specific inverse relationship described by the law of demand."
+        }
+      },
+      {
+        "data": {
+          "id": "56fff447b7",
+          "source": "aec4fe34f3",
+          "target": "9071976d9d",
+          "relationship_type": "derived_from",
+          "strength": 0.95,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The Supply Curve is a graphical representation of the relationship defined by Supply (price vs. quantity supplied), plotting the specific direct relationship described by the law of supply."
+        }
+      },
+      {
+        "data": {
+          "id": "33c360988e",
+          "source": "b439e8f667",
+          "target": "1896f9e644",
+          "relationship_type": "part_of",
+          "strength": 0.93,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Market equilibrium is defined as the intersection of demand and supply; demand is one of the two essential components that jointly determine the equilibrium price and quantity, as the equilibrium condition requires quantity demanded to equal quantity supplied."
+        }
+      },
+      {
+        "data": {
+          "id": "4d46a4e57e",
+          "source": "aec4fe34f3",
+          "target": "1896f9e644",
+          "relationship_type": "part_of",
+          "strength": 0.93,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Market equilibrium is defined as the intersection of demand and supply; supply is one of the two essential components that jointly determine the equilibrium price and quantity, as the equilibrium condition requires quantity supplied to equal quantity demanded."
+        }
+      },
+      {
+        "data": {
+          "id": "f1409d8848",
+          "source": "603d27b045",
+          "target": "a9e837ec90",
+          "relationship_type": "causes",
+          "strength": 0.91,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The price mechanism's self-correcting behavior directly produces surpluses when price is set above equilibrium, as the mechanism fails to clear the market at that price level."
+        }
+      },
+      {
+        "data": {
+          "id": "7ebb2293eb",
+          "source": "603d27b045",
+          "target": "7ed26124d1",
+          "relationship_type": "causes",
+          "strength": 0.91,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The price mechanism's self-correcting behavior directly produces shortages when price is set below equilibrium, as the mechanism fails to clear the market at that price level."
+        }
+      },
+      {
+        "data": {
+          "id": "fbd30ad772",
+          "source": "1896f9e644",
+          "target": "db4c2d61f3",
+          "relationship_type": "influences",
+          "strength": 0.9,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Changes in shift factors of demand (e.g., income, preferences) cause the entire demand curve to shift, which directly disrupts the existing market equilibrium price and quantity, requiring a new equilibrium to be established."
+        }
+      },
+      {
+        "data": {
+          "id": "c37d5ca9d4",
+          "source": "1896f9e644",
+          "target": "5ab2006333",
+          "relationship_type": "influences",
+          "strength": 0.9,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Changes in shift factors of supply (e.g., input costs, technology) cause the entire supply curve to shift, which directly disrupts the existing market equilibrium price and quantity, requiring a new equilibrium to be established."
+        }
+      },
+      {
+        "data": {
+          "id": "1b2b022884",
+          "source": "6176504754",
+          "target": "9071976d9d",
+          "relationship_type": "part_of",
+          "strength": 0.9,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The supply curve is a graphical representation of seller behavior within a market; the market is the institutional context that gives the supply curve its meaning by bringing together buyers and sellers."
+        }
+      },
+      {
+        "data": {
+          "id": "6253c41975",
+          "source": "64fab09a2a",
+          "target": "db4c2d61f3",
+          "relationship_type": "prerequisite_of",
+          "strength": 0.9,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "Understanding the Law of Demand (the inverse price-quantity relationship along a fixed curve) is necessary before analyzing shift factors, because shift factors represent changes that move the entire curve rather than movements along it, and without the baseline law the distinction between movement and shift is meaningless."
+        }
+      },
+      {
+        "data": {
+          "id": "9880e9e815",
+          "source": "603d27b045",
+          "target": "6176504754",
+          "relationship_type": "part_of",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The price mechanism is the core self-correcting process that operates within a market; without a market arrangement bringing buyers and sellers together, the price mechanism cannot function."
+        }
+      },
+      {
+        "data": {
+          "id": "dc9b466857",
+          "source": "64fab09a2a",
+          "target": "1896f9e644",
+          "relationship_type": "prerequisite_of",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Understanding the Law of Demand is necessary before grasping market equilibrium because the downward-sloping demand curve derived from the Law of Demand is one of the two curves whose intersection defines the equilibrium point."
+        }
+      },
+      {
+        "data": {
+          "id": "6205197ae7",
+          "source": "c42b491a61",
+          "target": "1896f9e644",
+          "relationship_type": "prerequisite_of",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Understanding the Law of Supply is necessary before grasping market equilibrium because the upward-sloping supply curve derived from the Law of Supply is one of the two curves whose intersection defines the equilibrium point."
+        }
+      },
+      {
+        "data": {
+          "id": "a6778cd6a7",
+          "source": "6176504754",
+          "target": "1896f9e644",
+          "relationship_type": "enables",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "A market provides the institutional arrangement where buyers and sellers interact, which is necessary for the forces of supply and demand to converge on an equilibrium price and quantity."
+        }
+      },
+      {
+        "data": {
+          "id": "7410ab7e5c",
+          "source": "f894104c05",
+          "target": "1896f9e644",
+          "relationship_type": "prerequisite_of",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The demand curve defines the relationship between price and quantity demanded, which is one of the two curves whose intersection determines market equilibrium."
+        }
+      },
+      {
+        "data": {
+          "id": "eb27ad616d",
+          "source": "b439e8f667",
+          "target": "7ed26124d1",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "When price is below equilibrium, the quantity demanded (from the demand curve) exceeds quantity supplied, directly creating a shortage because buyers want more than sellers offer at that price."
+        }
+      },
+      {
+        "data": {
+          "id": "ce2f1b4b70",
+          "source": "aec4fe34f3",
+          "target": "a9e837ec90",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "When price is above equilibrium, the quantity supplied (from the supply curve) exceeds quantity demanded, directly creating a surplus because sellers offer more than buyers want at that price."
+        }
+      },
+      {
+        "data": {
+          "id": "fa9ad855dd",
+          "source": "c42b491a61",
+          "target": "a9e837ec90",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The Law of Supply states that higher prices increase quantity supplied; when price is above equilibrium, this law causes quantity supplied to exceed quantity demanded, directly creating a surplus."
+        }
+      },
+      {
+        "data": {
+          "id": "be0258da7c",
+          "source": "f894104c05",
+          "target": "7ed26124d1",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The demand curve defines the quantity demanded at each price; when price is below equilibrium, the quantity demanded (from the demand curve) exceeds quantity supplied, directly creating a shortage."
+        }
+      },
+      {
+        "data": {
+          "id": "56e50d6e47",
+          "source": "9071976d9d",
+          "target": "a9e837ec90",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The supply curve defines the quantity supplied at each price; when price is above equilibrium, the quantity supplied (from the supply curve) exceeds quantity demanded, directly creating a surplus."
+        }
+      },
+      {
+        "data": {
+          "id": "b8261f6e3b",
+          "source": "9071976d9d",
+          "target": "7ed26124d1",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The supply curve defines the quantity supplied at each price; when price is below equilibrium, the quantity supplied (from the supply curve) is less than quantity demanded, directly creating a shortage."
+        }
+      },
+      {
+        "data": {
+          "id": "8cde6ff2c9",
+          "source": "5ab2006333",
+          "target": "a9e837ec90",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "An outward shift in supply (e.g., due to lower input costs) at a given price creates a surplus because quantity supplied exceeds quantity demanded at the original equilibrium price."
+        }
+      },
+      {
+        "data": {
+          "id": "4bdb0dde23",
+          "source": "5ab2006333",
+          "target": "7ed26124d1",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "An inward shift in supply (e.g., due to higher input costs) at a given price creates a shortage because quantity demanded exceeds quantity supplied at the original equilibrium price."
+        }
+      },
+      {
+        "data": {
+          "id": "9ee7e0cd45",
+          "source": "64fab09a2a",
+          "target": "c42b491a61",
+          "relationship_type": "contrasts_with",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The Law of Demand states that quantity demanded falls as price rises (inverse relationship), while the Law of Supply states that quantity supplied rises as price rises (direct relationship); they are pedagogical opposites that together define market equilibrium."
+        }
+      },
+      {
+        "data": {
+          "id": "314e12d6fb",
+          "source": "f894104c05",
+          "target": "9071976d9d",
+          "relationship_type": "contrasts_with",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The demand curve slopes downward (inverse price-quantity relationship) while the supply curve slopes upward (direct price-quantity relationship), and their intersection determines market equilibrium, making them pedagogical opposites that together define market outcomes."
+        }
+      },
+      {
+        "data": {
+          "id": "2f492afaaf",
+          "source": "c42b491a61",
+          "target": "5ab2006333",
+          "relationship_type": "prerequisite_of",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The Law of Supply establishes the baseline price-quantity relationship that shift factors (input costs, technology) then modify; understanding the basic law is necessary before analyzing what causes the supply curve to shift."
+        }
+      },
+      {
+        "data": {
+          "id": "ef4a91638b",
+          "source": "f894104c05",
+          "target": "db4c2d61f3",
+          "relationship_type": "depends_on",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The position of the Demand Curve is determined by non-price variables (shift factors); a change in any shift factor causes the entire curve to shift, so understanding the curve's location depends on understanding these factors."
+        }
+      },
+      {
+        "data": {
+          "id": "7b0aa11c5c",
+          "source": "9071976d9d",
+          "target": "5ab2006333",
+          "relationship_type": "depends_on",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The position of the Supply Curve is determined by non-price variables (shift factors); a change in any shift factor causes the entire curve to shift, so understanding the curve's location depends on understanding these factors."
+        }
+      },
+      {
+        "data": {
+          "id": "96e3ff746e",
+          "source": "b439e8f667",
+          "target": "603d27b045",
+          "relationship_type": "depends_on",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The price mechanism's corrective behavior relies on the existence of demand schedules; without buyers' quantity responses to price changes, surpluses and shortages cannot trigger price adjustments."
+        }
+      },
+      {
+        "data": {
+          "id": "9ea1c4be20",
+          "source": "aec4fe34f3",
+          "target": "603d27b045",
+          "relationship_type": "depends_on",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The price mechanism requires supply schedules to function; sellers' quantity responses to price changes are necessary for the mechanism to eliminate surpluses and shortages."
+        }
+      },
+      {
+        "data": {
+          "id": "b765ca9ed4",
+          "source": "6176504754",
+          "target": "6270f03e32",
+          "relationship_type": "enables",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "A market provides the mechanism of voluntary exchange through which equilibrium prices emerge; without a market, price changes cannot function as signals to coordinate buyer and seller decisions because there is no transactional framework for price discovery."
+        }
+      },
+      {
+        "data": {
+          "id": "642a663cc7",
+          "source": "6176504754",
+          "target": "a9e837ec90",
+          "relationship_type": "causes",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "A market mechanism that allows prices to be set above equilibrium (e.g., through price floors or sticky prices) directly causes a surplus because the market coordinates transactions at a price where quantity supplied exceeds quantity demanded."
+        }
+      },
+      {
+        "data": {
+          "id": "4dd4f4b99f",
+          "source": "6176504754",
+          "target": "7ed26124d1",
+          "relationship_type": "causes",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "A market mechanism that sets prices below equilibrium (e.g., through price ceilings) directly causes a shortage because the market coordinates transactions at a price where quantity demanded exceeds quantity supplied."
+        }
+      },
+      {
+        "data": {
+          "id": "ff3bd62840",
+          "source": "b439e8f667",
+          "target": "aec4fe34f3",
+          "relationship_type": "semantically_linked",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Demand and Supply are the two fundamental forces that together determine market equilibrium price and quantity; understanding both is necessary to analyze how markets allocate resources."
+        }
+      },
+      {
+        "data": {
+          "id": "08c6a8e575",
+          "source": "6176504754",
+          "target": "ad67cffb99",
+          "relationship_type": "enables",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "Markets are the institutional mechanism through which scarce resources are allocated among competing uses via price signals, making the resolution of scarcity possible through voluntary exchange."
+        }
+      },
+      {
+        "data": {
+          "id": "f3b21e9295",
+          "source": "a9e837ec90",
+          "target": "7ed26124d1",
+          "relationship_type": "contrasts_with",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "Surplus and Shortage are opposite disequilibrium conditions: a surplus occurs when price is above equilibrium (excess supply), while a shortage occurs when price is below equilibrium (excess demand), and they trigger opposite price adjustment mechanisms."
+        }
+      },
+      {
+        "data": {
+          "id": "8d4de24876",
+          "source": "ad67cffb99",
+          "target": "603d27b045",
+          "relationship_type": "enables",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Scarcity creates the fundamental economic problem of allocation, and the price mechanism provides the decentralized solution by using price signals to allocate scarce resources among competing uses."
+        }
+      },
+      {
+        "data": {
+          "id": "070afd9c7f",
+          "source": "6176504754",
+          "target": "5ab2006333",
+          "relationship_type": "enables",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The market is the institutional arrangement where supply and demand interact; shift factors of supply only have meaning and observable effects within a market context because they alter the supply curve that operates within that market."
+        }
+      },
+      {
+        "data": {
+          "id": "18f96f101e",
+          "source": "aec4fe34f3",
+          "target": "ad67cffb99",
+          "relationship_type": "depends_on",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The concept of supply arises directly from scarcity—because resources are limited, producers must decide how much to offer at each price, making supply a manifestation of the allocation problem."
+        }
+      },
+      {
+        "data": {
+          "id": "4fe960ea2a",
+          "source": "b439e8f667",
+          "target": "6270f03e32",
+          "relationship_type": "enables",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Changes in demand shift the demand curve, which alters the equilibrium price; this price change then signals information to both buyers and sellers about relative scarcity or abundance, enabling decentralized coordination."
+        }
+      },
+      {
+        "data": {
+          "id": "bdc9c65bc7",
+          "source": "aec4fe34f3",
+          "target": "6270f03e32",
+          "relationship_type": "enables",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Changes in supply shift the supply curve, which alters the equilibrium price; this price change then signals information to both buyers and sellers about changing production costs or availability, enabling market adjustments."
+        }
+      },
+      {
+        "data": {
+          "id": "46f50ed27b",
+          "source": "c42b491a61",
+          "target": "6270f03e32",
+          "relationship_type": "enables",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The Law of Supply provides the behavioral mechanism by which price changes communicate information to producers—a rising price signals profit opportunity, increasing quantity supplied, which makes price an effective signal."
+        }
+      },
+      {
+        "data": {
+          "id": "3422ef3dd2",
+          "source": "f894104c05",
+          "target": "6270f03e32",
+          "relationship_type": "enables",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The demand curve provides the graphical framework that makes price changes interpretable as signals of shifts in consumer willingness to pay, enabling the signaling mechanism to be visualized and analyzed."
+        }
+      },
+      {
+        "data": {
+          "id": "d75090d06d",
+          "source": "9071976d9d",
+          "target": "6270f03e32",
+          "relationship_type": "enables",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The supply curve provides the graphical framework that makes price changes interpretable as signals of shifts in producer willingness to sell, enabling the signaling mechanism to be visualized and analyzed."
+        }
+      },
+      {
+        "data": {
+          "id": "24eac5bfe5",
+          "source": "b439e8f667",
+          "target": "ad67cffb99",
+          "relationship_type": "depends_on",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The concept of demand only has economic meaning in the context of scarcity, because without limited resources there would be no need to prioritize among competing wants through price-based rationing."
+        }
+      },
+      {
+        "data": {
+          "id": "63763019b8",
+          "source": "a9e837ec90",
+          "target": "6270f03e32",
+          "relationship_type": "causes",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "A surplus creates a downward pressure on price, which serves as a signal to producers that they are overproducing relative to consumer demand at current prices."
+        }
+      },
+      {
+        "data": {
+          "id": "2fbc99d6ec",
+          "source": "db4c2d61f3",
+          "target": "6270f03e32",
+          "relationship_type": "causes",
+          "strength": 0.8,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Changes in shift factors of demand alter the equilibrium price, and this price change itself becomes the signal that communicates the underlying shift in consumer preferences to producers."
+        }
+      },
+      {
+        "data": {
+          "id": "2a814e7aae",
+          "source": "db4c2d61f3",
+          "target": "603d27b045",
+          "relationship_type": "influences",
+          "strength": 0.78,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Changes in demand shift factors alter the demand curve, which triggers the price mechanism to adjust prices and quantities toward a new equilibrium."
+        }
+      },
+      {
+        "data": {
+          "id": "2e1dc76b53",
+          "source": "5ab2006333",
+          "target": "603d27b045",
+          "relationship_type": "influences",
+          "strength": 0.78,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Changes in supply shift factors alter the supply curve, which triggers the price mechanism to adjust prices and quantities toward a new equilibrium."
+        }
+      },
+      {
+        "data": {
+          "id": "24258ed577",
+          "source": "c42b491a61",
+          "target": "7ed26124d1",
+          "relationship_type": "contrasts_with",
+          "strength": 0.75,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The Law of Supply describes the direct price-quantity relationship for sellers, while a shortage arises from the Law of Demand's inverse relationship when price is below equilibrium, making them opposing forces in market imbalance."
+        }
+      },
+      {
+        "data": {
+          "id": "3c258ad050",
+          "source": "b439e8f667",
+          "target": "9071976d9d",
+          "relationship_type": "semantically_linked",
+          "strength": 0.75,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Demand is the buyer-side concept that interacts with the Supply Curve (seller-side representation) to determine market outcomes; they are complementary but distinct concepts."
+        }
+      },
+      {
+        "data": {
+          "id": "0c40d0f33f",
+          "source": "aec4fe34f3",
+          "target": "f894104c05",
+          "relationship_type": "semantically_linked",
+          "strength": 0.75,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Supply is the seller-side concept that interacts with the Demand Curve (buyer-side representation) to determine market equilibrium; they are complementary but distinct concepts."
+        }
+      },
+      {
+        "data": {
+          "id": "75c860b86e",
+          "source": "64fab09a2a",
+          "target": "ad67cffb99",
+          "relationship_type": "depends_on",
+          "strength": 0.72,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The Law of Demand describes consumer behavior in allocating scarce resources, but scarcity is the foundational problem that makes demand-based allocation necessary; without scarcity, the law of demand would be irrelevant."
+        }
+      },
+      {
+        "data": {
+          "id": "9971aa4a15",
+          "source": "c42b491a61",
+          "target": "f894104c05",
+          "relationship_type": "semantically_linked",
+          "strength": 0.65,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The Law of Supply describes seller behavior, while the Demand Curve represents buyer behavior; they are linked only through their joint role in market analysis, not through a direct mechanistic relationship."
+        }
+      }
+    ],
+    "hub_concept_ids": [
+      "1896f9e644",
+      "6270f03e32",
+      "6176504754",
+      "b439e8f667",
+      "aec4fe34f3"
+    ]
+  },
+  "is_example": true,
+  "example_title": "Supply, Demand & Market Equilibrium"
+}

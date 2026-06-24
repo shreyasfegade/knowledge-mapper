@@ -1,0 +1,2699 @@
+{
+  "document_id": "example-neural-networks",
+  "filename": "Introduction to Neural Networks.pdf",
+  "char_count": 3259,
+  "text": "Introduction to Neural Networks\nA neural network is a computational model loosely inspired by the structure of the biological brain. At its\ncore sits the artificial neuron, a unit that takes several numeric inputs, multiplies each by a weight, sums\nthem, adds a bias, and passes the result through an activation function. The weights and bias are the\nlearnable parameters of the neuron.\nThe activation function is what gives a network its ability to model non-linear relationships. Without a\nnon-linear activation, a stack of neurons would collapse into a single linear transformation, no matter\nhow many layers it had. Common activation functions include the sigmoid, the hyperbolic tangent, and\nthe rectified linear unit (ReLU). ReLU is popular because it is cheap to compute and mitigates the\nvanishing gradient problem.\nNeurons are organised into layers. The input layer receives the raw features, one or more hidden layers\ntransform the representation, and the output layer produces the prediction. A network with two or more\nhidden layers is called a deep network, which is where the term deep learning comes from. Connecting\nevery neuron in one layer to every neuron in the next produces a fully connected, or dense, layer.\nTo train a network we need a way to measure how wrong its predictions are. This is the role of the loss\nfunction. For regression we often use mean squared error; for classification we use cross-entropy loss.\nThe loss function depends on both the network's parameters and the training data.\nTraining is the process of adjusting the weights and biases to reduce the loss. The central algorithm is\ngradient descent. Gradient descent computes the gradient of the loss with respect to every parameter\nand nudges each parameter a small step in the direction that decreases the loss. The size of that step\nis controlled by the learning rate, a critical hyperparameter: too large and training diverges, too small\nand it crawls.\nComputing the gradient efficiently in a deep network is done by backpropagation. Backpropagation\napplies the chain rule of calculus to propagate the error signal backwards from the output layer to the\ninput layer, reusing intermediate results so that the gradient for every parameter is obtained in a single\nbackward pass. Backpropagation therefore depends on the chain rule and produces the gradients that\ngradient descent consumes.\nIn practice we rarely compute the gradient over the entire dataset at once. Instead we use stochastic\ngradient descent, which estimates the gradient from a small random batch of examples. This makes\neach update cheaper and adds a useful amount of noise that can help escape poor local minima.\nModern optimisers such as Adam build on stochastic gradient descent by adapting the learning rate per\nparameter using running estimates of the gradient.\nA recurring danger is overfitting, where the network memorises the training data and fails to generalise\nto new examples. Regularisation techniques combat overfitting. Dropout randomly disables a fraction of\nneurons during training, forcing the network to build redundant representations. Weight decay\npenalises large weights in the loss function. Together these techniques improve generalisation, the\nultimate goal of training.",
+  "text_truncated": false,
+  "global_understanding": {
+    "document_summary": "This document provides a foundational introduction to neural networks, explaining their biological inspiration and core computational components. It covers the structure and function of artificial neurons, including weights, biases, and activation functions, and describes how neurons are organized into layers to form networks, including deep networks. The document then explains the training process, focusing on loss functions, gradient descent, and backpropagation as the key algorithms for learning from data. It also addresses practical considerations such as stochastic gradient descent, modern optimizers like Adam, and regularization techniques like dropout and weight decay to prevent overfitting and improve generalization. Overall, the reader gains a clear understanding of how neural networks are built, trained, and optimized for effective learning.",
+    "major_themes": [
+      {
+        "name": "Learning from Data",
+        "description": "The process of adjusting network parameters to minimize error on training data, emphasizing generalization to new examples.",
+        "importance": 0.95
+      },
+      {
+        "name": "Non-linearity and Representation",
+        "description": "The role of activation functions and multiple layers in enabling networks to model complex, non-linear relationships.",
+        "importance": 0.8
+      },
+      {
+        "name": "Optimization and Training Dynamics",
+        "description": "The algorithms and hyperparameters that govern how networks learn, including gradient descent, backpropagation, and learning rate.",
+        "importance": 0.85
+      },
+      {
+        "name": "Generalization and Regularization",
+        "description": "Techniques to prevent overfitting and ensure the network performs well on unseen data.",
+        "importance": 0.75
+      }
+    ],
+    "conceptual_domains": [
+      {
+        "name": "Neural Network Architecture",
+        "scope": "Covers the building blocks of neural networks: artificial neurons, activation functions, layers, and deep networks.",
+        "weight": 0.35,
+        "key_terms": [
+          "neuron",
+          "weight",
+          "bias",
+          "activation function",
+          "ReLU",
+          "sigmoid",
+          "tanh",
+          "layer",
+          "deep network",
+          "fully connected layer"
+        ]
+      },
+      {
+        "name": "Training Algorithms",
+        "scope": "Explains the core algorithms for learning: loss functions, gradient descent, backpropagation, stochastic gradient descent, and modern optimizers like Adam.",
+        "weight": 0.45,
+        "key_terms": [
+          "loss function",
+          "mean squared error",
+          "cross-entropy",
+          "gradient descent",
+          "learning rate",
+          "backpropagation",
+          "chain rule",
+          "stochastic gradient descent",
+          "Adam"
+        ]
+      },
+      {
+        "name": "Regularization and Generalization",
+        "scope": "Discusses overfitting and techniques to improve generalization, including dropout and weight decay.",
+        "weight": 0.2,
+        "key_terms": [
+          "overfitting",
+          "generalization",
+          "dropout",
+          "weight decay",
+          "regularization"
+        ]
+      }
+    ],
+    "root_concepts": [
+      {
+        "name": "Artificial Neuron",
+        "definition": "The fundamental computational unit that takes inputs, applies weights and a bias, and passes the sum through an activation function."
+      },
+      {
+        "name": "Activation Function",
+        "definition": "A non-linear function applied to the neuron's output, enabling the network to model complex relationships."
+      },
+      {
+        "name": "Loss Function",
+        "definition": "A measure of how far the network's predictions are from the true targets, used to guide training."
+      },
+      {
+        "name": "Gradient Descent",
+        "definition": "An optimization algorithm that iteratively adjusts parameters in the direction that reduces the loss."
+      },
+      {
+        "name": "Backpropagation",
+        "definition": "An algorithm that efficiently computes gradients of the loss with respect to all parameters using the chain rule."
+      },
+      {
+        "name": "Generalization",
+        "definition": "The ability of a trained network to perform well on new, unseen data, not just the training data."
+      }
+    ],
+    "educational_structure": "The document is organized as a linear progression from basic components to advanced training concepts. It starts with the artificial neuron and activation functions, then builds up to network architecture (layers and deep networks). Next, it introduces loss functions and the training process via gradient descent and backpropagation. Finally, it covers practical training enhancements (stochastic gradient descent, Adam) and regularization techniques to improve generalization. Each section builds on the previous one, creating a clear scaffold for understanding.",
+    "learning_flow": "The learner should first understand the artificial neuron and activation functions as the core building blocks. Then, they should grasp how neurons are organized into layers to form networks. Next, they need to learn about loss functions to measure performance, followed by gradient descent and backpropagation as the mechanisms for learning. After that, practical variations like stochastic gradient descent and Adam can be introduced. Finally, the learner should understand overfitting and regularization to complete the picture of effective training. This flow moves from components to algorithms to practical optimization."
+  },
+  "concepts": [
+    {
+      "label": "Artificial Neuron",
+      "summary": "The fundamental computational unit of a neural network, loosely inspired by biological neurons. It takes multiple numeric inputs, multiplies each by a learned weight, sums them, adds a bias, and passes the result through an activation function to produce an output.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [],
+      "domain": "Neural Network Architecture",
+      "theme": "Learning from Data",
+      "prerequisite_labels": [],
+      "id": "3fa83d8f2a",
+      "parent_id": null,
+      "children_ids": [
+        "6f88376cbe",
+        "fd0550c84f"
+      ]
+    },
+    {
+      "label": "Activation Function",
+      "summary": "A non-linear function applied to the weighted sum of inputs plus bias in an artificial neuron. It enables neural networks to model complex, non-linear relationships; without it, multiple layers would collapse into a single linear transformation.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [],
+      "domain": "Neural Network Architecture",
+      "theme": "Non-linearity and Representation",
+      "prerequisite_labels": [
+        "Artificial Neuron"
+      ],
+      "id": "33cd4749fd",
+      "parent_id": null,
+      "children_ids": [
+        "670d1cefa7",
+        "f6913dda5e"
+      ]
+    },
+    {
+      "label": "Loss Function",
+      "summary": "A function that quantifies the error between the network's predictions and the true targets. It depends on both the network parameters and the training data, and serves as the objective to minimize during training.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [
+        "Artificial Neuron",
+        "Neural Network Layers"
+      ],
+      "id": "ca21716ac4",
+      "parent_id": null,
+      "children_ids": [
+        "82f46617f0",
+        "a1693c842c"
+      ]
+    },
+    {
+      "label": "Gradient Descent",
+      "summary": "The core optimization algorithm for training neural networks. It computes the gradient of the loss with respect to every parameter and updates each parameter in the direction that decreases the loss, controlled by the learning rate.",
+      "confidence": 0.95,
+      "concept_type": "mechanism",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [
+        "Loss Function"
+      ],
+      "id": "9a5ec5be48",
+      "parent_id": null,
+      "children_ids": [
+        "ff3d266402",
+        "f0118909e3"
+      ]
+    },
+    {
+      "label": "Backpropagation",
+      "summary": "The algorithm that efficiently computes gradients in deep networks by applying the chain rule of calculus. It propagates the error signal backwards from the output to the input layer, reusing intermediate results to obtain gradients for all parameters in a single backward pass.",
+      "confidence": 0.95,
+      "concept_type": "mechanism",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [
+        "Gradient Descent",
+        "Chain Rule"
+      ],
+      "id": "95fec0ca69",
+      "parent_id": null,
+      "children_ids": [
+        "82fd2d7792"
+      ]
+    },
+    {
+      "label": "Generalization",
+      "summary": "The ultimate goal of training: the ability of a neural network to perform well on new, unseen data, not just the training data. It is the opposite of overfitting and is improved through regularization techniques.",
+      "confidence": 0.95,
+      "concept_type": "abstraction",
+      "abstraction_level": "root",
+      "educational_role": "central",
+      "importance": 0.95,
+      "parent_labels": [],
+      "domain": "Regularization and Generalization",
+      "theme": "Generalization and Regularization",
+      "prerequisite_labels": [
+        "Loss Function",
+        "Gradient Descent"
+      ],
+      "id": "b79abe790b",
+      "parent_id": null,
+      "children_ids": [
+        "f0e9ee8815",
+        "2a1882258a"
+      ]
+    },
+    {
+      "label": "Neural Network Layers",
+      "summary": "The structural organization of neurons into input, hidden, and output layers. The input layer receives raw features, hidden layers transform the representation, and the output layer produces the final prediction. Multiple hidden layers define a deep network.",
+      "confidence": 0.95,
+      "concept_type": "foundation",
+      "abstraction_level": "branch",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [
+        "Artificial Neuron"
+      ],
+      "domain": "Neural Network Architecture",
+      "theme": "Learning from Data",
+      "prerequisite_labels": [
+        "Artificial Neuron"
+      ],
+      "id": "fd0550c84f",
+      "parent_id": "3fa83d8f2a",
+      "children_ids": [
+        "5e4ce67753",
+        "c8d76dd14b"
+      ]
+    },
+    {
+      "label": "Stochastic Gradient Descent",
+      "summary": "A practical variant of gradient descent that estimates the gradient from a small random batch of examples rather than the full dataset. It makes each update cheaper and introduces noise that can help escape poor local minima.",
+      "confidence": 0.95,
+      "concept_type": "process",
+      "abstraction_level": "branch",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [
+        "Gradient Descent"
+      ],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [
+        "Gradient Descent"
+      ],
+      "id": "f0118909e3",
+      "parent_id": "9a5ec5be48",
+      "children_ids": [
+        "db23b13d88"
+      ]
+    },
+    {
+      "label": "Overfitting",
+      "summary": "A failure mode where the network memorizes the training data rather than learning generalizable patterns, resulting in poor performance on new, unseen data. It is a central challenge in neural network training.",
+      "confidence": 0.95,
+      "concept_type": "mechanism",
+      "abstraction_level": "leaf",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [
+        "Generalization"
+      ],
+      "domain": "Regularization and Generalization",
+      "theme": "Generalization and Regularization",
+      "prerequisite_labels": [
+        "Loss Function",
+        "Gradient Descent"
+      ],
+      "id": "f0e9ee8815",
+      "parent_id": "b79abe790b",
+      "children_ids": []
+    },
+    {
+      "label": "Regularization",
+      "summary": "A set of techniques designed to combat overfitting and improve generalization. Common methods include dropout and weight decay, which impose constraints on the network during training to prevent it from memorizing the data.",
+      "confidence": 0.95,
+      "concept_type": "abstraction",
+      "abstraction_level": "branch",
+      "educational_role": "central",
+      "importance": 0.9,
+      "parent_labels": [
+        "Generalization"
+      ],
+      "domain": "Regularization and Generalization",
+      "theme": "Generalization and Regularization",
+      "prerequisite_labels": [
+        "Overfitting",
+        "Generalization"
+      ],
+      "id": "2a1882258a",
+      "parent_id": "b79abe790b",
+      "children_ids": [
+        "ecc45dbbaa",
+        "68912fc4f8"
+      ]
+    },
+    {
+      "label": "Dropout",
+      "summary": "A regularization technique that randomly disables a fraction of neurons during training. This forces the network to learn redundant representations and prevents co-adaptation of neurons, improving generalization.",
+      "confidence": 0.95,
+      "concept_type": "process",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.85,
+      "parent_labels": [
+        "Regularization"
+      ],
+      "domain": "Regularization and Generalization",
+      "theme": "Generalization and Regularization",
+      "prerequisite_labels": [
+        "Overfitting",
+        "Generalization"
+      ],
+      "id": "ecc45dbbaa",
+      "parent_id": "2a1882258a",
+      "children_ids": []
+    },
+    {
+      "label": "Weights and Biases",
+      "summary": "The learnable parameters of an artificial neuron. Weights determine the importance of each input, while the bias allows the neuron to shift its activation threshold. Together they are adjusted during training to minimize the loss function.",
+      "confidence": 0.9,
+      "concept_type": "foundation",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.85,
+      "parent_labels": [
+        "Artificial Neuron"
+      ],
+      "domain": "Neural Network Architecture",
+      "theme": "Learning from Data",
+      "prerequisite_labels": [
+        "Artificial Neuron"
+      ],
+      "id": "6f88376cbe",
+      "parent_id": "3fa83d8f2a",
+      "children_ids": []
+    },
+    {
+      "label": "Learning Rate",
+      "summary": "A critical hyperparameter that controls the step size of each parameter update in gradient descent. Too large causes divergence, too small results in slow convergence.",
+      "confidence": 0.9,
+      "concept_type": "derived",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.8,
+      "parent_labels": [
+        "Gradient Descent"
+      ],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [
+        "Gradient Descent"
+      ],
+      "id": "ff3d266402",
+      "parent_id": "9a5ec5be48",
+      "children_ids": []
+    },
+    {
+      "label": "Adam Optimizer",
+      "summary": "A modern optimization algorithm that builds on stochastic gradient descent by adapting the learning rate per parameter using running estimates of the gradient's first and second moments. It often converges faster and more reliably than basic SGD.",
+      "confidence": 0.9,
+      "concept_type": "process",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.8,
+      "parent_labels": [
+        "Stochastic Gradient Descent"
+      ],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [
+        "Stochastic Gradient Descent"
+      ],
+      "id": "db23b13d88",
+      "parent_id": "f0118909e3",
+      "children_ids": []
+    },
+    {
+      "label": "Weight Decay",
+      "summary": "A regularization technique that adds a penalty on large weights to the loss function. This encourages the network to keep weights small, which reduces model complexity and helps prevent overfitting.",
+      "confidence": 0.9,
+      "concept_type": "process",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.8,
+      "parent_labels": [
+        "Regularization"
+      ],
+      "domain": "Regularization and Generalization",
+      "theme": "Generalization and Regularization",
+      "prerequisite_labels": [
+        "Overfitting",
+        "Generalization"
+      ],
+      "id": "68912fc4f8",
+      "parent_id": "2a1882258a",
+      "children_ids": []
+    },
+    {
+      "label": "Deep Network",
+      "summary": "A neural network with two or more hidden layers. The term 'deep learning' originates from training such networks, which can learn hierarchical representations of increasing abstraction.",
+      "confidence": 0.9,
+      "concept_type": "derived",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.75,
+      "parent_labels": [
+        "Neural Network Layers"
+      ],
+      "domain": "Neural Network Architecture",
+      "theme": "Non-linearity and Representation",
+      "prerequisite_labels": [
+        "Neural Network Layers"
+      ],
+      "id": "5e4ce67753",
+      "parent_id": "fd0550c84f",
+      "children_ids": []
+    },
+    {
+      "label": "Rectified Linear Unit (ReLU)",
+      "summary": "A popular activation function that outputs the input directly if positive, and zero otherwise. It is computationally efficient and helps mitigate the vanishing gradient problem, making it widely used in deep networks.",
+      "confidence": 0.9,
+      "concept_type": "process",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.7,
+      "parent_labels": [
+        "Activation Function"
+      ],
+      "domain": "Neural Network Architecture",
+      "theme": "Non-linearity and Representation",
+      "prerequisite_labels": [
+        "Activation Function"
+      ],
+      "id": "670d1cefa7",
+      "parent_id": "33cd4749fd",
+      "children_ids": []
+    },
+    {
+      "label": "Vanishing Gradient Problem",
+      "summary": "A phenomenon where gradients become extremely small in deep networks, preventing early layers from learning effectively. Activation functions like ReLU help mitigate this issue compared to sigmoid or tanh.",
+      "confidence": 0.85,
+      "concept_type": "mechanism",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.7,
+      "parent_labels": [
+        "Activation Function"
+      ],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [
+        "Activation Function",
+        "Backpropagation"
+      ],
+      "id": "f6913dda5e",
+      "parent_id": "33cd4749fd",
+      "children_ids": []
+    },
+    {
+      "label": "Chain Rule",
+      "summary": "A fundamental calculus principle that backpropagation relies on to compute gradients through composite functions. It allows the error signal to be decomposed and propagated layer by layer.",
+      "confidence": 0.8,
+      "concept_type": "foundation",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.7,
+      "parent_labels": [
+        "Backpropagation"
+      ],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [],
+      "id": "82fd2d7792",
+      "parent_id": "95fec0ca69",
+      "children_ids": []
+    },
+    {
+      "label": "Fully Connected Layer",
+      "summary": "A layer where every neuron is connected to every neuron in the previous layer, also called a dense layer. This is the standard building block for feedforward neural networks.",
+      "confidence": 0.85,
+      "concept_type": "process",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.6,
+      "parent_labels": [
+        "Neural Network Layers"
+      ],
+      "domain": "Neural Network Architecture",
+      "theme": "Learning from Data",
+      "prerequisite_labels": [
+        "Neural Network Layers"
+      ],
+      "id": "c8d76dd14b",
+      "parent_id": "fd0550c84f",
+      "children_ids": []
+    },
+    {
+      "label": "Mean Squared Error",
+      "summary": "A loss function commonly used for regression tasks that computes the average squared difference between predicted and actual values.",
+      "confidence": 0.85,
+      "concept_type": "process",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.6,
+      "parent_labels": [
+        "Loss Function"
+      ],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [
+        "Loss Function"
+      ],
+      "id": "82f46617f0",
+      "parent_id": "ca21716ac4",
+      "children_ids": []
+    },
+    {
+      "label": "Cross-Entropy Loss",
+      "summary": "A loss function commonly used for classification tasks that measures the difference between predicted probability distributions and true labels.",
+      "confidence": 0.85,
+      "concept_type": "process",
+      "abstraction_level": "leaf",
+      "educational_role": "supporting",
+      "importance": 0.6,
+      "parent_labels": [
+        "Loss Function"
+      ],
+      "domain": "Training Algorithms",
+      "theme": "Optimization and Training Dynamics",
+      "prerequisite_labels": [
+        "Loss Function"
+      ],
+      "id": "a1693c842c",
+      "parent_id": "ca21716ac4",
+      "children_ids": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "e1330f7253",
+      "source_id": "3fa83d8f2a",
+      "target_id": "fd0550c84f",
+      "source_label": "Artificial Neuron",
+      "target_label": "Neural Network Layers",
+      "relationship_type": "part_of",
+      "strength": 0.96,
+      "reasoning": "Neural network layers are composed of collections of artificial neurons that process inputs in parallel, with each neuron performing a weighted sum followed by an activation function.",
+      "cross_domain": false
+    },
+    {
+      "id": "31cd040677",
+      "source_id": "3fa83d8f2a",
+      "target_id": "c8d76dd14b",
+      "source_label": "Artificial Neuron",
+      "target_label": "Fully Connected Layer",
+      "relationship_type": "part_of",
+      "strength": 0.95,
+      "reasoning": "A Fully Connected Layer is composed of multiple Artificial Neurons arranged in parallel, where each neuron computes a weighted sum of all inputs from the previous layer.",
+      "cross_domain": false
+    },
+    {
+      "id": "a178dce5f8",
+      "source_id": "95fec0ca69",
+      "target_id": "5e4ce67753",
+      "source_label": "Backpropagation",
+      "target_label": "Deep Network",
+      "relationship_type": "enables",
+      "strength": 0.95,
+      "reasoning": "Backpropagation's chain rule application efficiently computes gradients through all layers of a deep network, which is computationally intractable with naive differentiation, making deep network training practically possible.",
+      "cross_domain": true
+    },
+    {
+      "id": "6577b6f5bc",
+      "source_id": "f0e9ee8815",
+      "target_id": "b79abe790b",
+      "source_label": "Overfitting",
+      "target_label": "Generalization",
+      "relationship_type": "contrasts_with",
+      "strength": 0.95,
+      "reasoning": "Overfitting is the failure mode where a model memorizes training data, directly opposing the goal of generalization, which requires the model to perform well on unseen data.",
+      "cross_domain": false
+    },
+    {
+      "id": "f8271f3d2b",
+      "source_id": "fd0550c84f",
+      "target_id": "5e4ce67753",
+      "source_label": "Neural Network Layers",
+      "target_label": "Deep Network",
+      "relationship_type": "part_of",
+      "strength": 0.94,
+      "reasoning": "A deep network is defined by having multiple hidden layers, making neural network layers the fundamental structural components that compose a deep network.",
+      "cross_domain": false
+    },
+    {
+      "id": "81a3ca1749",
+      "source_id": "33cd4749fd",
+      "target_id": "3fa83d8f2a",
+      "source_label": "Activation Function",
+      "target_label": "Artificial Neuron",
+      "relationship_type": "part_of",
+      "strength": 0.93,
+      "reasoning": "An Artificial Neuron applies an Activation Function to its weighted sum of inputs plus bias; the activation function is an integral component of the neuron's computation.",
+      "cross_domain": false
+    },
+    {
+      "id": "73a1b30b7d",
+      "source_id": "ca21716ac4",
+      "target_id": "9a5ec5be48",
+      "source_label": "Loss Function",
+      "target_label": "Gradient Descent",
+      "relationship_type": "enables",
+      "strength": 0.92,
+      "reasoning": "Gradient Descent requires a differentiable loss function to compute gradients that guide parameter updates; without a defined loss function, there is no objective to minimize.",
+      "cross_domain": false
+    },
+    {
+      "id": "a77d08c4d5",
+      "source_id": "68912fc4f8",
+      "target_id": "2a1882258a",
+      "source_label": "Weight Decay",
+      "target_label": "Regularization",
+      "relationship_type": "specializes",
+      "strength": 0.92,
+      "reasoning": "Weight decay is a specific regularization technique that adds a penalty proportional to the sum of squared weights to the loss function, making it a concrete instance of the broader regularization abstraction.",
+      "cross_domain": false
+    },
+    {
+      "id": "040abe4024",
+      "source_id": "33cd4749fd",
+      "target_id": "95fec0ca69",
+      "source_label": "Activation Function",
+      "target_label": "Backpropagation",
+      "relationship_type": "enables",
+      "strength": 0.91,
+      "reasoning": "The activation function's derivative is a required term in the chain rule computation during backpropagation, and its non-linearity prevents gradient vanishing that would occur with purely linear activations, making it essential for the algorithm's effectiveness.",
+      "cross_domain": true
+    },
+    {
+      "id": "08fe669cbd",
+      "source_id": "db23b13d88",
+      "target_id": "f0118909e3",
+      "source_label": "Adam Optimizer",
+      "target_label": "Stochastic Gradient Descent",
+      "relationship_type": "specializes",
+      "strength": 0.91,
+      "reasoning": "Adam is a specific optimization algorithm that builds upon the core SGD framework by incorporating adaptive learning rates and momentum, making it a specialized variant of stochastic gradient descent.",
+      "cross_domain": false
+    },
+    {
+      "id": "12299e39ef",
+      "source_id": "ca21716ac4",
+      "target_id": "68912fc4f8",
+      "source_label": "Loss Function",
+      "target_label": "Weight Decay",
+      "relationship_type": "enables",
+      "strength": 0.9,
+      "reasoning": "Weight Decay modifies the loss function by adding a penalty term proportional to the squared magnitude of weights, which directly enables the regularization mechanism by making the optimization objective include both prediction error and weight magnitude minimization.",
+      "cross_domain": true
+    },
+    {
+      "id": "5097200ca5",
+      "source_id": "ca21716ac4",
+      "target_id": "95fec0ca69",
+      "source_label": "Loss Function",
+      "target_label": "Backpropagation",
+      "relationship_type": "enables",
+      "strength": 0.9,
+      "reasoning": "Backpropagation computes the gradient of the loss function with respect to each network weight; the loss function provides the scalar error signal that backpropagation differentiates through the network.",
+      "cross_domain": false
+    },
+    {
+      "id": "60d607303f",
+      "source_id": "fd0550c84f",
+      "target_id": "82fd2d7792",
+      "source_label": "Neural Network Layers",
+      "target_label": "Chain Rule",
+      "relationship_type": "depends_on",
+      "strength": 0.9,
+      "reasoning": "Training multi-layer neural networks via backpropagation fundamentally depends on the chain rule of calculus, which enables the computation of gradients for weights in earlier layers by propagating error derivatives backward through successive layers.",
+      "cross_domain": true
+    },
+    {
+      "id": "5aeed0c50c",
+      "source_id": "95fec0ca69",
+      "target_id": "c8d76dd14b",
+      "source_label": "Backpropagation",
+      "target_label": "Fully Connected Layer",
+      "relationship_type": "applies_to",
+      "strength": 0.9,
+      "reasoning": "Backpropagation computes gradients through the chain rule across the weighted connections of a fully connected layer, enabling gradient-based learning in multilayer perceptrons.",
+      "cross_domain": true
+    },
+    {
+      "id": "35d857f87f",
+      "source_id": "f0118909e3",
+      "target_id": "c8d76dd14b",
+      "source_label": "Stochastic Gradient Descent",
+      "target_label": "Fully Connected Layer",
+      "relationship_type": "applies_to",
+      "strength": 0.9,
+      "reasoning": "Stochastic gradient descent is the optimization algorithm that updates the weights and biases in fully connected layers by computing gradients through backpropagation, making it the standard method for training these layers.",
+      "cross_domain": true
+    },
+    {
+      "id": "6383105459",
+      "source_id": "33cd4749fd",
+      "target_id": "9a5ec5be48",
+      "source_label": "Activation Function",
+      "target_label": "Gradient Descent",
+      "relationship_type": "enables",
+      "strength": 0.88,
+      "reasoning": "The non-linear activation function provides the necessary differentiability and non-linearity that creates meaningful gradients for gradient descent to follow, without which the optimization would collapse to linear regression with no learning capacity.",
+      "cross_domain": true
+    },
+    {
+      "id": "0e53e774e4",
+      "source_id": "95fec0ca69",
+      "target_id": "fd0550c84f",
+      "source_label": "Backpropagation",
+      "target_label": "Neural Network Layers",
+      "relationship_type": "applies_to",
+      "strength": 0.88,
+      "reasoning": "Backpropagation applies to neural network layers because it computes gradients by propagating error backwards through each layer using the chain rule, which requires the layered structure to function.",
+      "cross_domain": true
+    },
+    {
+      "id": "c50c664a29",
+      "source_id": "fd0550c84f",
+      "target_id": "f0e9ee8815",
+      "source_label": "Neural Network Layers",
+      "target_label": "Overfitting",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "Increasing the number of layers and neurons in a network exponentially increases its capacity to memorize training data patterns, directly causing overfitting when the model complexity exceeds what is warranted by the training data size.",
+      "cross_domain": true
+    },
+    {
+      "id": "4f9ef865df",
+      "source_id": "6f88376cbe",
+      "target_id": "68912fc4f8",
+      "source_label": "Weights and Biases",
+      "target_label": "Weight Decay",
+      "relationship_type": "applies_to",
+      "strength": 0.88,
+      "reasoning": "Weight decay specifically penalizes large weight values during training by adding a regularization term proportional to the sum of squared weights to the loss function, directly constraining the magnitude of the learnable parameters.",
+      "cross_domain": true
+    },
+    {
+      "id": "462b83ff59",
+      "source_id": "6f88376cbe",
+      "target_id": "f6913dda5e",
+      "source_label": "Weights and Biases",
+      "target_label": "Vanishing Gradient Problem",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "During backpropagation, gradients are multiplied by the weights at each layer; if weights are initialized too small or saturate activation functions, the gradient signal vanishes exponentially with depth, directly causing the vanishing gradient problem.",
+      "cross_domain": true
+    },
+    {
+      "id": "4f18846cc2",
+      "source_id": "ca21716ac4",
+      "target_id": "f0118909e3",
+      "source_label": "Loss Function",
+      "target_label": "Stochastic Gradient Descent",
+      "relationship_type": "enables",
+      "strength": 0.88,
+      "reasoning": "The loss function provides the scalar error value that stochastic gradient descent uses to compute gradients; without a differentiable loss function, SGD cannot update model parameters.",
+      "cross_domain": false
+    },
+    {
+      "id": "763e8e0a9b",
+      "source_id": "9a5ec5be48",
+      "target_id": "5e4ce67753",
+      "source_label": "Gradient Descent",
+      "target_label": "Deep Network",
+      "relationship_type": "enables",
+      "strength": 0.88,
+      "reasoning": "Gradient descent provides the fundamental optimization mechanism that makes training deep networks with many layers computationally feasible by iteratively updating parameters in the direction of steepest descent.",
+      "cross_domain": true
+    },
+    {
+      "id": "762eeadbe2",
+      "source_id": "ff3d266402",
+      "target_id": "f0118909e3",
+      "source_label": "Learning Rate",
+      "target_label": "Stochastic Gradient Descent",
+      "relationship_type": "part_of",
+      "strength": 0.88,
+      "reasoning": "The learning rate is a critical hyperparameter within the SGD algorithm that determines the step size for each parameter update, directly controlling how much the weights change in response to the estimated gradient.",
+      "cross_domain": false
+    },
+    {
+      "id": "afe670cd53",
+      "source_id": "9a5ec5be48",
+      "target_id": "95fec0ca69",
+      "source_label": "Gradient Descent",
+      "target_label": "Backpropagation",
+      "relationship_type": "depends_on",
+      "strength": 0.88,
+      "reasoning": "Gradient descent requires gradient values to update parameters, and backpropagation is the algorithm that efficiently computes these gradients for deep networks.",
+      "cross_domain": false
+    },
+    {
+      "id": "cfa502df02",
+      "source_id": "f0118909e3",
+      "target_id": "5e4ce67753",
+      "source_label": "Stochastic Gradient Descent",
+      "target_label": "Deep Network",
+      "relationship_type": "enables",
+      "strength": 0.88,
+      "reasoning": "Stochastic gradient descent makes training deep networks computationally feasible by using mini-batches to estimate gradients, which is essential because full-batch gradient descent on large datasets with many layers would be prohibitively slow and memory-intensive.",
+      "cross_domain": true
+    },
+    {
+      "id": "ed7e9ebf54",
+      "source_id": "db23b13d88",
+      "target_id": "5e4ce67753",
+      "source_label": "Adam Optimizer",
+      "target_label": "Deep Network",
+      "relationship_type": "enables",
+      "strength": 0.88,
+      "reasoning": "Adam's adaptive learning rates per parameter help maintain stable gradient updates across many layers, making training of deep networks more practical by mitigating the vanishing gradient problem that would otherwise prevent effective learning.",
+      "cross_domain": true
+    },
+    {
+      "id": "d8f3af0a54",
+      "source_id": "5e4ce67753",
+      "target_id": "f6913dda5e",
+      "source_label": "Deep Network",
+      "target_label": "Vanishing Gradient Problem",
+      "relationship_type": "causes",
+      "strength": 0.88,
+      "reasoning": "Deep networks with many layers cause the vanishing gradient problem because repeated application of the chain rule during backpropagation multiplies many small gradients, causing them to shrink exponentially as they propagate backward through the network.",
+      "cross_domain": true
+    },
+    {
+      "id": "5ea570ae16",
+      "source_id": "3fa83d8f2a",
+      "target_id": "f6913dda5e",
+      "source_label": "Artificial Neuron",
+      "target_label": "Vanishing Gradient Problem",
+      "relationship_type": "causes",
+      "strength": 0.87,
+      "reasoning": "The repeated application of activation functions (like sigmoid) in deep networks of artificial neurons causes gradients to shrink exponentially during backpropagation, leading to the vanishing gradient problem.",
+      "cross_domain": true
+    },
+    {
+      "id": "d412911ddf",
+      "source_id": "2a1882258a",
+      "target_id": "5e4ce67753",
+      "source_label": "Regularization",
+      "target_label": "Deep Network",
+      "relationship_type": "applies_to",
+      "strength": 0.87,
+      "reasoning": "Regularization techniques are critically applied to deep networks because the large number of parameters in multiple hidden layers creates a high risk of overfitting, and regularization constrains the model complexity to improve generalization.",
+      "cross_domain": true
+    },
+    {
+      "id": "457bf22b7d",
+      "source_id": "f0e9ee8815",
+      "target_id": "c8d76dd14b",
+      "source_label": "Overfitting",
+      "target_label": "Fully Connected Layer",
+      "relationship_type": "causes",
+      "strength": 0.87,
+      "reasoning": "Fully connected layers have a high number of parameters due to dense connectivity, which creates a strong tendency to memorize training data patterns, directly causing overfitting when the model capacity exceeds what is needed for the task.",
+      "cross_domain": true
+    },
+    {
+      "id": "40c88953c6",
+      "source_id": "9a5ec5be48",
+      "target_id": "6f88376cbe",
+      "source_label": "Gradient Descent",
+      "target_label": "Weights and Biases",
+      "relationship_type": "enables",
+      "strength": 0.85,
+      "reasoning": "Gradient descent enables the optimization of weights and biases by iteratively updating them in the direction of the negative gradient of the loss function, which is the core mechanism for learning in neural networks.",
+      "cross_domain": true
+    },
+    {
+      "id": "e405ad55a8",
+      "source_id": "fd0550c84f",
+      "target_id": "f0118909e3",
+      "source_label": "Neural Network Layers",
+      "target_label": "Stochastic Gradient Descent",
+      "relationship_type": "enables",
+      "strength": 0.85,
+      "reasoning": "The layered structure of neural networks creates a deep computational graph that requires Stochastic Gradient Descent with backpropagation to efficiently compute gradients for weight updates across all layers, making training of multi-layer networks computationally feasible.",
+      "cross_domain": true
+    },
+    {
+      "id": "f7c9134978",
+      "source_id": "fd0550c84f",
+      "target_id": "f6913dda5e",
+      "source_label": "Neural Network Layers",
+      "target_label": "Vanishing Gradient Problem",
+      "relationship_type": "causes",
+      "strength": 0.85,
+      "reasoning": "In deep networks with many layers, repeated multiplication of gradients through the chain rule during backpropagation causes gradients to shrink exponentially as they propagate backward, making it difficult for early layers to learn effectively.",
+      "cross_domain": true
+    },
+    {
+      "id": "1d1405b459",
+      "source_id": "ca21716ac4",
+      "target_id": "2a1882258a",
+      "source_label": "Loss Function",
+      "target_label": "Regularization",
+      "relationship_type": "part_of",
+      "strength": 0.85,
+      "reasoning": "Regularization techniques are typically implemented as an additional term added to the loss function (e.g., L1 or L2 penalty), making regularization an integral component of the augmented loss function.",
+      "cross_domain": true
+    },
+    {
+      "id": "2c394d5582",
+      "source_id": "ca21716ac4",
+      "target_id": "6f88376cbe",
+      "source_label": "Loss Function",
+      "target_label": "Weights and Biases",
+      "relationship_type": "influences",
+      "strength": 0.85,
+      "reasoning": "The Loss Function defines the error surface whose gradients directly determine the direction and magnitude of updates to Weights and Biases during optimization, as the chain rule propagates the loss gradient back through each parameter.",
+      "cross_domain": true
+    },
+    {
+      "id": "f94772edf6",
+      "source_id": "ca21716ac4",
+      "target_id": "db23b13d88",
+      "source_label": "Loss Function",
+      "target_label": "Adam Optimizer",
+      "relationship_type": "enables",
+      "strength": 0.85,
+      "reasoning": "The loss function provides the gradient signal that Adam optimizer uses to update parameters, because Adam computes adaptive learning rates from estimates of first and second moments of the gradients derived from the loss function's partial derivatives.",
+      "cross_domain": false
+    },
+    {
+      "id": "194dc7bbc3",
+      "source_id": "2a1882258a",
+      "target_id": "6f88376cbe",
+      "source_label": "Regularization",
+      "target_label": "Weights and Biases",
+      "relationship_type": "applies_to",
+      "strength": 0.85,
+      "reasoning": "Regularization techniques like L1/L2 penalty directly constrain the magnitude of weights and biases to prevent overfitting, making the parameters the explicit target of regularization.",
+      "cross_domain": true
+    },
+    {
+      "id": "136ee778e3",
+      "source_id": "33cd4749fd",
+      "target_id": "f6913dda5e",
+      "source_label": "Activation Function",
+      "target_label": "Vanishing Gradient Problem",
+      "relationship_type": "causes",
+      "strength": 0.85,
+      "reasoning": "Sigmoid or tanh activation functions squash inputs into small output ranges, causing their derivatives to be near zero for large or small inputs, which when multiplied through many layers via the chain rule produces exponentially small gradients.",
+      "cross_domain": true
+    },
+    {
+      "id": "813ec166bc",
+      "source_id": "f0e9ee8815",
+      "target_id": "5e4ce67753",
+      "source_label": "Overfitting",
+      "target_label": "Deep Network",
+      "relationship_type": "applies_to",
+      "strength": 0.85,
+      "reasoning": "Deep networks with many parameters are particularly susceptible to overfitting because their high capacity allows them to memorize training data patterns rather than learning generalizable features, making overfitting a primary concern in deep learning.",
+      "cross_domain": true
+    },
+    {
+      "id": "7c7da6884b",
+      "source_id": "ff3d266402",
+      "target_id": "db23b13d88",
+      "source_label": "Learning Rate",
+      "target_label": "Adam Optimizer",
+      "relationship_type": "part_of",
+      "strength": 0.85,
+      "reasoning": "Learning rate is a key hyperparameter within Adam Optimizer that controls the step size of parameter updates, though Adam adapts it per-parameter.",
+      "cross_domain": false
+    },
+    {
+      "id": "ca2c413b3e",
+      "source_id": "fd0550c84f",
+      "target_id": "ecc45dbbaa",
+      "source_label": "Neural Network Layers",
+      "target_label": "Dropout",
+      "relationship_type": "enables",
+      "strength": 0.82,
+      "reasoning": "The layered architecture of neural networks enables Dropout to be effective because randomly disabling neurons in one layer forces the network to learn redundant representations across multiple paths through subsequent layers, preventing co-adaptation of neurons.",
+      "cross_domain": true
+    },
+    {
+      "id": "d191705144",
+      "source_id": "ecc45dbbaa",
+      "target_id": "6f88376cbe",
+      "source_label": "Dropout",
+      "target_label": "Weights and Biases",
+      "relationship_type": "influences",
+      "strength": 0.82,
+      "reasoning": "Dropout randomly disables neurons during training, forcing the network to distribute learning across multiple paths, which prevents weights from co-adapting and reduces overfitting.",
+      "cross_domain": true
+    },
+    {
+      "id": "89b317936c",
+      "source_id": "670d1cefa7",
+      "target_id": "82fd2d7792",
+      "source_label": "Rectified Linear Unit (ReLU)",
+      "target_label": "Chain Rule",
+      "relationship_type": "depends_on",
+      "strength": 0.82,
+      "reasoning": "The derivative of ReLU (piecewise: 1 for positive inputs, 0 otherwise) is computed via the chain rule during backpropagation to propagate gradients through the activation function to earlier layers.",
+      "cross_domain": true
+    },
+    {
+      "id": "feea718f33",
+      "source_id": "b79abe790b",
+      "target_id": "f0118909e3",
+      "source_label": "Generalization",
+      "target_label": "Stochastic Gradient Descent",
+      "relationship_type": "influences",
+      "strength": 0.82,
+      "reasoning": "The noise introduced by Stochastic Gradient Descent's mini-batch sampling acts as an implicit regularizer that helps the optimizer escape sharp minima, which empirically leads to better generalization compared to full-batch gradient descent.",
+      "cross_domain": true
+    },
+    {
+      "id": "9823dc08ff",
+      "source_id": "b79abe790b",
+      "target_id": "6f88376cbe",
+      "source_label": "Generalization",
+      "target_label": "Weights and Biases",
+      "relationship_type": "depends_on",
+      "strength": 0.82,
+      "reasoning": "Good generalization depends on finding the right set of weights and biases that capture underlying patterns rather than noise, because the network's learned parameters directly determine its ability to interpolate and extrapolate to unseen data.",
+      "cross_domain": true
+    },
+    {
+      "id": "237efeeb85",
+      "source_id": "670d1cefa7",
+      "target_id": "f6913dda5e",
+      "source_label": "Rectified Linear Unit (ReLU)",
+      "target_label": "Vanishing Gradient Problem",
+      "relationship_type": "contrasts_with",
+      "strength": 0.82,
+      "reasoning": "ReLU's derivative is 1 for positive inputs and 0 for negative inputs, which prevents gradient decay in the positive region, directly mitigating the vanishing gradient problem that plagues saturating activation functions.",
+      "cross_domain": true
+    },
+    {
+      "id": "82feefe00c",
+      "source_id": "6f88376cbe",
+      "target_id": "ff3d266402",
+      "source_label": "Weights and Biases",
+      "target_label": "Learning Rate",
+      "relationship_type": "influences",
+      "strength": 0.82,
+      "reasoning": "The learning rate directly determines the magnitude of updates applied to weights and biases during gradient descent, so an inappropriate learning rate can cause weights to oscillate or diverge, while an optimal rate ensures stable convergence of these parameters.",
+      "cross_domain": true
+    },
+    {
+      "id": "001d34a4a0",
+      "source_id": "ecc45dbbaa",
+      "target_id": "c8d76dd14b",
+      "source_label": "Dropout",
+      "target_label": "Fully Connected Layer",
+      "relationship_type": "applies_to",
+      "strength": 0.82,
+      "reasoning": "Dropout is most commonly applied to fully connected layers because these layers have the highest number of parameters and are most prone to overfitting, and randomly dropping neurons in dense layers forces the network to learn redundant representations.",
+      "cross_domain": true
+    },
+    {
+      "id": "a36373fba7",
+      "source_id": "9a5ec5be48",
+      "target_id": "68912fc4f8",
+      "source_label": "Gradient Descent",
+      "target_label": "Weight Decay",
+      "relationship_type": "applies_to",
+      "strength": 0.8,
+      "reasoning": "Weight decay modifies the gradient descent update rule by adding a penalty term proportional to the weights to the loss function's gradient, because this L2 regularization term directly alters the gradient direction to shrink weights toward zero during each optimization step.",
+      "cross_domain": true
+    },
+    {
+      "id": "d8a1c20005",
+      "source_id": "ca21716ac4",
+      "target_id": "b79abe790b",
+      "source_label": "Loss Function",
+      "target_label": "Generalization",
+      "relationship_type": "influences",
+      "strength": 0.78,
+      "reasoning": "The choice of loss function shapes what the network learns to optimize, which directly affects whether the learned patterns generalize to unseen data rather than memorizing training examples.",
+      "cross_domain": true
+    },
+    {
+      "id": "200fcd3923",
+      "source_id": "f0118909e3",
+      "target_id": "f0e9ee8815",
+      "source_label": "Stochastic Gradient Descent",
+      "target_label": "Overfitting",
+      "relationship_type": "influences",
+      "strength": 0.78,
+      "reasoning": "Stochastic gradient descent influences overfitting because its noisy gradient estimates from mini-batches can help escape sharp local minima that lead to memorization, but if the learning rate is poorly tuned or training continues too long, the noise can also exacerbate overfitting.",
+      "cross_domain": true
+    },
+    {
+      "id": "fd971f4c5c",
+      "source_id": "f0e9ee8815",
+      "target_id": "ff3d266402",
+      "source_label": "Overfitting",
+      "target_label": "Learning Rate",
+      "relationship_type": "influences",
+      "strength": 0.78,
+      "reasoning": "An excessively high learning rate can cause the optimization to overshoot minima and fail to converge, while a very low learning rate may lead to slow convergence and increased risk of overfitting due to prolonged training on the same data.",
+      "cross_domain": true
+    },
+    {
+      "id": "e562087dd7",
+      "source_id": "3fa83d8f2a",
+      "target_id": "95fec0ca69",
+      "source_label": "Artificial Neuron",
+      "target_label": "Backpropagation",
+      "relationship_type": "enables",
+      "strength": 0.75,
+      "reasoning": "The artificial neuron's layered, feedforward architecture with differentiable activation functions creates the chain of partial derivatives that backpropagation exploits via the chain rule to compute gradients efficiently.",
+      "cross_domain": true
+    },
+    {
+      "id": "859aaad2fb",
+      "source_id": "3fa83d8f2a",
+      "target_id": "9a5ec5be48",
+      "source_label": "Artificial Neuron",
+      "target_label": "Gradient Descent",
+      "relationship_type": "enables",
+      "strength": 0.72,
+      "reasoning": "The artificial neuron's weighted sum structure creates a differentiable loss landscape that gradient descent requires to compute parameter updates, making the neuron's mathematical formulation a prerequisite for the optimization algorithm to function.",
+      "cross_domain": true
+    },
+    {
+      "id": "6faf610b00",
+      "source_id": "33cd4749fd",
+      "target_id": "b79abe790b",
+      "source_label": "Activation Function",
+      "target_label": "Generalization",
+      "relationship_type": "influences",
+      "strength": 0.72,
+      "reasoning": "The choice of activation function (e.g., ReLU vs sigmoid) affects gradient flow and network expressivity, which influences whether the model learns generalizable features or overfits to noise.",
+      "cross_domain": true
+    },
+    {
+      "id": "e2cceca0e5",
+      "source_id": "9a5ec5be48",
+      "target_id": "b79abe790b",
+      "source_label": "Gradient Descent",
+      "target_label": "Generalization",
+      "relationship_type": "influences",
+      "strength": 0.72,
+      "reasoning": "The optimization path taken by gradient descent determines which local minimum the network converges to, and the flatness or sharpness of that minimum directly affects the model's ability to generalize to unseen data.",
+      "cross_domain": true
+    },
+    {
+      "id": "c1a2403639",
+      "source_id": "95fec0ca69",
+      "target_id": "68912fc4f8",
+      "source_label": "Backpropagation",
+      "target_label": "Weight Decay",
+      "relationship_type": "enables",
+      "strength": 0.72,
+      "reasoning": "Backpropagation computes the gradients of the loss with respect to all parameters, which is necessary to apply the weight decay penalty term's gradient during optimization.",
+      "cross_domain": true
+    },
+    {
+      "id": "1bbc40db01",
+      "source_id": "ecc45dbbaa",
+      "target_id": "ff3d266402",
+      "source_label": "Dropout",
+      "target_label": "Learning Rate",
+      "relationship_type": "influences",
+      "strength": 0.72,
+      "reasoning": "When dropout is used, the effective learning rate may need to be increased because dropout reduces the number of active neurons per update, which can slow convergence; practitioners often scale the learning rate to compensate for this reduced signal.",
+      "cross_domain": true
+    },
+    {
+      "id": "326fe0802e",
+      "source_id": "f0e9ee8815",
+      "target_id": "f6913dda5e",
+      "source_label": "Overfitting",
+      "target_label": "Vanishing Gradient Problem",
+      "relationship_type": "contrasts_with",
+      "strength": 0.72,
+      "reasoning": "Overfitting is a failure mode where the model memorizes training data (often in deep networks with many parameters), while the Vanishing Gradient Problem prevents deep networks from learning effectively at all, representing opposite ends of the learning spectrum.",
+      "cross_domain": true
+    },
+    {
+      "id": "b1de7404d8",
+      "source_id": "b79abe790b",
+      "target_id": "c8d76dd14b",
+      "source_label": "Generalization",
+      "target_label": "Fully Connected Layer",
+      "relationship_type": "influences",
+      "strength": 0.72,
+      "reasoning": "The number and size of fully connected layers directly affect model capacity and overfitting risk, making architectural choices about these layers a key factor in achieving good generalization.",
+      "cross_domain": true
+    },
+    {
+      "id": "9d3b190328",
+      "source_id": "ecc45dbbaa",
+      "target_id": "f6913dda5e",
+      "source_label": "Dropout",
+      "target_label": "Vanishing Gradient Problem",
+      "relationship_type": "influences",
+      "strength": 0.72,
+      "reasoning": "Dropout can indirectly mitigate the vanishing gradient problem by creating thinner networks during training, which reduces the number of layers through which gradients must propagate, though this is a secondary effect compared to its primary regularization role.",
+      "cross_domain": true
+    },
+    {
+      "id": "6b6436c34e",
+      "source_id": "ff3d266402",
+      "target_id": "68912fc4f8",
+      "source_label": "Learning Rate",
+      "target_label": "Weight Decay",
+      "relationship_type": "influences",
+      "strength": 0.7,
+      "reasoning": "The learning rate scales the gradient updates during optimization, and since weight decay adds a penalty term to the loss that also gets scaled by the learning rate, the effective regularization strength of weight decay depends on the chosen learning rate.",
+      "cross_domain": true
+    },
+    {
+      "id": "bb6dc81425",
+      "source_id": "b79abe790b",
+      "target_id": "a1693c842c",
+      "source_label": "Generalization",
+      "target_label": "Cross-Entropy Loss",
+      "relationship_type": "influences",
+      "strength": 0.7,
+      "reasoning": "Cross-Entropy Loss provides stronger gradient signals for classification errors compared to MSE, which typically leads to better generalization in classification tasks by driving faster convergence to a good decision boundary.",
+      "cross_domain": true
+    },
+    {
+      "id": "6fc45be198",
+      "source_id": "f0e9ee8815",
+      "target_id": "82f46617f0",
+      "source_label": "Overfitting",
+      "target_label": "Mean Squared Error",
+      "relationship_type": "influences",
+      "strength": 0.7,
+      "reasoning": "When overfitting occurs, mean squared error on training data becomes very small while test error remains high, because the model memorizes noise in the training targets rather than learning the underlying function, though this relationship is mediated by model complexity rather than direct.",
+      "cross_domain": true
+    }
+  ],
+  "hub_concepts": [
+    {
+      "concept_id": "6f88376cbe",
+      "label": "Weights and Biases",
+      "hub_score": 0.963,
+      "degree": 8,
+      "cross_domain_edges": 8
+    },
+    {
+      "concept_id": "b79abe790b",
+      "label": "Generalization",
+      "hub_score": 0.944,
+      "degree": 8,
+      "cross_domain_edges": 7
+    },
+    {
+      "concept_id": "f0e9ee8815",
+      "label": "Overfitting",
+      "hub_score": 0.931,
+      "degree": 8,
+      "cross_domain_edges": 7
+    },
+    {
+      "concept_id": "f6913dda5e",
+      "label": "Vanishing Gradient Problem",
+      "hub_score": 0.925,
+      "degree": 8,
+      "cross_domain_edges": 8
+    },
+    {
+      "concept_id": "9a5ec5be48",
+      "label": "Gradient Descent",
+      "hub_score": 0.9,
+      "degree": 8,
+      "cross_domain_edges": 6
+    }
+  ],
+  "graph": {
+    "nodes": [
+      {
+        "data": {
+          "id": "3fa83d8f2a",
+          "label": "Artificial Neuron",
+          "summary": "The fundamental computational unit of a neural network, loosely inspired by biological neurons. It takes multiple numeric inputs, multiplies each by a learned weight, sums them, adds a bias, and passes the result through an activation function to produce an output.",
+          "concept_type": "foundation",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Neural Network Architecture",
+          "theme": "Learning from Data",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": null,
+          "children_ids": [
+            "6f88376cbe",
+            "fd0550c84f"
+          ]
+        },
+        "position": {
+          "x": 722.4205578427451,
+          "y": 886.6134170261813
+        }
+      },
+      {
+        "data": {
+          "id": "33cd4749fd",
+          "label": "Activation Function",
+          "summary": "A non-linear function applied to the weighted sum of inputs plus bias in an artificial neuron. It enables neural networks to model complex, non-linear relationships; without it, multiple layers would collapse into a single linear transformation.",
+          "concept_type": "foundation",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Neural Network Architecture",
+          "theme": "Non-linearity and Representation",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": null,
+          "children_ids": [
+            "670d1cefa7",
+            "f6913dda5e"
+          ]
+        },
+        "position": {
+          "x": 896.859073549311,
+          "y": 1013.1303781484042
+        }
+      },
+      {
+        "data": {
+          "id": "ca21716ac4",
+          "label": "Loss Function",
+          "summary": "A function that quantifies the error between the network's predictions and the true targets. It depends on both the network parameters and the training data, and serves as the objective to minimize during training.",
+          "concept_type": "foundation",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": null,
+          "children_ids": [
+            "82f46617f0",
+            "a1693c842c"
+          ]
+        },
+        "position": {
+          "x": 1067.5888106623447,
+          "y": 876.8077039940126
+        }
+      },
+      {
+        "data": {
+          "id": "9a5ec5be48",
+          "label": "Gradient Descent",
+          "summary": "The core optimization algorithm for training neural networks. It computes the gradient of the loss with respect to every parameter and updates each parameter in the direction that decreases the loss, controlled by the learning rate.",
+          "concept_type": "mechanism",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0.9,
+          "is_hub": true,
+          "parent_id": null,
+          "children_ids": [
+            "ff3d266402",
+            "f0118909e3"
+          ]
+        },
+        "position": {
+          "x": 920.785295723439,
+          "y": 715.9453604338246
+        }
+      },
+      {
+        "data": {
+          "id": "95fec0ca69",
+          "label": "Backpropagation",
+          "summary": "The algorithm that efficiently computes gradients in deep networks by applying the chain rule of calculus. It propagates the error signal backwards from the output to the input layer, reusing intermediate results to obtain gradients for all parameters in a single backward pass.",
+          "concept_type": "mechanism",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": null,
+          "children_ids": [
+            "82fd2d7792"
+          ]
+        },
+        "position": {
+          "x": 1069.712618146696,
+          "y": 711.3750219702392
+        }
+      },
+      {
+        "data": {
+          "id": "b79abe790b",
+          "label": "Generalization",
+          "summary": "The ultimate goal of training: the ability of a neural network to perform well on new, unseen data, not just the training data. It is the opposite of overfitting and is improved through regularization techniques.",
+          "concept_type": "abstraction",
+          "abstraction_level": "root",
+          "educational_role": "central",
+          "importance": 0.95,
+          "domain": "Regularization and Generalization",
+          "theme": "Generalization and Regularization",
+          "hub_score": 0.944,
+          "is_hub": true,
+          "parent_id": null,
+          "children_ids": [
+            "f0e9ee8815",
+            "2a1882258a"
+          ]
+        },
+        "position": {
+          "x": 929.0941716901772,
+          "y": 859.4616321778394
+        }
+      },
+      {
+        "data": {
+          "id": "fd0550c84f",
+          "label": "Neural Network Layers",
+          "summary": "The structural organization of neurons into input, hidden, and output layers. The input layer receives raw features, hidden layers transform the representation, and the output layer produces the final prediction. Multiple hidden layers define a deep network.",
+          "concept_type": "foundation",
+          "abstraction_level": "branch",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Neural Network Architecture",
+          "theme": "Learning from Data",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "3fa83d8f2a",
+          "children_ids": [
+            "5e4ce67753",
+            "c8d76dd14b"
+          ]
+        },
+        "position": {
+          "x": 561.3680196158302,
+          "y": 1074.7273291918705
+        }
+      },
+      {
+        "data": {
+          "id": "f0118909e3",
+          "label": "Stochastic Gradient Descent",
+          "summary": "A practical variant of gradient descent that estimates the gradient from a small random batch of examples rather than the full dataset. It makes each update cheaper and introduces noise that can help escape poor local minima.",
+          "concept_type": "process",
+          "abstraction_level": "branch",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "9a5ec5be48",
+          "children_ids": [
+            "db23b13d88"
+          ]
+        },
+        "position": {
+          "x": 1286.11695099853,
+          "y": 1015.4218990576073
+        }
+      },
+      {
+        "data": {
+          "id": "f0e9ee8815",
+          "label": "Overfitting",
+          "summary": "A failure mode where the network memorizes the training data rather than learning generalizable patterns, resulting in poor performance on new, unseen data. It is a central challenge in neural network training.",
+          "concept_type": "mechanism",
+          "abstraction_level": "leaf",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Regularization and Generalization",
+          "theme": "Generalization and Regularization",
+          "hub_score": 0.931,
+          "is_hub": true,
+          "parent_id": "b79abe790b",
+          "children_ids": []
+        },
+        "position": {
+          "x": 860.1468019779244,
+          "y": 859.0834434999173
+        }
+      },
+      {
+        "data": {
+          "id": "2a1882258a",
+          "label": "Regularization",
+          "summary": "A set of techniques designed to combat overfitting and improve generalization. Common methods include dropout and weight decay, which impose constraints on the network during training to prevent it from memorizing the data.",
+          "concept_type": "abstraction",
+          "abstraction_level": "branch",
+          "educational_role": "central",
+          "importance": 0.9,
+          "domain": "Regularization and Generalization",
+          "theme": "Generalization and Regularization",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "b79abe790b",
+          "children_ids": [
+            "ecc45dbbaa",
+            "68912fc4f8"
+          ]
+        },
+        "position": {
+          "x": 923.8383505729216,
+          "y": 424.3927129592534
+        }
+      },
+      {
+        "data": {
+          "id": "ecc45dbbaa",
+          "label": "Dropout",
+          "summary": "A regularization technique that randomly disables a fraction of neurons during training. This forces the network to learn redundant representations and prevents co-adaptation of neurons, improving generalization.",
+          "concept_type": "process",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.85,
+          "domain": "Regularization and Generalization",
+          "theme": "Generalization and Regularization",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "2a1882258a",
+          "children_ids": []
+        },
+        "position": {
+          "x": 378.68200683651804,
+          "y": 400.8514574955342
+        }
+      },
+      {
+        "data": {
+          "id": "6f88376cbe",
+          "label": "Weights and Biases",
+          "summary": "The learnable parameters of an artificial neuron. Weights determine the importance of each input, while the bias allows the neuron to shift its activation threshold. Together they are adjusted during training to minimize the loss function.",
+          "concept_type": "foundation",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.85,
+          "domain": "Neural Network Architecture",
+          "theme": "Learning from Data",
+          "hub_score": 0.963,
+          "is_hub": true,
+          "parent_id": "3fa83d8f2a",
+          "children_ids": []
+        },
+        "position": {
+          "x": 933.4624466225739,
+          "y": 779.8948061918294
+        }
+      },
+      {
+        "data": {
+          "id": "ff3d266402",
+          "label": "Learning Rate",
+          "summary": "A critical hyperparameter that controls the step size of each parameter update in gradient descent. Too large causes divergence, too small results in slow convergence.",
+          "concept_type": "derived",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.8,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "9a5ec5be48",
+          "children_ids": []
+        },
+        "position": {
+          "x": 1520.607158409965,
+          "y": 535.1143893384626
+        }
+      },
+      {
+        "data": {
+          "id": "db23b13d88",
+          "label": "Adam Optimizer",
+          "summary": "A modern optimization algorithm that builds on stochastic gradient descent by adapting the learning rate per parameter using running estimates of the gradient's first and second moments. It often converges faster and more reliably than basic SGD.",
+          "concept_type": "process",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.8,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "f0118909e3",
+          "children_ids": []
+        },
+        "position": {
+          "x": 1548.9410155851178,
+          "y": 1050.0004319937689
+        }
+      },
+      {
+        "data": {
+          "id": "68912fc4f8",
+          "label": "Weight Decay",
+          "summary": "A regularization technique that adds a penalty on large weights to the loss function. This encourages the network to keep weights small, which reduces model complexity and helps prevent overfitting.",
+          "concept_type": "process",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.8,
+          "domain": "Regularization and Generalization",
+          "theme": "Generalization and Regularization",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "2a1882258a",
+          "children_ids": []
+        },
+        "position": {
+          "x": 684.7385550799615,
+          "y": 122.65349777997406
+        }
+      },
+      {
+        "data": {
+          "id": "5e4ce67753",
+          "label": "Deep Network",
+          "summary": "A neural network with two or more hidden layers. The term 'deep learning' originates from training such networks, which can learn hierarchical representations of increasing abstraction.",
+          "concept_type": "derived",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.75,
+          "domain": "Neural Network Architecture",
+          "theme": "Non-linearity and Representation",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "fd0550c84f",
+          "children_ids": []
+        },
+        "position": {
+          "x": 748.7432214904476,
+          "y": 1465.688935903237
+        }
+      },
+      {
+        "data": {
+          "id": "670d1cefa7",
+          "label": "Rectified Linear Unit (ReLU)",
+          "summary": "A popular activation function that outputs the input directly if positive, and zero otherwise. It is computationally efficient and helps mitigate the vanishing gradient problem, making it widely used in deep networks.",
+          "concept_type": "process",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.7,
+          "domain": "Neural Network Architecture",
+          "theme": "Non-linearity and Representation",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "33cd4749fd",
+          "children_ids": []
+        },
+        "position": {
+          "x": 466.43383056527256,
+          "y": 1331.855420358656
+        }
+      },
+      {
+        "data": {
+          "id": "f6913dda5e",
+          "label": "Vanishing Gradient Problem",
+          "summary": "A phenomenon where gradients become extremely small in deep networks, preventing early layers from learning effectively. Activation functions like ReLU help mitigate this issue compared to sigmoid or tanh.",
+          "concept_type": "mechanism",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.7,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0.925,
+          "is_hub": true,
+          "parent_id": "33cd4749fd",
+          "children_ids": []
+        },
+        "position": {
+          "x": 816.3809671615666,
+          "y": 770.4498133448301
+        }
+      },
+      {
+        "data": {
+          "id": "82fd2d7792",
+          "label": "Chain Rule",
+          "summary": "A fundamental calculus principle that backpropagation relies on to compute gradients through composite functions. It allows the error signal to be decomposed and propagated layer by layer.",
+          "concept_type": "foundation",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.7,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "95fec0ca69",
+          "children_ids": []
+        },
+        "position": {
+          "x": 1553.4979462413853,
+          "y": 688.4493581908898
+        }
+      },
+      {
+        "data": {
+          "id": "c8d76dd14b",
+          "label": "Fully Connected Layer",
+          "summary": "A layer where every neuron is connected to every neuron in the previous layer, also called a dense layer. This is the standard building block for feedforward neural networks.",
+          "concept_type": "process",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.6,
+          "domain": "Neural Network Architecture",
+          "theme": "Learning from Data",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "fd0550c84f",
+          "children_ids": []
+        },
+        "position": {
+          "x": 586.0671787563955,
+          "y": 1464.3528364605882
+        }
+      },
+      {
+        "data": {
+          "id": "82f46617f0",
+          "label": "Mean Squared Error",
+          "summary": "A loss function commonly used for regression tasks that computes the average squared difference between predicted and actual values.",
+          "concept_type": "process",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.6,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "ca21716ac4",
+          "children_ids": []
+        },
+        "position": {
+          "x": 1610.8210683653376,
+          "y": 902.7530595945778
+        }
+      },
+      {
+        "data": {
+          "id": "a1693c842c",
+          "label": "Cross-Entropy Loss",
+          "summary": "A loss function commonly used for classification tasks that measures the difference between predicted probability distributions and true labels.",
+          "concept_type": "process",
+          "abstraction_level": "leaf",
+          "educational_role": "supporting",
+          "importance": 0.6,
+          "domain": "Training Algorithms",
+          "theme": "Optimization and Training Dynamics",
+          "hub_score": 0,
+          "is_hub": false,
+          "parent_id": "ca21716ac4",
+          "children_ids": []
+        },
+        "position": {
+          "x": 1649.0812545298534,
+          "y": 741.7398875250683
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "id": "hier_3fa83d8f2a_fd0550c84f",
+          "source": "3fa83d8f2a",
+          "target": "fd0550c84f",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_9a5ec5be48_f0118909e3",
+          "source": "9a5ec5be48",
+          "target": "f0118909e3",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_b79abe790b_f0e9ee8815",
+          "source": "b79abe790b",
+          "target": "f0e9ee8815",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_b79abe790b_2a1882258a",
+          "source": "b79abe790b",
+          "target": "2a1882258a",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_2a1882258a_ecc45dbbaa",
+          "source": "2a1882258a",
+          "target": "ecc45dbbaa",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_3fa83d8f2a_6f88376cbe",
+          "source": "3fa83d8f2a",
+          "target": "6f88376cbe",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_9a5ec5be48_ff3d266402",
+          "source": "9a5ec5be48",
+          "target": "ff3d266402",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_f0118909e3_db23b13d88",
+          "source": "f0118909e3",
+          "target": "db23b13d88",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_2a1882258a_68912fc4f8",
+          "source": "2a1882258a",
+          "target": "68912fc4f8",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_fd0550c84f_5e4ce67753",
+          "source": "fd0550c84f",
+          "target": "5e4ce67753",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_33cd4749fd_670d1cefa7",
+          "source": "33cd4749fd",
+          "target": "670d1cefa7",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_33cd4749fd_f6913dda5e",
+          "source": "33cd4749fd",
+          "target": "f6913dda5e",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_95fec0ca69_82fd2d7792",
+          "source": "95fec0ca69",
+          "target": "82fd2d7792",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_fd0550c84f_c8d76dd14b",
+          "source": "fd0550c84f",
+          "target": "c8d76dd14b",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_ca21716ac4_82f46617f0",
+          "source": "ca21716ac4",
+          "target": "82f46617f0",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "hier_ca21716ac4_a1693c842c",
+          "source": "ca21716ac4",
+          "target": "a1693c842c",
+          "relationship_type": "hierarchy",
+          "strength": 0.95,
+          "hierarchy_edge": true,
+          "cross_domain": false,
+          "reasoning": ""
+        }
+      },
+      {
+        "data": {
+          "id": "31cd040677",
+          "source": "3fa83d8f2a",
+          "target": "c8d76dd14b",
+          "relationship_type": "part_of",
+          "strength": 0.95,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "A Fully Connected Layer is composed of multiple Artificial Neurons arranged in parallel, where each neuron computes a weighted sum of all inputs from the previous layer."
+        }
+      },
+      {
+        "data": {
+          "id": "a178dce5f8",
+          "source": "95fec0ca69",
+          "target": "5e4ce67753",
+          "relationship_type": "enables",
+          "strength": 0.95,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Backpropagation's chain rule application efficiently computes gradients through all layers of a deep network, which is computationally intractable with naive differentiation, making deep network training practically possible."
+        }
+      },
+      {
+        "data": {
+          "id": "81a3ca1749",
+          "source": "33cd4749fd",
+          "target": "3fa83d8f2a",
+          "relationship_type": "part_of",
+          "strength": 0.93,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "An Artificial Neuron applies an Activation Function to its weighted sum of inputs plus bias; the activation function is an integral component of the neuron's computation."
+        }
+      },
+      {
+        "data": {
+          "id": "73a1b30b7d",
+          "source": "ca21716ac4",
+          "target": "9a5ec5be48",
+          "relationship_type": "enables",
+          "strength": 0.92,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "Gradient Descent requires a differentiable loss function to compute gradients that guide parameter updates; without a defined loss function, there is no objective to minimize."
+        }
+      },
+      {
+        "data": {
+          "id": "040abe4024",
+          "source": "33cd4749fd",
+          "target": "95fec0ca69",
+          "relationship_type": "enables",
+          "strength": 0.91,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The activation function's derivative is a required term in the chain rule computation during backpropagation, and its non-linearity prevents gradient vanishing that would occur with purely linear activations, making it essential for the algorithm's effectiveness."
+        }
+      },
+      {
+        "data": {
+          "id": "12299e39ef",
+          "source": "ca21716ac4",
+          "target": "68912fc4f8",
+          "relationship_type": "enables",
+          "strength": 0.9,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Weight Decay modifies the loss function by adding a penalty term proportional to the squared magnitude of weights, which directly enables the regularization mechanism by making the optimization objective include both prediction error and weight magnitude minimization."
+        }
+      },
+      {
+        "data": {
+          "id": "5097200ca5",
+          "source": "ca21716ac4",
+          "target": "95fec0ca69",
+          "relationship_type": "enables",
+          "strength": 0.9,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "Backpropagation computes the gradient of the loss function with respect to each network weight; the loss function provides the scalar error signal that backpropagation differentiates through the network."
+        }
+      },
+      {
+        "data": {
+          "id": "60d607303f",
+          "source": "fd0550c84f",
+          "target": "82fd2d7792",
+          "relationship_type": "depends_on",
+          "strength": 0.9,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Training multi-layer neural networks via backpropagation fundamentally depends on the chain rule of calculus, which enables the computation of gradients for weights in earlier layers by propagating error derivatives backward through successive layers."
+        }
+      },
+      {
+        "data": {
+          "id": "5aeed0c50c",
+          "source": "95fec0ca69",
+          "target": "c8d76dd14b",
+          "relationship_type": "applies_to",
+          "strength": 0.9,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Backpropagation computes gradients through the chain rule across the weighted connections of a fully connected layer, enabling gradient-based learning in multilayer perceptrons."
+        }
+      },
+      {
+        "data": {
+          "id": "35d857f87f",
+          "source": "f0118909e3",
+          "target": "c8d76dd14b",
+          "relationship_type": "applies_to",
+          "strength": 0.9,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Stochastic gradient descent is the optimization algorithm that updates the weights and biases in fully connected layers by computing gradients through backpropagation, making it the standard method for training these layers."
+        }
+      },
+      {
+        "data": {
+          "id": "6383105459",
+          "source": "33cd4749fd",
+          "target": "9a5ec5be48",
+          "relationship_type": "enables",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The non-linear activation function provides the necessary differentiability and non-linearity that creates meaningful gradients for gradient descent to follow, without which the optimization would collapse to linear regression with no learning capacity."
+        }
+      },
+      {
+        "data": {
+          "id": "0e53e774e4",
+          "source": "95fec0ca69",
+          "target": "fd0550c84f",
+          "relationship_type": "applies_to",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Backpropagation applies to neural network layers because it computes gradients by propagating error backwards through each layer using the chain rule, which requires the layered structure to function."
+        }
+      },
+      {
+        "data": {
+          "id": "c50c664a29",
+          "source": "fd0550c84f",
+          "target": "f0e9ee8815",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Increasing the number of layers and neurons in a network exponentially increases its capacity to memorize training data patterns, directly causing overfitting when the model complexity exceeds what is warranted by the training data size."
+        }
+      },
+      {
+        "data": {
+          "id": "4f9ef865df",
+          "source": "6f88376cbe",
+          "target": "68912fc4f8",
+          "relationship_type": "applies_to",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Weight decay specifically penalizes large weight values during training by adding a regularization term proportional to the sum of squared weights to the loss function, directly constraining the magnitude of the learnable parameters."
+        }
+      },
+      {
+        "data": {
+          "id": "462b83ff59",
+          "source": "6f88376cbe",
+          "target": "f6913dda5e",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "During backpropagation, gradients are multiplied by the weights at each layer; if weights are initialized too small or saturate activation functions, the gradient signal vanishes exponentially with depth, directly causing the vanishing gradient problem."
+        }
+      },
+      {
+        "data": {
+          "id": "4f18846cc2",
+          "source": "ca21716ac4",
+          "target": "f0118909e3",
+          "relationship_type": "enables",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The loss function provides the scalar error value that stochastic gradient descent uses to compute gradients; without a differentiable loss function, SGD cannot update model parameters."
+        }
+      },
+      {
+        "data": {
+          "id": "763e8e0a9b",
+          "source": "9a5ec5be48",
+          "target": "5e4ce67753",
+          "relationship_type": "enables",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Gradient descent provides the fundamental optimization mechanism that makes training deep networks with many layers computationally feasible by iteratively updating parameters in the direction of steepest descent."
+        }
+      },
+      {
+        "data": {
+          "id": "762eeadbe2",
+          "source": "ff3d266402",
+          "target": "f0118909e3",
+          "relationship_type": "part_of",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The learning rate is a critical hyperparameter within the SGD algorithm that determines the step size for each parameter update, directly controlling how much the weights change in response to the estimated gradient."
+        }
+      },
+      {
+        "data": {
+          "id": "afe670cd53",
+          "source": "9a5ec5be48",
+          "target": "95fec0ca69",
+          "relationship_type": "depends_on",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "Gradient descent requires gradient values to update parameters, and backpropagation is the algorithm that efficiently computes these gradients for deep networks."
+        }
+      },
+      {
+        "data": {
+          "id": "cfa502df02",
+          "source": "f0118909e3",
+          "target": "5e4ce67753",
+          "relationship_type": "enables",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Stochastic gradient descent makes training deep networks computationally feasible by using mini-batches to estimate gradients, which is essential because full-batch gradient descent on large datasets with many layers would be prohibitively slow and memory-intensive."
+        }
+      },
+      {
+        "data": {
+          "id": "ed7e9ebf54",
+          "source": "db23b13d88",
+          "target": "5e4ce67753",
+          "relationship_type": "enables",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Adam's adaptive learning rates per parameter help maintain stable gradient updates across many layers, making training of deep networks more practical by mitigating the vanishing gradient problem that would otherwise prevent effective learning."
+        }
+      },
+      {
+        "data": {
+          "id": "d8f3af0a54",
+          "source": "5e4ce67753",
+          "target": "f6913dda5e",
+          "relationship_type": "causes",
+          "strength": 0.88,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Deep networks with many layers cause the vanishing gradient problem because repeated application of the chain rule during backpropagation multiplies many small gradients, causing them to shrink exponentially as they propagate backward through the network."
+        }
+      },
+      {
+        "data": {
+          "id": "5ea570ae16",
+          "source": "3fa83d8f2a",
+          "target": "f6913dda5e",
+          "relationship_type": "causes",
+          "strength": 0.87,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The repeated application of activation functions (like sigmoid) in deep networks of artificial neurons causes gradients to shrink exponentially during backpropagation, leading to the vanishing gradient problem."
+        }
+      },
+      {
+        "data": {
+          "id": "d412911ddf",
+          "source": "2a1882258a",
+          "target": "5e4ce67753",
+          "relationship_type": "applies_to",
+          "strength": 0.87,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Regularization techniques are critically applied to deep networks because the large number of parameters in multiple hidden layers creates a high risk of overfitting, and regularization constrains the model complexity to improve generalization."
+        }
+      },
+      {
+        "data": {
+          "id": "457bf22b7d",
+          "source": "f0e9ee8815",
+          "target": "c8d76dd14b",
+          "relationship_type": "causes",
+          "strength": 0.87,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Fully connected layers have a high number of parameters due to dense connectivity, which creates a strong tendency to memorize training data patterns, directly causing overfitting when the model capacity exceeds what is needed for the task."
+        }
+      },
+      {
+        "data": {
+          "id": "40c88953c6",
+          "source": "9a5ec5be48",
+          "target": "6f88376cbe",
+          "relationship_type": "enables",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Gradient descent enables the optimization of weights and biases by iteratively updating them in the direction of the negative gradient of the loss function, which is the core mechanism for learning in neural networks."
+        }
+      },
+      {
+        "data": {
+          "id": "e405ad55a8",
+          "source": "fd0550c84f",
+          "target": "f0118909e3",
+          "relationship_type": "enables",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The layered structure of neural networks creates a deep computational graph that requires Stochastic Gradient Descent with backpropagation to efficiently compute gradients for weight updates across all layers, making training of multi-layer networks computationally feasible."
+        }
+      },
+      {
+        "data": {
+          "id": "f7c9134978",
+          "source": "fd0550c84f",
+          "target": "f6913dda5e",
+          "relationship_type": "causes",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "In deep networks with many layers, repeated multiplication of gradients through the chain rule during backpropagation causes gradients to shrink exponentially as they propagate backward, making it difficult for early layers to learn effectively."
+        }
+      },
+      {
+        "data": {
+          "id": "1d1405b459",
+          "source": "ca21716ac4",
+          "target": "2a1882258a",
+          "relationship_type": "part_of",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Regularization techniques are typically implemented as an additional term added to the loss function (e.g., L1 or L2 penalty), making regularization an integral component of the augmented loss function."
+        }
+      },
+      {
+        "data": {
+          "id": "2c394d5582",
+          "source": "ca21716ac4",
+          "target": "6f88376cbe",
+          "relationship_type": "influences",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The Loss Function defines the error surface whose gradients directly determine the direction and magnitude of updates to Weights and Biases during optimization, as the chain rule propagates the loss gradient back through each parameter."
+        }
+      },
+      {
+        "data": {
+          "id": "f94772edf6",
+          "source": "ca21716ac4",
+          "target": "db23b13d88",
+          "relationship_type": "enables",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "The loss function provides the gradient signal that Adam optimizer uses to update parameters, because Adam computes adaptive learning rates from estimates of first and second moments of the gradients derived from the loss function's partial derivatives."
+        }
+      },
+      {
+        "data": {
+          "id": "194dc7bbc3",
+          "source": "2a1882258a",
+          "target": "6f88376cbe",
+          "relationship_type": "applies_to",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Regularization techniques like L1/L2 penalty directly constrain the magnitude of weights and biases to prevent overfitting, making the parameters the explicit target of regularization."
+        }
+      },
+      {
+        "data": {
+          "id": "813ec166bc",
+          "source": "f0e9ee8815",
+          "target": "5e4ce67753",
+          "relationship_type": "applies_to",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Deep networks with many parameters are particularly susceptible to overfitting because their high capacity allows them to memorize training data patterns rather than learning generalizable features, making overfitting a primary concern in deep learning."
+        }
+      },
+      {
+        "data": {
+          "id": "7c7da6884b",
+          "source": "ff3d266402",
+          "target": "db23b13d88",
+          "relationship_type": "part_of",
+          "strength": 0.85,
+          "hierarchy_edge": false,
+          "cross_domain": false,
+          "reasoning": "Learning rate is a key hyperparameter within Adam Optimizer that controls the step size of parameter updates, though Adam adapts it per-parameter."
+        }
+      },
+      {
+        "data": {
+          "id": "ca2c413b3e",
+          "source": "fd0550c84f",
+          "target": "ecc45dbbaa",
+          "relationship_type": "enables",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The layered architecture of neural networks enables Dropout to be effective because randomly disabling neurons in one layer forces the network to learn redundant representations across multiple paths through subsequent layers, preventing co-adaptation of neurons."
+        }
+      },
+      {
+        "data": {
+          "id": "d191705144",
+          "source": "ecc45dbbaa",
+          "target": "6f88376cbe",
+          "relationship_type": "influences",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Dropout randomly disables neurons during training, forcing the network to distribute learning across multiple paths, which prevents weights from co-adapting and reduces overfitting."
+        }
+      },
+      {
+        "data": {
+          "id": "89b317936c",
+          "source": "670d1cefa7",
+          "target": "82fd2d7792",
+          "relationship_type": "depends_on",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The derivative of ReLU (piecewise: 1 for positive inputs, 0 otherwise) is computed via the chain rule during backpropagation to propagate gradients through the activation function to earlier layers."
+        }
+      },
+      {
+        "data": {
+          "id": "feea718f33",
+          "source": "b79abe790b",
+          "target": "f0118909e3",
+          "relationship_type": "influences",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The noise introduced by Stochastic Gradient Descent's mini-batch sampling acts as an implicit regularizer that helps the optimizer escape sharp minima, which empirically leads to better generalization compared to full-batch gradient descent."
+        }
+      },
+      {
+        "data": {
+          "id": "9823dc08ff",
+          "source": "b79abe790b",
+          "target": "6f88376cbe",
+          "relationship_type": "depends_on",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Good generalization depends on finding the right set of weights and biases that capture underlying patterns rather than noise, because the network's learned parameters directly determine its ability to interpolate and extrapolate to unseen data."
+        }
+      },
+      {
+        "data": {
+          "id": "237efeeb85",
+          "source": "670d1cefa7",
+          "target": "f6913dda5e",
+          "relationship_type": "contrasts_with",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "ReLU's derivative is 1 for positive inputs and 0 for negative inputs, which prevents gradient decay in the positive region, directly mitigating the vanishing gradient problem that plagues saturating activation functions."
+        }
+      },
+      {
+        "data": {
+          "id": "82feefe00c",
+          "source": "6f88376cbe",
+          "target": "ff3d266402",
+          "relationship_type": "influences",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The learning rate directly determines the magnitude of updates applied to weights and biases during gradient descent, so an inappropriate learning rate can cause weights to oscillate or diverge, while an optimal rate ensures stable convergence of these parameters."
+        }
+      },
+      {
+        "data": {
+          "id": "001d34a4a0",
+          "source": "ecc45dbbaa",
+          "target": "c8d76dd14b",
+          "relationship_type": "applies_to",
+          "strength": 0.82,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Dropout is most commonly applied to fully connected layers because these layers have the highest number of parameters and are most prone to overfitting, and randomly dropping neurons in dense layers forces the network to learn redundant representations."
+        }
+      },
+      {
+        "data": {
+          "id": "a36373fba7",
+          "source": "9a5ec5be48",
+          "target": "68912fc4f8",
+          "relationship_type": "applies_to",
+          "strength": 0.8,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Weight decay modifies the gradient descent update rule by adding a penalty term proportional to the weights to the loss function's gradient, because this L2 regularization term directly alters the gradient direction to shrink weights toward zero during each optimization step."
+        }
+      },
+      {
+        "data": {
+          "id": "d8a1c20005",
+          "source": "ca21716ac4",
+          "target": "b79abe790b",
+          "relationship_type": "influences",
+          "strength": 0.78,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The choice of loss function shapes what the network learns to optimize, which directly affects whether the learned patterns generalize to unseen data rather than memorizing training examples."
+        }
+      },
+      {
+        "data": {
+          "id": "200fcd3923",
+          "source": "f0118909e3",
+          "target": "f0e9ee8815",
+          "relationship_type": "influences",
+          "strength": 0.78,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Stochastic gradient descent influences overfitting because its noisy gradient estimates from mini-batches can help escape sharp local minima that lead to memorization, but if the learning rate is poorly tuned or training continues too long, the noise can also exacerbate overfitting."
+        }
+      },
+      {
+        "data": {
+          "id": "fd971f4c5c",
+          "source": "f0e9ee8815",
+          "target": "ff3d266402",
+          "relationship_type": "influences",
+          "strength": 0.78,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "An excessively high learning rate can cause the optimization to overshoot minima and fail to converge, while a very low learning rate may lead to slow convergence and increased risk of overfitting due to prolonged training on the same data."
+        }
+      },
+      {
+        "data": {
+          "id": "e562087dd7",
+          "source": "3fa83d8f2a",
+          "target": "95fec0ca69",
+          "relationship_type": "enables",
+          "strength": 0.75,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The artificial neuron's layered, feedforward architecture with differentiable activation functions creates the chain of partial derivatives that backpropagation exploits via the chain rule to compute gradients efficiently."
+        }
+      },
+      {
+        "data": {
+          "id": "859aaad2fb",
+          "source": "3fa83d8f2a",
+          "target": "9a5ec5be48",
+          "relationship_type": "enables",
+          "strength": 0.72,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The artificial neuron's weighted sum structure creates a differentiable loss landscape that gradient descent requires to compute parameter updates, making the neuron's mathematical formulation a prerequisite for the optimization algorithm to function."
+        }
+      },
+      {
+        "data": {
+          "id": "6faf610b00",
+          "source": "33cd4749fd",
+          "target": "b79abe790b",
+          "relationship_type": "influences",
+          "strength": 0.72,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The choice of activation function (e.g., ReLU vs sigmoid) affects gradient flow and network expressivity, which influences whether the model learns generalizable features or overfits to noise."
+        }
+      },
+      {
+        "data": {
+          "id": "e2cceca0e5",
+          "source": "9a5ec5be48",
+          "target": "b79abe790b",
+          "relationship_type": "influences",
+          "strength": 0.72,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The optimization path taken by gradient descent determines which local minimum the network converges to, and the flatness or sharpness of that minimum directly affects the model's ability to generalize to unseen data."
+        }
+      },
+      {
+        "data": {
+          "id": "c1a2403639",
+          "source": "95fec0ca69",
+          "target": "68912fc4f8",
+          "relationship_type": "enables",
+          "strength": 0.72,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Backpropagation computes the gradients of the loss with respect to all parameters, which is necessary to apply the weight decay penalty term's gradient during optimization."
+        }
+      },
+      {
+        "data": {
+          "id": "1bbc40db01",
+          "source": "ecc45dbbaa",
+          "target": "ff3d266402",
+          "relationship_type": "influences",
+          "strength": 0.72,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "When dropout is used, the effective learning rate may need to be increased because dropout reduces the number of active neurons per update, which can slow convergence; practitioners often scale the learning rate to compensate for this reduced signal."
+        }
+      },
+      {
+        "data": {
+          "id": "326fe0802e",
+          "source": "f0e9ee8815",
+          "target": "f6913dda5e",
+          "relationship_type": "contrasts_with",
+          "strength": 0.72,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Overfitting is a failure mode where the model memorizes training data (often in deep networks with many parameters), while the Vanishing Gradient Problem prevents deep networks from learning effectively at all, representing opposite ends of the learning spectrum."
+        }
+      },
+      {
+        "data": {
+          "id": "b1de7404d8",
+          "source": "b79abe790b",
+          "target": "c8d76dd14b",
+          "relationship_type": "influences",
+          "strength": 0.72,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The number and size of fully connected layers directly affect model capacity and overfitting risk, making architectural choices about these layers a key factor in achieving good generalization."
+        }
+      },
+      {
+        "data": {
+          "id": "9d3b190328",
+          "source": "ecc45dbbaa",
+          "target": "f6913dda5e",
+          "relationship_type": "influences",
+          "strength": 0.72,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Dropout can indirectly mitigate the vanishing gradient problem by creating thinner networks during training, which reduces the number of layers through which gradients must propagate, though this is a secondary effect compared to its primary regularization role."
+        }
+      },
+      {
+        "data": {
+          "id": "6b6436c34e",
+          "source": "ff3d266402",
+          "target": "68912fc4f8",
+          "relationship_type": "influences",
+          "strength": 0.7,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "The learning rate scales the gradient updates during optimization, and since weight decay adds a penalty term to the loss that also gets scaled by the learning rate, the effective regularization strength of weight decay depends on the chosen learning rate."
+        }
+      },
+      {
+        "data": {
+          "id": "bb6dc81425",
+          "source": "b79abe790b",
+          "target": "a1693c842c",
+          "relationship_type": "influences",
+          "strength": 0.7,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "Cross-Entropy Loss provides stronger gradient signals for classification errors compared to MSE, which typically leads to better generalization in classification tasks by driving faster convergence to a good decision boundary."
+        }
+      },
+      {
+        "data": {
+          "id": "6fc45be198",
+          "source": "f0e9ee8815",
+          "target": "82f46617f0",
+          "relationship_type": "influences",
+          "strength": 0.7,
+          "hierarchy_edge": false,
+          "cross_domain": true,
+          "reasoning": "When overfitting occurs, mean squared error on training data becomes very small while test error remains high, because the model memorizes noise in the training targets rather than learning the underlying function, though this relationship is mediated by model complexity rather than direct."
+        }
+      }
+    ],
+    "hub_concept_ids": [
+      "f0e9ee8815",
+      "6f88376cbe",
+      "9a5ec5be48",
+      "f6913dda5e",
+      "b79abe790b"
+    ]
+  },
+  "is_example": true,
+  "example_title": "Introduction to Neural Networks"
+}

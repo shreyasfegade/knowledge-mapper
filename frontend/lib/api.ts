@@ -132,13 +132,29 @@ export interface DocumentSummary {
   created_at: string;
 }
 
+export interface ExampleSummary {
+  id: string;
+  title: string;
+  summary: string;
+  node_count: number;
+  edge_count: number;
+  domains: string[];
+}
+
+export interface HealthInfo {
+  status: string;
+  version: string;
+  server_has_key: boolean;
+}
+
 // ── API methods ──
 
 const UPLOAD_TIMEOUT_MS = 300_000; // 5 minutes for large PDFs with many chunks
 
 export async function uploadDocument(
   file: File,
-  onProgress?: (message: string) => void
+  onProgress?: (message: string) => void,
+  apiKey?: string
 ): Promise<UploadResponse> {
   const formData = new FormData();
   formData.append("file", file);
@@ -146,10 +162,16 @@ export async function uploadDocument(
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), UPLOAD_TIMEOUT_MS);
 
+  // A per-request key (bring-your-own-key) lets a visitor process a PDF without
+  // the server holding a key. Never logged or persisted server-side.
+  const headers: Record<string, string> = {};
+  if (apiKey && apiKey.trim()) headers["X-API-Key"] = apiKey.trim();
+
   try {
     const res = await fetch(`${API_URL}/upload`, {
       method: "POST",
       body: formData,
+      headers,
       signal: controller.signal,
     });
     if (!res.ok) {
@@ -228,4 +250,14 @@ export function getDocument(docId: string): Promise<UploadResponse> {
 /** List recently processed documents. */
 export function listDocuments(): Promise<{ documents: DocumentSummary[] }> {
   return request(`/documents`);
+}
+
+/** List the bundled example graphs for the landing gallery. */
+export function getExamples(): Promise<{ examples: ExampleSummary[] }> {
+  return request(`/examples`);
+}
+
+/** Backend health — includes whether the server has its own API key. */
+export function getHealth(): Promise<HealthInfo> {
+  return request(`/health`);
 }

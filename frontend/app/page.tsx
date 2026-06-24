@@ -39,7 +39,7 @@ export default function KnowledgeMapperApp() {
   }, []);
 
   // ── Upload handler ──
-  const handleUpload = useCallback(async (file: File) => {
+  const handleUpload = useCallback(async (file: File, apiKey?: string) => {
     setFileName(file.name);
     setAppState("processing");
     setError(null);
@@ -51,7 +51,7 @@ export default function KnowledgeMapperApp() {
     try {
       const data = await uploadDocument(file, (msg) => {
         setProgressMessage(msg);
-      });
+      }, apiKey);
       if (data.graph?.nodes?.length) {
         enterGraph(data);
         // Make the processed graph shareable / reload-safe.
@@ -66,6 +66,27 @@ export default function KnowledgeMapperApp() {
       setError(err instanceof Error ? err.message : "Something went wrong while processing the document.");
       setAppState("awaiting");
     }
+  }, [enterGraph]);
+
+  // ── Load a bundled example graph (instant, no key, no upload) ──
+  const loadExample = useCallback((docId: string) => {
+    setError(null);
+    setAppState("processing");
+    setProgressMessage("Loading example…");
+    getDocument(docId)
+      .then((data) => {
+        if (data.graph?.nodes?.length) {
+          enterGraph(data);
+          window.history.replaceState(null, "", `?doc=${docId}`);
+        } else {
+          setError("This example could not be loaded.");
+          setAppState("awaiting");
+        }
+      })
+      .catch(() => {
+        setError("This example could not be loaded.");
+        setAppState("awaiting");
+      });
   }, [enterGraph]);
 
   // ── Restore a shared/previously-processed graph from ?doc=<id> ──
@@ -207,6 +228,7 @@ export default function KnowledgeMapperApp() {
         progressMessage={progressMessage}
         serverError={error}
         onUpload={handleUpload}
+        onLoadExample={loadExample}
       />
 
       {/* ── HUD ── */}

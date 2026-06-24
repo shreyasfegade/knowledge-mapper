@@ -13,6 +13,10 @@ Upload educational material and get a force-directed graph of the concepts insid
 ![Python](https://img.shields.io/badge/Python_3.11+-3776AB?style=flat-square&logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
+### ▶ [Live demo → knowledge-mapper-six.vercel.app](https://knowledge-mapper-six.vercel.app)
+
+Explore the bundled example graphs with no setup; upload your own PDF with your own API key.
+
 <br/>
 
 ![Knowledge Mapper — a document mapped into labeled concept domains](screenshots/hero.png)
